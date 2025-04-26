@@ -2,16 +2,18 @@ package com.projeto.model;
 
 public class Recepcionista extends Usuario {
 
-    public Recepcionista(String nome, String login, String senha) {
-        super(nome, login, senha, "recepcionista");
+    private Long idRecepcionista;
+
+    public Recepcionista(Long idUsuario, String nome, String login, String senha, Perfil perfil, Long idRecepcionista) {
+        super(idUsuario, nome, login, senha, perfil);
+        this.idRecepcionista = idRecepcionista;
     }
 
-    @Override
-    public void acessarSistema() {
-        System.out.println("Recepcionista acessando o sistema para cadastrar pacientes.");
+    public Long getIdRecepcionista() {
+        return idRecepcionista;
     }
 
-    public void cadastrarPaciente(Paciente paciente) {
-        System.out.println("Paciente cadastrado: " + paciente.getNome());
+    public void setIdRecepcionista(Long idRecepcionista) {
+        this.idRecepcionista = idRecepcionista;
     }
 }

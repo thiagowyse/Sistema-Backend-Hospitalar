@@ -2,18 +2,29 @@ package com.projeto.model;
 
 public class Enfermeiro extends Usuario {
 
-    public Enfermeiro(String nome, String login, String senha) {
-        super(nome, login, senha, "enfermeiro");
+    private Long idEnfermeiro;
+    private String coren;
+
+    public Enfermeiro(Long idUsuario, String nome, String login, String senha, Perfil perfil, Long idEnfermeiro, String coren) {
+        super(idUsuario, nome, login, senha, perfil);
+        this.idEnfermeiro = idEnfermeiro;
+        this.coren = coren;
     }
 
-    @Override
-    public void acessarSistema() {
-        System.out.println("Enfermeiro acessando o sistema para registrar atendimentos.");
+    public Long getIdEnfermeiro() {
+        return idEnfermeiro;
     }
 
-    public void registrarAtendimento(Paciente paciente, String descricao) {
-        Atendimento atendimento = new Atendimento(paciente, this, descricao);
-        System.out.println("Atendimento registrado para o paciente: " + paciente.getNome());
+    public void setIdEnfermeiro(Long idEnfermeiro) {
+        this.idEnfermeiro = idEnfermeiro;
+    }
+
+    public String getCoren() {
+        return coren;
+    }
+
+    public void setCoren(String coren) {
+        this.coren = coren;
     }
 }
 
