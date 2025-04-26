@@ -1,17 +1,19 @@
 package com.projeto.model;
 
-public abstract class Usuario {
+public class Usuario {
 
     private Long idUsuario;
     private String nome;
     private String login;
+    private String email;
     private String senha;
     private Perfil perfil;
 
-    public Usuario(Long idUsuario, String nome, String login, String senha, Perfil perfil) {
+    public Usuario(Long idUsuario, String nome, String login, String email, String senha, Perfil perfil) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.login = login;
+        this.email = email;
         this.senha = senha;
         this.perfil = perfil;
     }
@@ -54,5 +56,13 @@ public abstract class Usuario {
 
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
