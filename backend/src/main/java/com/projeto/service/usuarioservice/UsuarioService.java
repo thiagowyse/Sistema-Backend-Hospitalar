@@ -11,6 +11,10 @@ public class UsuarioService implements IUsuarioService{
 
     private UsuarioRepository usuarioRepository;
 
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
     @Override
     public Usuario inserirUsuario(Usuario usuario) {
         return usuarioRepository.insert(usuario);

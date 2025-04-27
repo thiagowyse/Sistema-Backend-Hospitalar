@@ -9,6 +9,10 @@ public class PerfilService implements IPerfilService {
 
     private PerfilRepository perfilRepository;
 
+    public PerfilService(PerfilRepository perfilRepository){
+        this.perfilRepository = perfilRepository;
+    }
+
 
     @Override
     public Perfil inserirPerfil(Perfil perfil) {
