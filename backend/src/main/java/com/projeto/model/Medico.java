@@ -8,11 +8,6 @@ public class Medico extends Usuario{
     private String crm;
     private List<Especialidade> especialidades;
 
-    public Medico(Long idUsuario, String nome, String login, String email, String senha, Perfil perfil, Long idMedico) {
-        super(idUsuario, nome, login, email, senha, perfil);
-        this.idMedico = idMedico;
-    }
-
     public Long getIdMedico() {
         return idMedico;
     }

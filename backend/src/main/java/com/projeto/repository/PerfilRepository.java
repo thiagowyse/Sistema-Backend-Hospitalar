@@ -13,7 +13,7 @@ import java.util.List;
 public class PerfilRepository implements BaseRepository<Perfil, Long>{
 
     @Override
-    public void insert(Perfil perfil) {
+    public Perfil insert(Perfil perfil) {
         String sql = "INSERT INTO perfil (id, nome) VALUES (?, ?)";
 
         try (Connection connection = DataBaseConnection.getConnection();
@@ -28,6 +28,7 @@ public class PerfilRepository implements BaseRepository<Perfil, Long>{
         } catch (SQLException e) {
             System.err.println("Erro ao inserir perfil: " + e.getMessage());
         }
+        return perfil;
     }
 
     @Override

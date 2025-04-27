@@ -8,8 +8,9 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
 
 
     @Override
-    public void insert(Receita entity) {
+    public Receita insert(Receita entity) {
 
+        return entity;
     }
 
     @Override

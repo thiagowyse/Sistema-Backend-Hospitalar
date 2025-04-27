@@ -7,8 +7,9 @@ import java.util.List;
 public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 
     @Override
-    public void insert(Enfermeiro entity) {
+    public Enfermeiro insert(Enfermeiro entity) {
 
+        return entity;
     }
 
     @Override

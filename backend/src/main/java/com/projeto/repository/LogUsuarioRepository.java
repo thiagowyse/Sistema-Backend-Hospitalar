@@ -6,8 +6,9 @@ import java.util.List;
 
 public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
     @Override
-    public void insert(LogUsuario entity) {
+    public LogUsuario insert(LogUsuario entity) {
 
+        return entity;
     }
 
     @Override

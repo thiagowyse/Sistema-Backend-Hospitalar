@@ -6,8 +6,9 @@ import java.util.List;
 
 public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
     @Override
-    public void insert(Declaracao entity) {
+    public Declaracao insert(Declaracao entity) {
 
+        return entity;
     }
 
     @Override

@@ -10,15 +10,6 @@ public class Declaracao {
     private LocalDate dataEmissao;
     private String descricao;
 
-
-    public Declaracao(Long idDesclaracao, Paciente paciente, Medico medico, LocalDate dataEmissao, String descricao) {
-        this.idDesclaracao = idDesclaracao;
-        this.paciente = paciente;
-        this.medico = medico;
-        this.dataEmissao = dataEmissao;
-        this.descricao = descricao;
-    }
-
     public Long getIdDesclaracao() {
         return idDesclaracao;
     }

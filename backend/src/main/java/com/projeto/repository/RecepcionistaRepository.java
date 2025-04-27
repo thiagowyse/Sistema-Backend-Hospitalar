@@ -6,8 +6,9 @@ import java.util.List;
 
 public class RecepcionistaRepository implements BaseRepository<Recepcionista, Long> {
     @Override
-    public void insert(Recepcionista entity) {
+    public Recepcionista insert(Recepcionista entity) {
 
+        return entity;
     }
 
     @Override

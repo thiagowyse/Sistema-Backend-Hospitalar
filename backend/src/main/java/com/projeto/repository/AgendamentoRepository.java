@@ -6,8 +6,9 @@ import java.util.List;
 
 public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
     @Override
-    public void insert(Agendamento entity) {
+    public Agendamento insert(Agendamento entity) {
 
+        return entity;
     }
 
     @Override

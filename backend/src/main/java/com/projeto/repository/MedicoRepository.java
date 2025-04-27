@@ -6,8 +6,9 @@ import java.util.List;
 
 public class MedicoRepository implements BaseRepository<Medico, Long>{
     @Override
-    public void insert(Medico entity) {
+    public Medico insert(Medico entity) {
 
+        return entity;
     }
 
     @Override

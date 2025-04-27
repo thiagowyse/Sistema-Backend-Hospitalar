@@ -7,8 +7,9 @@ import java.util.List;
 public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoAtendimento, Long>{
 
     @Override
-    public void insert(HistoricoAtendimento entity) {
+    public HistoricoAtendimento insert(HistoricoAtendimento entity) {
 
+        return entity;
     }
 
     @Override

@@ -4,8 +4,9 @@ import java.util.List;
 
 public class Paciente implements BaseRepository<Paciente, Long>{
     @Override
-    public void insert(Paciente entity) {
+    public Paciente insert(Paciente entity) {
 
+        return entity;
     }
 
     @Override

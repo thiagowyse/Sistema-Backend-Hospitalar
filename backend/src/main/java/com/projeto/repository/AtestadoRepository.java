@@ -6,8 +6,9 @@ import java.util.List;
 
 public class AtestadoRepository implements BaseRepository<Atestado, Long>{
     @Override
-    public void insert(Atestado entity) {
+    public Atestado insert(Atestado entity) {
 
+        return entity;
     }
 
     @Override
