@@ -1,13 +1,10 @@
 package com.projeto.repository;
 
 import com.projeto.model.Agendamento;
-import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
