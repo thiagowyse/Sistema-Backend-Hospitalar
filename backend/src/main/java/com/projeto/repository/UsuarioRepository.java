@@ -15,34 +15,49 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
 
     @Override
     public Usuario insert(Usuario usuario) {
-        String query = "INSERT INTO usuario (nome, username, email, senha, perfil_id) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO usuario (nome, username, email, senha, cpf, perfil_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DataBaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setString(1, usuario.getNome());
             preparedStatement.setString(2, usuario.getLogin());
             preparedStatement.setString(3, usuario.getEmail());
 
-            String senhaCriptografada = BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt());
+
+            String senhaCriptografada = (usuario.getSenha() != null)
+                    ? BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt())
+                    : null;
             preparedStatement.setString(4, senhaCriptografada);
 
-            preparedStatement.setLong(5, usuario.getIdPerfil());
+            preparedStatement.setString(5, usuario.getCpf());
+            if (usuario.getIdPerfil() != null) {
+                preparedStatement.setLong(6, usuario.getIdPerfil());
+            } else {
+                preparedStatement.setNull(6, java.sql.Types.BIGINT);
+            }
 
-            preparedStatement.executeUpdate();
-            System.out.println("Usuário inserido com sucesso.");
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Usuário inserido com sucesso.");
+            } else {
+                System.err.println("Nenhum registro foi inserido.");
+            }
 
             return usuario;
 
         } catch (SQLException e) {
             System.err.println("Erro ao inserir usuário: " + e.getMessage());
         }
+
         return usuario;
     }
 
     @Override
     public Usuario findById(Long id) {
 
-        String query = "SELECT * FROM usuario WHERE id = ?";
+        String query = "SELECT id, nome, username, senha, email, cpf, perfil_id FROM usuario WHERE id = ?";
         Usuario usuario = new Usuario();
 
         try (Connection connection = DataBaseConnection.getConnection();
@@ -56,8 +71,10 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
                 usuario.setNome(resultSet.getString("nome"));
                 usuario.setLogin(resultSet.getString("username"));
                 usuario.setSenha(resultSet.getString("senha"));
-                usuario.setIdPerfil(resultSet.getLong("perfil_id"));
                 usuario.setEmail(resultSet.getString("email"));
+                usuario.setCpf(resultSet.getString("cpf"));
+                usuario.setIdPerfil(resultSet.getLong("perfil_id"));
+
             }
 
         } catch (SQLException e) {
@@ -68,7 +85,7 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
 
     @Override
     public List<Usuario> findAll() {
-        String query = "SELECT * FROM usuario";
+        String query = "SELECT id, nome, username, senha, email, cpf, perfil_id FROM usuario";
         List<Usuario> listaUsuarios = new ArrayList<>();
 
         try (Connection connection = DataBaseConnection.getConnection();
@@ -81,8 +98,9 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
                 usuario.setNome(resultSet.getString("nome"));
                 usuario.setLogin(resultSet.getString("username"));
                 usuario.setSenha(resultSet.getString("senha"));
-                usuario.setIdPerfil(resultSet.getLong("perfil_id"));
                 usuario.setEmail(resultSet.getString("email"));
+                usuario.setCpf(resultSet.getString("cpf"));
+                usuario.setIdPerfil(resultSet.getLong("perfil_id"));
 
                 listaUsuarios.add(usuario);
             }
@@ -98,7 +116,6 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
         StringBuilder queryBuilder = new StringBuilder("UPDATE usuario SET ");
         boolean adicionouCampo = false;
 
-        // Monta a query dinamicamente
         if (usuario.getNome() != null) {
             queryBuilder.append("nome = ?");
             adicionouCampo = true;
@@ -111,6 +128,18 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
         if (usuario.getSenha() != null) {
             if (adicionouCampo) queryBuilder.append(", ");
             queryBuilder.append("senha = ?");
+            adicionouCampo = true;
+        }
+
+        if(usuario.getCpf() != null){
+            if(adicionouCampo)queryBuilder.append(",");
+            queryBuilder.append("cpf = ?");
+            adicionouCampo = true;
+        }
+
+        if(usuario.getIdPerfil() != null){
+            if(adicionouCampo)queryBuilder.append(",");
+            queryBuilder.append("perfil_id = ?");
             adicionouCampo = true;
         }
 
@@ -135,6 +164,12 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
             if (usuario.getSenha() != null) {
                 String senhaCriptografada = BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt());
                 preparedStatement.setString(index++, senhaCriptografada);
+            }
+            if (usuario.getCpf() != null) {
+                preparedStatement.setString(index++, usuario.getCpf());
+            }
+            if (usuario.getIdPerfil() != null) {
+                preparedStatement.setLong(index++, usuario.getIdPerfil());
             }
 
             preparedStatement.setLong(index, usuario.getIdUsuario());

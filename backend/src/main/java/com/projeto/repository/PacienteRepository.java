@@ -1,12 +1,16 @@
 package com.projeto.repository;
 
+
+import com.projeto.model.Paciente;
+
 import java.util.List;
 
-public class Paciente implements BaseRepository<Paciente, Long>{
+public class PacienteRepository implements BaseRepository<Paciente, Long>{
+
+
     @Override
     public Paciente insert(Paciente entity) {
-
-        return entity;
+        return null;
     }
 
     @Override

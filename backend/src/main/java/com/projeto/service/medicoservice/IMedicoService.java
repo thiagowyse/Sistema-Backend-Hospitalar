@@ -1,6 +1,5 @@
 package com.projeto.service.medicoservice;
 
-import com.projeto.model.Exame;
 import com.projeto.model.Medico;
 
 import java.util.List;

@@ -7,6 +7,7 @@ public class Usuario {
     private String login;
     private String email;
     private String senha;
+    private String cpf;
     private Long idPerfil;
     private Perfil perfil;
 
@@ -65,5 +66,13 @@ public class Usuario {
 
     public void setIdPerfil(Long idPerfil) {
         this.idPerfil = idPerfil;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

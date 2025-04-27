@@ -9,6 +9,10 @@ public class MedicoService implements IMedicoService{
 
     private MedicoRepository medicoRepository;
 
+    public MedicoService(MedicoRepository medicoRepository) {
+        this.medicoRepository = medicoRepository;
+    }
+
     @Override
     public Medico inserirMedico(Medico medico) {
         return medicoRepository.insert(medico);

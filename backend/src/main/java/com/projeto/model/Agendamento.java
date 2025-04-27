@@ -1,22 +1,16 @@
 package com.projeto.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Agendamento {
 
     private Long idAgendamento;
+    private Long idPaciente;
     private Paciente paciente;
+    private Long idMedico;
     private Medico medico;
-    private LocalDateTime dataConsulta;
+    private Date dataConsulta;
     private String Status;
-
-    public Agendamento(Long idAgendamento, Paciente paciente, Medico medico, LocalDateTime dataConsulta, String status) {
-        this.idAgendamento = idAgendamento;
-        this.paciente = paciente;
-        this.medico = medico;
-        this.dataConsulta = dataConsulta;
-        Status = status;
-    }
 
     public Long getIdAgendamento() {
         return idAgendamento;
@@ -42,11 +36,11 @@ public class Agendamento {
         this.medico = medico;
     }
 
-    public LocalDateTime getDataConsulta() {
+    public Date getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(LocalDateTime dataConsulta) {
+    public void setDataConsulta(Date dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
 
@@ -56,5 +50,21 @@ public class Agendamento {
 
     public void setStatus(String status) {
         Status = status;
+    }
+
+    public Long getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(Long idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public Long getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(Long idMedico) {
+        this.idMedico = idMedico;
     }
 }
