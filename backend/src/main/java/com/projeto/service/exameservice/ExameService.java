@@ -7,7 +7,11 @@ import java.util.List;
 
 public class ExameService implements IExameService{
 
-    private ExameRepository exameRepository;
+    private final ExameRepository exameRepository;
+
+    public ExameService(ExameRepository exameRepository) {
+        this.exameRepository = exameRepository;
+    }
 
     @Override
     public Exame inserirExame(Exame exame) {

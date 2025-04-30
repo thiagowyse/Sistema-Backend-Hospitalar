@@ -7,7 +7,11 @@ import java.util.List;
 
 public class AgendamentoService implements IAgendamentoService{
 
-    private AgendamentoRepository agendamentoRepository;
+    private final AgendamentoRepository agendamentoRepository;
+
+    public AgendamentoService(AgendamentoRepository agendamentoRepository) {
+        this.agendamentoRepository = agendamentoRepository;
+    }
 
     @Override
     public Agendamento inserirAgendamento(Agendamento agendamento) {

@@ -94,13 +94,6 @@ public enum ApiRotas {
     MEDICO_UPDATE("/medico/update"),
     MEDICO_DELETE("/medico/delete"),
 
-    MEDICO_ESPECIALISTA("/medicoEspcialista"),
-    MEDICO_ESPECIALISTA_CREATE("/medicoEspecialista/create"),
-    MEDICO_ESPECIALISTA_FIND_BY_ID("/medicoEspecialista/findById"),
-    MEDICO_ESPECIALISTA_FIND_BY_FILTER("/medicoEspecialista/findByFilter"),
-    MEDICO_ESPECIALISTA_FIND_ALL("/medicoEspecialista/findAll"),
-    MEDICO_ESPECIALISTA_UPDATE("/medicoEspecialista/update"),
-    MEDICO_ESPECIALISTA_DELETE("/medicoEspecialista/delete"),
 
     //Rotas Paciente
     PACIENTE("/paciente"),
@@ -129,26 +122,6 @@ public enum ApiRotas {
     PRONTUARIO_FIND_ALL("/prontuario/findAll"),
     PRONTUARIO_UPDATE("/prontuario/update"),
     PRONTUARIO_DELETE("/prontuario/delete"),
-
-
-    //Rotas Prontuario Exame
-    PRONTUARIO_EXAME("/prontuarioExame"),
-    PRONTUARIO_EXAME_CREATE("/prontuarioExame/create"),
-    PRONTUARIO_EXAME_FIND_BY_ID("/prontuarioExame/findById"),
-    PRONTUARIO_EXAME_FIND_BY_FILTER("/prontuarioExame/findByFilter"),
-    PRONTUARIO_EXAME_FIND_ALL("/prontuarioExame/findAll"),
-    PRONTUARIO_EXAME_UPDATE("/prontuarioExame/update"),
-    PRONTUARIO_EXAME_DELETE("/prontuarioExame/delete"),
-
-
-    //Rotas Prontuario Medicamento
-    PRONTUARIO_MEDICAMENTO("/prontuarioMedicamento"),
-    PRONTUARIO_MEDICAMENTO_CREATE("/prontuarioMedicamneto/create"),
-    PRONTUARIO_MEDICAMENTO_FIND_BY_ID("/prontuarioMedicamento/findById"),
-    PRONTUARIO_MEDICAMENTO_FIND_BY_FILTER("/prontuarioMedicamento/findByFilter"),
-    PRONTUARIO_MEDICAMENTO_FIND_ALL("/prontuarioMedicamento/findAll"),
-    PRONTUARIO_MEDICAMENTO_UPDATE("/prontuarioMedicamento/update"),
-    PRONTUARIO_MEDICAMENTO_DELETE("/prontuarioMedicamento/delete"),
 
 
     //Rotas Receita

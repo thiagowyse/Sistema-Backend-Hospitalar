@@ -7,7 +7,11 @@ import java.util.List;
 
 public class DeclaracaoService implements IDeclaracaoService {
 
-    private DeclaracaoRepository declaracaoRepository;
+    private final DeclaracaoRepository declaracaoRepository;
+
+    public DeclaracaoService(DeclaracaoRepository declaracaoRepository) {
+        this.declaracaoRepository = declaracaoRepository;
+    }
 
     @Override
     public Declaracao inserirDeclaracao(Declaracao declaracao) {

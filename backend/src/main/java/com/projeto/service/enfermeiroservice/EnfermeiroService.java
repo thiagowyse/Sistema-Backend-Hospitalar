@@ -7,7 +7,11 @@ import java.util.List;
 
 public class EnfermeiroService implements IEnfermeiroService{
 
-    private EnfermeiroRepository enfermeiroRepository;
+    private final EnfermeiroRepository enfermeiroRepository;
+
+    public EnfermeiroService(EnfermeiroRepository enfermeiroRepository) {
+        this.enfermeiroRepository = enfermeiroRepository;
+    }
 
     @Override
     public Enfermeiro inserirEnfermeiro(Enfermeiro enfermeiro) {

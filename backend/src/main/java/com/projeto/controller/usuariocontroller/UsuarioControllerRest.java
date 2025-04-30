@@ -1,4 +1,4 @@
-package com.projeto.controller;
+package com.projeto.controller.usuariocontroller;
 
 import com.google.gson.Gson;
 import com.projeto.enums.ApiRotas;
@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class UsuarioControllerRest extends RootController {
+public class UsuarioControllerRest extends RootController implements IUsuarioControllerRest {
 
     UsuarioRepository usuarioRepository = new UsuarioRepository();
     UsuarioService usuarioService = new UsuarioService(usuarioRepository);
@@ -27,33 +26,38 @@ public class UsuarioControllerRest extends RootController {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-            String method = exchange.getRequestMethod();
-            String path = exchange.getRequestURI().getPath();
+        String method = exchange.getRequestMethod();
+        String path = exchange.getRequestURI().getPath();
 
-            if(method.equals(HttpMethod.GET) && path.equals(ApiRotas.USUARIO)){
-                
-                findAll(exchange);
+        // Habilitar CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
 
-            }
+        if (method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.USUARIO_FIND_ALL.getPath())) {
+            findAll(exchange);
+        }
     }
 
-    private void findAll(HttpExchange exchange) throws IOException {
+    @Override
+    public void findAll(HttpExchange exchange) throws IOException {
         Gson gson = new Gson();
 
-        List<Usuario> usuarioList = usuarioService.listarTodosUsuarios();
+        List<Usuario> listUsuario = usuarioService.listarTodosUsuarios();
         List<Usuario> resposta = new ArrayList<>();
 
-        for(Usuario usuario : usuarioList){
+        for (Usuario usuario : listUsuario) {
             Perfil perfil = perfilService.buscarPerfilPorId(usuario.getIdPerfil());
             usuario.setPerfil(perfil);
             resposta.add(usuario);
         }
 
-
         String response = gson.toJson(resposta);
 
+        // Definindo o tipo de conteúdo como JSON
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 
-        sendResponse(exchange,response, 200);
+        // Enviando a resposta
+        sendResponse(exchange, response, 200);
     }
 }

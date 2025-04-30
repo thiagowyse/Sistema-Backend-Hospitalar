@@ -2,8 +2,6 @@ package com.projeto.repository;
 
 import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
-import org.mindrot.jbcrypt.BCrypt;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,11 +22,7 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
             preparedStatement.setString(2, usuario.getLogin());
             preparedStatement.setString(3, usuario.getEmail());
 
-
-            String senhaCriptografada = (usuario.getSenha() != null)
-                    ? BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt())
-                    : null;
-            preparedStatement.setString(4, senhaCriptografada);
+            preparedStatement.setString(4, usuario.getSenha());
 
             preparedStatement.setString(5, usuario.getCpf());
             if (usuario.getIdPerfil() != null) {
@@ -162,8 +156,7 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
                 preparedStatement.setString(index++, usuario.getEmail());
             }
             if (usuario.getSenha() != null) {
-                String senhaCriptografada = BCrypt.hashpw(usuario.getSenha(), BCrypt.gensalt());
-                preparedStatement.setString(index++, senhaCriptografada);
+                preparedStatement.setString(index++, usuario.getSenha());
             }
             if (usuario.getCpf() != null) {
                 preparedStatement.setString(index++, usuario.getCpf());

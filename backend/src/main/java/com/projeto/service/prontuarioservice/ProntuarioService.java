@@ -7,7 +7,11 @@ import java.util.List;
 
 public class ProntuarioService implements IProntuarioService{
 
-    private ProntuarioRepository prontuarioRepository;
+    private final ProntuarioRepository prontuarioRepository;
+
+    public ProntuarioService(ProntuarioRepository prontuarioRepository) {
+        this.prontuarioRepository = prontuarioRepository;
+    }
 
     @Override
     public Prontuario inserirProntuario(Prontuario prontuario) {

@@ -7,7 +7,11 @@ import java.util.List;
 
 public class RecepcionistaService implements IRecepcionistaService{
 
-    private RecepcionistaRepository recepcionistaRepository;
+    private final RecepcionistaRepository recepcionistaRepository;
+
+    public RecepcionistaService(RecepcionistaRepository recepcionistaRepository) {
+        this.recepcionistaRepository = recepcionistaRepository;
+    }
 
     @Override
     public Recepcionista inserirRecepcionista(Recepcionista recepcionista) {

@@ -7,7 +7,11 @@ import java.util.List;
 
 public class EspecialidadeService implements IEspecialidadeService{
 
-    private EspecialidadeRepository especialidadeRepository;
+    private final EspecialidadeRepository especialidadeRepository;
+
+    public EspecialidadeService(EspecialidadeRepository especialidadeRepository) {
+        this.especialidadeRepository = especialidadeRepository;
+    }
 
     @Override
     public Especialidade inserirEspecialidade(Especialidade especialidade) {

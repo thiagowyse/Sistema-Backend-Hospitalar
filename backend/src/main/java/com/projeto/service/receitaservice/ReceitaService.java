@@ -7,7 +7,11 @@ import java.util.List;
 
 public class ReceitaService implements IReceitaService{
 
-    private ReceitaRepository receitaRepository;
+    private final ReceitaRepository receitaRepository;
+
+    public ReceitaService(ReceitaRepository receitaRepository) {
+        this.receitaRepository = receitaRepository;
+    }
 
     @Override
     public Receita inserirReceita(Receita receita) {

@@ -1,7 +1,7 @@
 package com.projeto.app;
 
 
-import com.projeto.controller.UsuarioControllerRest;
+import com.projeto.controller.usuariocontroller.UsuarioControllerRest;
 import com.projeto.enums.ApiRotas;
 import com.projeto.server.RootController;
 import com.sun.net.httpserver.HttpServer;
@@ -12,7 +12,7 @@ import java.net.InetSocketAddress;
 public class Main {
     public static void main(String[] args)  throws IOException {
 
-        final int port = 8080;
+        final int port = 8086;
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port),0);
 

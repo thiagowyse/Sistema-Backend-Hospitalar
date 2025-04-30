@@ -7,7 +7,11 @@ import java.util.List;
 
 public class LogUsuarioService implements ILogUsuarioService{
 
-    private LogUsuarioRepository logUsuarioRepository;
+    private final LogUsuarioRepository logUsuarioRepository;
+
+    public LogUsuarioService(LogUsuarioRepository logUsuarioRepository) {
+        this.logUsuarioRepository = logUsuarioRepository;
+    }
 
     @Override
     public LogUsuario inserirLogUsuario(LogUsuario logUsuario) {

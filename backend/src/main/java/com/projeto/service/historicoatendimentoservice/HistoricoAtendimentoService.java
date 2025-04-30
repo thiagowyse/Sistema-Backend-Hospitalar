@@ -7,7 +7,11 @@ import java.util.List;
 
 public class HistoricoAtendimentoService implements IHistoricoAtendimentoService{
 
-    private HistoricoAtendimentoRepository historicoAtendimentoRepository;
+    private final HistoricoAtendimentoRepository historicoAtendimentoRepository;
+
+    public HistoricoAtendimentoService(HistoricoAtendimentoRepository historicoAtendimentoRepository) {
+        this.historicoAtendimentoRepository = historicoAtendimentoRepository;
+    }
 
     @Override
     public HistoricoAtendimento inserirHistoricoAtendimento(HistoricoAtendimento historicoAtendimento) {

@@ -7,7 +7,11 @@ import java.util.List;
 
 public class MedicamentoService implements IMedicamentoService{
 
-    private MedicamentoRepository medicamentoRepository;
+    private  final MedicamentoRepository medicamentoRepository;
+
+    public MedicamentoService(MedicamentoRepository medicamentoRepository) {
+        this.medicamentoRepository = medicamentoRepository;
+    }
 
     @Override
     public Medicamento inserirMedicamento(Medicamento medicamento) {

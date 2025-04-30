@@ -11,7 +11,6 @@ public class Usuario {
     private Long idPerfil;
     private Perfil perfil;
 
-
     public Long getIdUsuario() {
         return idUsuario;
     }

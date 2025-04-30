@@ -7,7 +7,11 @@ import java.util.List;
 
 public class PacienteService implements IPacienteService{
 
-    private PacienteRepository pacienteRepository;
+    private final PacienteRepository pacienteRepository;
+
+    public PacienteService(PacienteRepository pacienteRepository) {
+        this.pacienteRepository = pacienteRepository;
+    }
 
     @Override
     public Paciente inserirPaciente(Paciente paciente) {

@@ -7,7 +7,11 @@ import java.util.List;
 
 public class AtestadoService implements IAtestadoService {
 
-    private AtestadoRepository atestadoRepository;
+    private final AtestadoRepository atestadoRepository;
+
+    public AtestadoService(AtestadoRepository atestadoRepository) {
+        this.atestadoRepository = atestadoRepository;
+    }
 
     @Override
     public Atestado inserirAtestado(Atestado atestado) {
