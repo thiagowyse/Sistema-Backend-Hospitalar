@@ -1,50 +1,63 @@
 package com.projeto.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class LogUsuario {
 
-    private Long idLogUsuario;
-    private Usuario usuario;
-    private String acao;
-    private LocalDateTime dataHora;
+	private Long idLogUsuario;
 
-    public LogUsuario(Long idLogUsuario, Usuario usuario, String acao, LocalDateTime dataHora) {
-        this.idLogUsuario = idLogUsuario;
-        this.usuario = usuario;
-        this.acao = acao;
-        this.dataHora = dataHora;
-    }
+	private Long idUsuario;
+	private Usuario usuario;
+	private String acao;
+	private Date dataHora;
 
-    public Long getIdLogUsuario() {
-        return idLogUsuario;
-    }
+	public LogUsuario(Long idLogUsuario, Usuario usuario, String acao, Date dataHora) {
+		this.idLogUsuario = idLogUsuario;
+		this.usuario = usuario;
+		this.acao = acao;
+		this.dataHora = dataHora;
+	}
 
-    public void setIdLogUsuario(Long idLogUsuario) {
-        this.idLogUsuario = idLogUsuario;
-    }
+	public LogUsuario() {
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public Long getIdLogUsuario() {
+		return idLogUsuario;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public void setIdLogUsuario(Long idLogUsuario) {
+		this.idLogUsuario = idLogUsuario;
+	}
 
-    public String getAcao() {
-        return acao;
-    }
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public void setAcao(String acao) {
-        this.acao = acao;
-    }
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
+	public String getAcao() {
+		return acao;
+	}
 
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+
+	public Date getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(Date dataHora) {
+		this.dataHora = dataHora;
+	}
 }

@@ -1,23 +1,28 @@
 package com.projeto.model;
-
-import java.time.LocalDate;
+import java.sql.Date;
+ 
 
 public class HistoricoAtendimento {
 
     private Long idHistoricoAtendimento;
+ 
+    private Long idPaciente;
+    private Long idMedico;
     private Paciente paciente;
     private Medico medico;
     private String descricao;
-    private LocalDate dataAtendimento;
+    private Date dataAtendimento;
 
-    public HistoricoAtendimento(Long idHistoricoAtendimento, Paciente paciente, Medico medico, String descricao, LocalDate dataAtendimento) {
-        this.idHistoricoAtendimento = idHistoricoAtendimento;
+    public HistoricoAtendimento(Long idHistoricoAtendimento, Paciente paciente, Medico medico, String descricao, Date dataAtendimento) {
+         this.idHistoricoAtendimento = idHistoricoAtendimento;
         this.paciente = paciente;
         this.medico = medico;
         this.descricao = descricao;
         this.dataAtendimento = dataAtendimento;
     }
-
+ 
+    public HistoricoAtendimento() {}
+ 
     public Long getIdHistoricoAtendimento() {
         return idHistoricoAtendimento;
     }
@@ -42,19 +47,37 @@ public class HistoricoAtendimento {
         this.medico = medico;
     }
 
-    public String getDescricao() {
-        return descricao;
+ 
+    public Long getIdPaciente() {
+		return idPaciente;
+	}
+
+	public void setIdPaciente(Long idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+
+	public Long getIdMedico() {
+		return idMedico;
+	}
+
+	public void setIdMedico(Long idMedico) {
+		this.idMedico = idMedico;
+	}
+
+	public String getDescricao() {
+         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataAtendimento() {
+ 
+    public Date getDataAtendimento() {
         return dataAtendimento;
     }
 
-    public void setDataAtendimento(LocalDate dataAtendimento) {
-        this.dataAtendimento = dataAtendimento;
+    public void setDataAtendimento(Date dataAtendimento) {
+         this.dataAtendimento = dataAtendimento;
     }
 }

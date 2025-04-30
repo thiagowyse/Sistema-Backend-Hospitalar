@@ -1,25 +1,30 @@
 package com.projeto.model;
 
-import java.time.LocalDate;
-
+ 
+import java.sql.Date;
+ 
 public class Atestado {
 
     private Long idAtestado;
+    private Long idPaciente;
     private Paciente paciente;
+    private Long idMedico;
     private Medico medico;
-    private LocalDate dataEmissao;
-    private LocalDate dataValidade;
+    private Date dataEmissao;
+    private Date dataValidade;
     private String descricao;
 
-    public Atestado(Long idAtestado, Paciente paciente, Medico medico, LocalDate dataEmissao, LocalDate dataValidade, String descricao) {
-        this.idAtestado = idAtestado;
+    public Atestado(Long idAtestado, Paciente paciente, Medico medico, Date dataEmissao, Date dataValidade, String descricao) {
+         this.idAtestado = idAtestado;
         this.paciente = paciente;
         this.medico = medico;
         this.dataEmissao = dataEmissao;
         this.dataValidade = dataValidade;
         this.descricao = descricao;
     }
-
+ 
+    public Atestado() {}
+ 
     public Long getIdAtestado() {
         return idAtestado;
     }
@@ -44,20 +49,20 @@ public class Atestado {
         this.medico = medico;
     }
 
-    public LocalDate getDataEmissao() {
+    public Date getDataEmissao() {
         return dataEmissao;
     }
 
-    public void setDataEmissao(LocalDate dataEmissao) {
+    public void setDataEmissao(Date dataEmissao) {
         this.dataEmissao = dataEmissao;
     }
 
-    public LocalDate getDataValidade() {
+    public Date getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(LocalDate dataValidade) {
-        this.dataValidade = dataValidade;
+    public void setDataValidade(Date dataValidade) {
+         this.dataValidade = dataValidade;
     }
 
     public String getDescricao() {
@@ -67,4 +72,18 @@ public class Atestado {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-}
+ 
+	public Long getIdPaciente() {
+		return idPaciente;
+	}
+	public void setIdPaciente(Long idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+	public Long getIdMedico() {
+		return idMedico;
+	}
+	public void setIdMedico(Long idMedico) {
+		this.idMedico = idMedico;
+	}
+    
+ }
