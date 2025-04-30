@@ -1,20 +1,22 @@
 package com.projeto.model;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class LogUsuario {
 
     private Long idLogUsuario;
+    private Long idUsuario;
     private Usuario usuario;
     private String acao;
-    private LocalDateTime dataHora;
+    private Date dataHora;
 
-    public LogUsuario(Long idLogUsuario, Usuario usuario, String acao, LocalDateTime dataHora) {
+    public LogUsuario(Long idLogUsuario, Usuario usuario, String acao, Date dataHora) {
         this.idLogUsuario = idLogUsuario;
         this.usuario = usuario;
         this.acao = acao;
         this.dataHora = dataHora;
     }
+    public LogUsuario() {}
 
     public Long getIdLogUsuario() {
         return idLogUsuario;
@@ -36,15 +38,21 @@ public class LogUsuario {
         return acao;
     }
 
-    public void setAcao(String acao) {
+    public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public void setAcao(String acao) {
         this.acao = acao;
     }
 
-    public LocalDateTime getDataHora() {
+    public Date getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(LocalDateTime dataHora) {
+    public void setDataHora(Date dataHora) {
         this.dataHora = dataHora;
     }
 }

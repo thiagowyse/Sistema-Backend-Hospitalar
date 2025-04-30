@@ -1,18 +1,19 @@
 package com.projeto.model;
 
 import java.util.List;
+import java.sql.Date;
 
 public class Receita {
 
     private Long idReceita;
     private Long prontuarioId;
-    private String dataReceita;
-    private String validade;
+    private Date dataReceita;
+    private Date validade;
     private String descricao;
     private String status;
     private List<Medicamento> medicamentos;
 
-    public Receita(Long idReceita, Long prontuarioId, String dataReceita, String validade, String descricao, String status, List<Medicamento> medicamentos) {
+    public Receita(Long idReceita, Long prontuarioId, Date dataReceita, Date validade, String descricao, String status, List<Medicamento> medicamentos) {
         this.idReceita = idReceita;
         this.prontuarioId = prontuarioId;
         this.dataReceita = dataReceita;
@@ -21,6 +22,7 @@ public class Receita {
         this.status = status;
         this.medicamentos = medicamentos;
     }
+    public Receita() {}
 
     public Long getIdReceita() {
         return idReceita;
@@ -38,23 +40,19 @@ public class Receita {
         this.prontuarioId = prontuarioId;
     }
 
-    public String getDataReceita() {
-        return dataReceita;
-    }
-
-    public void setDataReceita(String dataReceita) {
-        this.dataReceita = dataReceita;
-    }
-
-    public String getValidade() {
-        return validade;
-    }
-
-    public void setValidade(String validade) {
-        this.validade = validade;
-    }
-
-    public String getDescricao() {
+    public Date getDataReceita() {
+		return dataReceita;
+	}
+	public void setDataReceita(Date dataReceita) {
+		this.dataReceita = dataReceita;
+	}
+	public Date getValidade() {
+		return validade;
+	}
+	public void setValidade(Date validade) {
+		this.validade = validade;
+	}
+	public String getDescricao() {
         return descricao;
     }
 

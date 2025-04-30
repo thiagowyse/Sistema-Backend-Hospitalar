@@ -1,6 +1,6 @@
 package com.projeto.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Paciente {
 
@@ -17,6 +17,7 @@ public class Paciente {
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
     }
+    public Paciente() {}
 
 
     public Long getIdPaciente() {

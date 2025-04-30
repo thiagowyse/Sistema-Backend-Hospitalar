@@ -3,20 +3,21 @@ package com.projeto.model;
 
 public class Especialidade {
 
-    private int idEspecialidade;
+    private Long idEspecialidade;
     private String nome;
 
 
-    public Especialidade(String nome, int idEspecialidade) {
+    public Especialidade(String nome, Long idEspecialidade) {
         this.nome = nome;
         this.idEspecialidade = idEspecialidade;
     }
+    public Especialidade() {}
 
-    public int getIdEspecialidade() {
+    public Long getIdEspecialidade() {
         return idEspecialidade;
     }
 
-    public void setIdEspecialidade(int idEspecialidade) {
+    public void setIdEspecialidade(Long idEspecialidade) {
         this.idEspecialidade = idEspecialidade;
     }
 

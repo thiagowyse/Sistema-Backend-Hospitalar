@@ -11,6 +11,7 @@ public class Exame {
         this.nome = nome;
         this.descricao = descricao;
     }
+    public Exame() {}
 
     public Long getIdExame() {
         return idExame;
