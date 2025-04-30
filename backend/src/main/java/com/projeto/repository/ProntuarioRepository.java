@@ -1,5 +1,6 @@
 package com.projeto.repository;
 
+import com.projeto.model.Paciente;
 import com.projeto.model.Prontuario;
 import com.projeto.util.DataBaseConnection;
 
@@ -159,18 +160,18 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 
 	@Override
 	public void delete(Long id) {
-		 String sql = "DELETE FROM prontuario WHERE id = ?";
+		String sql = "DELETE FROM prontuario WHERE id = ?";
 
-	        try (Connection connection = DataBaseConnection.getConnection();
-	             PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (Connection connection = DataBaseConnection.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-	            stmt.setLong(1, id);
+			stmt.setLong(1, id);
 
-	            stmt.executeUpdate();
-	            System.out.println("Prontuario deletado com sucesso.");
+			stmt.executeUpdate();
+			System.out.println("Prontuario deletado com sucesso.");
 
-	        } catch (SQLException e) {
-	            System.err.println("Erro ao deletar prontuario: " + e.getMessage());
-	        }
+		} catch (SQLException e) {
+			System.err.println("Erro ao deletar prontuario: " + e.getMessage());
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.projeto.repository;
 
 import com.projeto.model.LogUsuario;
+ 
 import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
@@ -10,10 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+ import java.util.List;
 
 public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
     @Override
+ 
     public LogUsuario insert(LogUsuario logUsuario) {
     	String sql = "INSERT INTO log_usuario (usuario_id,acao,data_acao ) VALUES (?, ?,?)";
 
@@ -23,13 +25,13 @@ public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
 			stmt.setLong(1, logUsuario.getIdUsuario());
 			stmt.setString(2, logUsuario.getAcao());
 			stmt.setDate(3, logUsuario.getDataHora());
-
+ 
 			stmt.executeUpdate();
 			System.out.println("Log de usuario inserido com sucesso.");
-
+			
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                logUsuario.setIdLogUsuario(generatedKeys.getLong(1));
+	                logUsuario.setIdLogUsuario(generatedKeys.getLong(1));  
 	            }
 	        }
 
@@ -60,13 +62,14 @@ public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao buscar o log de usuario: " + e.getMessage());
-
+	            
 	        }
 	        return null;
-    }
+     }
 
     @Override
     public List<LogUsuario> findAll() {
+ 
     	  String sql = "SELECT * FROM log_usuario";
 	        LogUsuario logUsuario;
 	        List<LogUsuario> logUsuarios = new ArrayList<>();
@@ -110,7 +113,7 @@ public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
 	            adicionouCampo = true;
 	        }
 
-
+	        
 
 	        queryBuilder.append(" WHERE id = ?");
 
@@ -133,7 +136,7 @@ public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
 	            if (logUsuario.getDataHora() != null) {
 	                preparedStatement.setDate(index++, logUsuario.getDataHora());
 	            }
-
+	           
 
 	            preparedStatement.setLong(index, logUsuario.getIdLogUsuario());
 	            preparedStatement.executeUpdate();
@@ -160,5 +163,5 @@ public class LogUsuarioRepository implements BaseRepository<LogUsuario,Long> {
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar log de usuario: " + e.getMessage());
 	        }
-    }
+     }
 }

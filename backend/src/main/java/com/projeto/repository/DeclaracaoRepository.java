@@ -1,6 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.Declaracao;
+ 
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -9,12 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+ import java.util.List;
 
 public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
     @Override
+ 
     public Declaracao insert(Declaracao declaracao) {
-
+    	
     	String sql = "INSERT INTO declaracao (paciente_id,medico_id,data_emissao,tipo_declaracao,descricao,validade) VALUES (?, ?,?,?,?,?)";
 
 		try (Connection connection = DataBaseConnection.getConnection();
@@ -29,10 +32,10 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 
 			stmt.executeUpdate();
 			System.out.println("Declaracao inserida com sucesso.");
-
+			
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                declaracao.setIdDeclaracao(generatedKeys.getLong(1));
+	                declaracao.setIdDeclaracao(generatedKeys.getLong(1));  
 	            }
 	        }
 
@@ -66,13 +69,14 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao buscar declaracao: " + e.getMessage());
-
+	            
 	        }
 	        return null;
-    }
+     }
 
     @Override
     public List<Declaracao> findAll() {
+ 
     	 String sql = "SELECT * FROM declaracao";
 	        Declaracao declaracao;
 	        List<Declaracao> declaracoes = new ArrayList<>();
@@ -191,5 +195,5 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar declaracao: " + e.getMessage());
 	        }
-    }
+     }
 }

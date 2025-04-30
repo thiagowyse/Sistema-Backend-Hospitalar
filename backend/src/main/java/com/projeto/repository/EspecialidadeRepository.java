@@ -1,6 +1,7 @@
 package com.projeto.repository;
 
 import com.projeto.model.Especialidade;
+ 
 import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
@@ -10,27 +11,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+ import java.util.List;
 
 public class EspecialidadeRepository implements BaseRepository<Especialidade, Long>{
     @Override
+ 
     public Especialidade insert(Especialidade especialidade) {
 
-
+    	 
     		String sql = "INSERT INTO especialidade (nome) VALUES (?)";
 
     		try (Connection connection = DataBaseConnection.getConnection();
     				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
     			stmt.setString(1, especialidade.getNome());
-
+    			 
 
     			stmt.executeUpdate();
     			System.out.println("Especialidade inserida com sucesso.");
-
+    			
     			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
     	            if (generatedKeys.next()) {
-    	                especialidade.setIdEspecialidade(generatedKeys.getLong(1));
+    	                especialidade.setIdEspecialidade(generatedKeys.getLong(1));  
     	            }
     	        }
 
@@ -59,13 +61,15 @@ public class EspecialidadeRepository implements BaseRepository<Especialidade, Lo
 
         } catch (SQLException e) {
             System.err.println("Erro ao buscar especialidade: " + e.getMessage());
-
+            
         }
+ 
         return null;
     }
 
     @Override
     public List<Especialidade> findAll() {
+ 
     	 String sql = "SELECT * FROM especialidade";
 	        Especialidade especialidade;
 	        List<Especialidade> especialidades = new ArrayList<>();
@@ -120,5 +124,5 @@ public class EspecialidadeRepository implements BaseRepository<Especialidade, Lo
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar especialdade: " + e.getMessage());
 	        }
-    }
+     }
 }

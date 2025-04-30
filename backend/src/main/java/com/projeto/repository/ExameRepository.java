@@ -1,6 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.Exame;
+
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -11,10 +13,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExameRepository implements BaseRepository<Exame,Long>{
-    @Override
-    public Exame insert(Exame exame) {
-    	String sql = "INSERT INTO exame (nome,descricao) VALUES (?, ?)";
+public class ExameRepository implements BaseRepository<Exame, Long> {
+	@Override
+
+	public Exame insert(Exame exame) {
+		String sql = "INSERT INTO exame (nome,descricao) VALUES (?, ?)";
 
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -25,18 +28,18 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 			System.out.println("Exame inserido com sucesso.");
 
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	                exame.setIdExame(generatedKeys.getLong(1)); // Supondo que o ID seja do tipo Long
-	            }
-	        }
+				if (generatedKeys.next()) {
+					exame.setIdExame(generatedKeys.getLong(1));  
+				}
+			}
 
 		} catch (SQLException e) {
 			System.err.println("Erro ao inserir exame: " + e.getMessage());
 		}
 		return exame;
-    }
+	}
 
-    @Override
+	@Override
     public Exame findById(Long id) {
     	 String sql = "SELECT * FROM exame WHERE id = ?";
 	        Exame exame = new Exame();
@@ -58,13 +61,15 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao buscar exame: " + e.getMessage());
-
+	            
 	        }
 	        return null;
+ 
     }
 
-    @Override
+	@Override
     public List<Exame> findAll() {
+ 
     	 String sql = "SELECT * FROM exame";
 	        Exame exame = new Exame();
 	        List<Exame> exames = new ArrayList<>();
@@ -86,53 +91,52 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 	        return exames;
     }
 
-    @Override
-    public void update(Exame exame) {
-    	 StringBuilder queryBuilder = new StringBuilder("UPDATE exame SET ");
-	        boolean adicionouCampo = false;
+	@Override
+	public void update(Exame exame) {
+		StringBuilder queryBuilder = new StringBuilder("UPDATE exame SET ");
+		boolean adicionouCampo = false;
 
-	        if (exame.getNome() != null) {
-	            queryBuilder.append("nome = ?");
-	            adicionouCampo = true;
-	        }
-	        if (exame.getDescricao() != null) {
-	            if (adicionouCampo) queryBuilder.append(", ");
-	            queryBuilder.append("descricao = ?");
-	            adicionouCampo = true;
-	        }
+		if (exame.getNome() != null) {
+			queryBuilder.append("nome = ?");
+			adicionouCampo = true;
+		}
+		if (exame.getDescricao() != null) {
+			if (adicionouCampo)
+				queryBuilder.append(", ");
+			queryBuilder.append("descricao = ?");
+			adicionouCampo = true;
+		}
 
-	        queryBuilder.append(" WHERE id = ?");
+		queryBuilder.append(" WHERE id = ?");
 
-	        if (!adicionouCampo) {
-	            System.out.println("Nenhum campo para atualizar.");
-	            return;
-	        }
+		if (!adicionouCampo) {
+			System.out.println("Nenhum campo para atualizar.");
+			return;
+		}
 
-	        try (Connection connection = DataBaseConnection.getConnection();
-	             PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
+		try (Connection connection = DataBaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
 
-	            int index = 1;
+			int index = 1;
 
-	            if (exame.getNome() != null) {
-	                preparedStatement.setString(index++, exame.getNome());
-	            }
-	            if (exame.getDescricao() != null) {
-	                preparedStatement.setString(index++, exame.getDescricao());
-	            }
+			if (exame.getNome() != null) {
+				preparedStatement.setString(index++, exame.getNome());
+			}
+			if (exame.getDescricao() != null) {
+				preparedStatement.setString(index++, exame.getDescricao());
+			}
 
+			preparedStatement.setLong(index, exame.getIdExame());
+			preparedStatement.executeUpdate();
 
+			System.out.println("Exame atualizado com sucesso.");
 
-	            preparedStatement.setLong(index, exame.getIdExame());
-	            preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("Erro ao atualizar exame: " + e.getMessage());
+		}
+	}
 
-	            System.out.println("Exame atualizado com sucesso.");
-
-	        } catch (SQLException e) {
-	            System.err.println("Erro ao atualizar exame: " + e.getMessage());
-	        }
-    }
-
-    @Override
+	@Override
     public void delete(Long id) {
     	 String sql = "DELETE FROM exame WHERE id = ?";
 
@@ -147,5 +151,5 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar exame: " + e.getMessage());
 	        }
-    }
+     }
 }

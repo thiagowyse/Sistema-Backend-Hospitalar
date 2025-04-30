@@ -1,7 +1,8 @@
 package com.projeto.model;
 
+ 
 import java.sql.Date;
-
+ 
 public class Atestado {
 
     private Long idAtestado;
@@ -14,15 +15,16 @@ public class Atestado {
     private String descricao;
 
     public Atestado(Long idAtestado, Paciente paciente, Medico medico, Date dataEmissao, Date dataValidade, String descricao) {
-        this.idAtestado = idAtestado;
+         this.idAtestado = idAtestado;
         this.paciente = paciente;
         this.medico = medico;
         this.dataEmissao = dataEmissao;
         this.dataValidade = dataValidade;
         this.descricao = descricao;
     }
+ 
     public Atestado() {}
-
+ 
     public Long getIdAtestado() {
         return idAtestado;
     }
@@ -60,7 +62,7 @@ public class Atestado {
     }
 
     public void setDataValidade(Date dataValidade) {
-        this.dataValidade = dataValidade;
+         this.dataValidade = dataValidade;
     }
 
     public String getDescricao() {
@@ -70,6 +72,7 @@ public class Atestado {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+ 
 	public Long getIdPaciente() {
 		return idPaciente;
 	}
@@ -82,5 +85,5 @@ public class Atestado {
 	public void setIdMedico(Long idMedico) {
 		this.idMedico = idMedico;
 	}
-
-}
+    
+ }

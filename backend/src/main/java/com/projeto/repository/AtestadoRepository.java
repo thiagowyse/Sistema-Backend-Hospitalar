@@ -1,6 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.Atestado;
+ 
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -9,10 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+ import java.util.List;
 
 public class AtestadoRepository implements BaseRepository<Atestado, Long>{
     @Override
+ 
     public Atestado insert(Atestado atestado) {
     	String sql = "INSERT INTO atestado (paciente_id,medico_id,data_emissao,descricao,validade) VALUES (?, ?,?,?,?)";
 
@@ -28,10 +31,10 @@ public class AtestadoRepository implements BaseRepository<Atestado, Long>{
 
 			stmt.executeUpdate();
 			System.out.println("Atestado inserido com sucesso.");
-
+			
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                atestado.setIdAtestado(generatedKeys.getLong(1));
+	                atestado.setIdAtestado(generatedKeys.getLong(1));  
 	            }
 	        }
 
@@ -64,13 +67,14 @@ public class AtestadoRepository implements BaseRepository<Atestado, Long>{
 
         } catch (SQLException e) {
             System.err.println("Erro ao buscar atestado: " + e.getMessage());
-
+            
         }
-        return null;
+         return null;
     }
 
     @Override
     public List<Atestado> findAll() {
+ 
     	 String sql = "SELECT * FROM atestado";
 	        Atestado atestado;
 	        List<Atestado> atestados = new ArrayList<>();
@@ -154,8 +158,8 @@ public class AtestadoRepository implements BaseRepository<Atestado, Long>{
 	            if (atestado.getDataValidade() != null) {
 	                preparedStatement.setDate(index++, atestado.getDataValidade());
 	            }
-
-
+	            
+	           
 
 	            preparedStatement.setLong(index, atestado.getIdAtestado());
 	            preparedStatement.executeUpdate();
@@ -182,5 +186,5 @@ public class AtestadoRepository implements BaseRepository<Atestado, Long>{
         } catch (SQLException e) {
             System.err.println("Erro ao deletar atestado: " + e.getMessage());
         }
-    }
+     }
 }

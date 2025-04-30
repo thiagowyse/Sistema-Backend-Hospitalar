@@ -1,16 +1,18 @@
 package com.projeto.repository;
 
 import com.projeto.model.Agendamento;
+ 
 import com.projeto.model.Paciente;
-import com.projeto.util.DataBaseConnection;
+ import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+ 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+ import java.util.List;
 
 public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 
@@ -20,20 +22,22 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
         String query = "INSERT INTO agendamento (paciente_id, medico_id, data_consulta, status) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DataBaseConnection.getConnection();
+ 
            PreparedStatement preparedStatement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS)) {
-           preparedStatement.setLong(1, agendamento.getIdPaciente());
+            preparedStatement.setLong(1, agendamento.getIdPaciente());
            preparedStatement.setLong(2,agendamento.getIdMedico());
            preparedStatement.setDate(3, agendamento.getDataConsulta());
            preparedStatement.setString(4, agendamento.getStatus());
            preparedStatement.executeUpdate();
            System.out.println("Agendamento inserido com sucesso.");
-
+ 
+           
            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                agendamento.setIdAgendamento(generatedKeys.getLong(1));
+	                agendamento.setIdAgendamento(generatedKeys.getLong(1));  
 	            }
 	        }
-
+ 
         } catch (SQLException e) {
             System.err.println("Erro ao inserir Agendamento: " + e.getMessage());
         }
@@ -44,6 +48,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 
     @Override
     public Agendamento findById(Long id) {
+ 
     	String sql = "SELECT * FROM agendamento WHERE id = ?";
         Agendamento agendamento = new Agendamento();
 
@@ -64,13 +69,14 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 
         } catch (SQLException e) {
             System.err.println("Erro ao buscar agendamento: " + e.getMessage());
-
+            
         }
-        return null;
+         return null;
     }
 
     @Override
     public List<Agendamento> findAll() {
+ 
     	 String sql = "SELECT * FROM agendamento";
 	        Agendamento agendamento = new Agendamento();
 	        List<Agendamento> agendamentos = new ArrayList<>();
@@ -145,7 +151,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 	            if (agendamento.getStatus() != null) {
 	                preparedStatement.setString(index++, agendamento.getStatus());
 	            }
-
+	           
 
 	            preparedStatement.setLong(index, agendamento.getIdAgendamento());
 	            preparedStatement.executeUpdate();
@@ -175,3 +181,4 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 	}
     }
 
+ 

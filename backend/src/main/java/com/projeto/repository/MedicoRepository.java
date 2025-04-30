@@ -1,7 +1,10 @@
 package com.projeto.repository;
 
 import com.projeto.model.Medico;
+ 
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,7 +103,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 	            queryBuilder.append("crm = ?");
 	            adicionouCampo = true;
 	        }
-
+	      
 
 	        queryBuilder.append(" WHERE id = ?");
 
@@ -120,8 +123,8 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 	            if (medico.getCrm() != null) {
 	                preparedStatement.setString(index++, medico.getCrm());
 	            }
-
-
+	           
+	           
 
 	            preparedStatement.setLong(index, medico.getIdMedico());
 	            preparedStatement.executeUpdate();
@@ -149,4 +152,4 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
             System.err.println("Erro ao deletar medico: " + e.getMessage());
         }
 	}
-}
+ }

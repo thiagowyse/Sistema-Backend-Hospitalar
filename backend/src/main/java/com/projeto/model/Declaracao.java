@@ -4,41 +4,41 @@ import java.sql.Date;
 
 public class Declaracao {
 
-    private Long idDeclaracao;
-    private Long idPaciente;
-    private Long idMedico;
-    private Paciente paciente;
-    private String tipoDeclaracao;
-    private Medico medico;
-    private Date dataValidade;
-    private Date dataEmissao;
-    private String descricao;
+	private Long idDeclaracao;
+	private Long idPaciente;
+	private Long idMedico;
+	private Paciente paciente;
+	private String tipoDeclaracao;
+	private Medico medico;
+	private Date dataValidade;
+	private Date dataEmissao;
+	private String descricao;
 
-    public Long getIdDeclaracao() {
-        return idDeclaracao;
-    }
+	public Long getIdDeclaracao() {
+		return idDeclaracao;
+	}
 
-    public void setIdDesclaracao(Long idDeclaracao) {
-        this.idDeclaracao = idDeclaracao;
-    }
+	public void setIdDesclaracao(Long idDeclaracao) {
+		this.idDeclaracao = idDeclaracao;
+	}
 
-    public Paciente getPaciente() {
-        return paciente;
-    }
+	public Paciente getPaciente() {
+		return paciente;
+	}
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
 
-    public Medico getMedico() {
-        return medico;
-    }
+	public Medico getMedico() {
+		return medico;
+	}
 
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
 
-    public Long getIdPaciente() {
+	public Long getIdPaciente() {
 		return idPaciente;
 	}
 
@@ -75,19 +75,19 @@ public class Declaracao {
 	}
 
 	public Date getDataEmissao() {
-        return dataEmissao;
-    }
+		return dataEmissao;
+	}
 
-    public void setDataEmissao(Date dataEmissao) {
-        this.dataEmissao = dataEmissao;
-    }
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
 }

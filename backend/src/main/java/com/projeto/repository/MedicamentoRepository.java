@@ -1,6 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.Medicamento;
+ 
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import java.util.List;
 public class MedicamentoRepository implements BaseRepository<Medicamento, Long> {
 
     @Override
+ 
     public Medicamento insert(Medicamento medicamento) {
     	String sql = "INSERT INTO medicamento (nome,dosagem,via_administracao) VALUES (?, ?,?)";
 
@@ -23,14 +26,14 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 			stmt.setString(1, medicamento.getNome());
 			stmt.setString(2, medicamento.getDosagem());
 			stmt.setString(3, medicamento.getViaAdministracao());
-
+			 
 
 			stmt.executeUpdate();
 			System.out.println("Medicamento inserido com sucesso.");
-
+			
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                medicamento.setIdMedicamento(generatedKeys.getLong(1));
+	                medicamento.setIdMedicamento(generatedKeys.getLong(1));  
 	            }
 	        }
 
@@ -38,7 +41,7 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 			System.err.println("Erro ao inserir medicamento: " + e.getMessage());
 		}
 		return medicamento;
-
+         
     }
 
     @Override
@@ -62,13 +65,14 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao buscar medicamento: " + e.getMessage());
-
+	            
 	        }
 	        return null;
-    }
+     }
 
     @Override
     public List<Medicamento> findAll() {
+ 
     	String sql = "SELECT * FROM medicamento";
         Medicamento medicamento = new Medicamento();
         List<Medicamento> medicamentos = new ArrayList<>();
@@ -132,8 +136,8 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 	            if (medicamento.getViaAdministracao() != null) {
 	                preparedStatement.setString(index++, medicamento.getViaAdministracao());
 	            }
-
-
+	            
+	           
 
 	            preparedStatement.setLong(index, medicamento.getIdMedicamento());
 	            preparedStatement.executeUpdate();
@@ -160,5 +164,5 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar medicamento: " + e.getMessage());
 	        }
-    }
+     }
 }

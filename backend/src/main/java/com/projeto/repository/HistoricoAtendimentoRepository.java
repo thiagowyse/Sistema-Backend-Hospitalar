@@ -1,6 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.HistoricoAtendimento;
+
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -71,104 +73,106 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
 	public List<HistoricoAtendimento> findAll() {
 		String sql = "SELECT * FROM historico_atendimento";
 		HistoricoAtendimento historicoAtendimento;
-        List<HistoricoAtendimento> historicosAtendimento = new ArrayList<>();
+		List<HistoricoAtendimento> historicosAtendimento = new ArrayList<>();
 
-        try (Connection connection = DataBaseConnection.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+		try (Connection connection = DataBaseConnection.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
 
-            while (rs.next()) {
-            	historicoAtendimento=new HistoricoAtendimento();
-            	historicoAtendimento.setIdHistoricoAtendimento(rs.getLong("id"));
+			while (rs.next()) {
+				historicoAtendimento = new HistoricoAtendimento();
+				historicoAtendimento.setIdHistoricoAtendimento(rs.getLong("id"));
 				historicoAtendimento.setIdPaciente(rs.getLong("paciente_id"));
 				historicoAtendimento.setIdMedico(rs.getLong("medico_id"));
 				historicoAtendimento.setDescricao(rs.getString("descricao"));
 				historicoAtendimento.setDataAtendimento(rs.getDate("data_atendimento"));
-                historicosAtendimento.add(historicoAtendimento);
-            }
+				historicosAtendimento.add(historicoAtendimento);
+			}
 
-        } catch (SQLException e) {
-            System.err.println("Erro ao listar historicos de atendimento: " + e.getMessage());
-        }
-        return historicosAtendimento;
+		} catch (SQLException e) {
+			System.err.println("Erro ao listar historicos de atendimento: " + e.getMessage());
+		}
+		return historicosAtendimento;
 	}
 
 	@Override
 	public void update(HistoricoAtendimento historicoAtendimento) {
 		StringBuilder queryBuilder = new StringBuilder("UPDATE historico_atendimento SET ");
-        boolean adicionouCampo = false;
+		boolean adicionouCampo = false;
 
-        if (historicoAtendimento.getIdPaciente()!= null) {
-            queryBuilder.append("paciente_id = ?");
-            adicionouCampo = true;
-        }
-        if (historicoAtendimento.getIdMedico() != null) {
-            if (adicionouCampo) queryBuilder.append(", ");
-            queryBuilder.append("medico_id = ?");
-            adicionouCampo = true;
-        }
-        if (historicoAtendimento.getDescricao() != null) {
-            if (adicionouCampo) queryBuilder.append(", ");
-            queryBuilder.append("descricao = ?");
-            adicionouCampo = true;
-        }
+		if (historicoAtendimento.getIdPaciente() != null) {
+			queryBuilder.append("paciente_id = ?");
+			adicionouCampo = true;
+		}
+		if (historicoAtendimento.getIdMedico() != null) {
+			if (adicionouCampo)
+				queryBuilder.append(", ");
+			queryBuilder.append("medico_id = ?");
+			adicionouCampo = true;
+		}
+		if (historicoAtendimento.getDescricao() != null) {
+			if (adicionouCampo)
+				queryBuilder.append(", ");
+			queryBuilder.append("descricao = ?");
+			adicionouCampo = true;
+		}
 
-        if(historicoAtendimento.getDataAtendimento() != null){
-            if(adicionouCampo)queryBuilder.append(",");
-            queryBuilder.append("data_atendimento = ?");
-            adicionouCampo = true;
-        }
+		if (historicoAtendimento.getDataAtendimento() != null) {
+			if (adicionouCampo)
+				queryBuilder.append(",");
+			queryBuilder.append("data_atendimento = ?");
+			adicionouCampo = true;
+		}
 
-        queryBuilder.append(" WHERE id = ?");
+		queryBuilder.append(" WHERE id = ?");
 
-        if (!adicionouCampo) {
-            System.out.println("Nenhum campo para atualizar.");
-            return;
-        }
+		if (!adicionouCampo) {
+			System.out.println("Nenhum campo para atualizar.");
+			return;
+		}
 
-        try (Connection connection = DataBaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
+		try (Connection connection = DataBaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(queryBuilder.toString())) {
 
-            int index = 1;
+			int index = 1;
 
-            if (historicoAtendimento.getIdPaciente() != null) {
-                preparedStatement.setLong(index++, historicoAtendimento.getIdPaciente());
-            }
-            if (historicoAtendimento.getIdMedico() != null) {
-                preparedStatement.setLong(index++, historicoAtendimento.getIdMedico());
-            }
-            if (historicoAtendimento.getDescricao() != null) {
-                preparedStatement.setString(index++, historicoAtendimento.getDescricao());
-            }
-            if (historicoAtendimento.getDataAtendimento() != null) {
-                preparedStatement.setDate(index++, historicoAtendimento.getDataAtendimento());
-            }
+			if (historicoAtendimento.getIdPaciente() != null) {
+				preparedStatement.setLong(index++, historicoAtendimento.getIdPaciente());
+			}
+			if (historicoAtendimento.getIdMedico() != null) {
+				preparedStatement.setLong(index++, historicoAtendimento.getIdMedico());
+			}
+			if (historicoAtendimento.getDescricao() != null) {
+				preparedStatement.setString(index++, historicoAtendimento.getDescricao());
+			}
+			if (historicoAtendimento.getDataAtendimento() != null) {
+				preparedStatement.setDate(index++, historicoAtendimento.getDataAtendimento());
+			}
 
+			preparedStatement.setLong(index, historicoAtendimento.getIdHistoricoAtendimento());
+			preparedStatement.executeUpdate();
 
-            preparedStatement.setLong(index, historicoAtendimento.getIdHistoricoAtendimento());
-            preparedStatement.executeUpdate();
+			System.out.println("Historico de atendimento atualizado com sucesso.");
 
-            System.out.println("Historico de atendimento atualizado com sucesso.");
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao atualizar historico de atendimento: " + e.getMessage());
-        }
+		} catch (SQLException e) {
+			System.err.println("Erro ao atualizar historico de atendimento: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public void delete(Long id) {
-		 String sql = "DELETE FROM historico_atendimento WHERE id = ?";
+		String sql = "DELETE FROM historico_atendimento WHERE id = ?";
 
-	        try (Connection connection = DataBaseConnection.getConnection();
-	             PreparedStatement stmt = connection.prepareStatement(sql)) {
+		try (Connection connection = DataBaseConnection.getConnection();
+				PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-	            stmt.setLong(1, id);
+			stmt.setLong(1, id);
 
-	            stmt.executeUpdate();
-	            System.out.println("Historico de atendimento deletado com sucesso.");
+			stmt.executeUpdate();
+			System.out.println("Historico de atendimento deletado com sucesso.");
 
-	        } catch (SQLException e) {
-	            System.err.println("Erro ao deletar historico de atendimento: " + e.getMessage());
-	        }
+		} catch (SQLException e) {
+			System.err.println("Erro ao deletar historico de atendimento: " + e.getMessage());
+		}
 	}
 }
