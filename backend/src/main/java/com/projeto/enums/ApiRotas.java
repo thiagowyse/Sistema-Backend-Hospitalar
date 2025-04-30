@@ -5,11 +5,11 @@ public enum ApiRotas {
 
     //Rotas Agendamento
     AGENDAMENTO("/agendamento"),
-    AGENDAMENTO_CREATE("/agendamento/create"),
+    AGENDAMENTO_SAVE("/agendamento/save"),
     AGENDAMENTO_FIND_BY_ID("/agendamento/findById"),
     AGENDAMENTO_FIND_BY_FILTER("/agendamento/findByFilter"),
     AGENDAMENTO_FIND_ALL("/agendamento/findAll"),
-    AGENDAMENTO_UPDATE("/agendamento/update"),
+    AGENDAMENTO_UPDATE("/agendamento/update/\\d+"),
     AGENDAMENTO_DELETE("/agendamento/delete"),
 
     //Rotas Atestado
