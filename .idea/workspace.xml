@@ -4,11 +4,83 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85040873-ad71-4651-b8cf-9b227c6ad37c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/AgendamentoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/AgendamentoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/PacienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/PacienteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/util/DataBaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/util/DataBaseConnection.java" afterDir="false" />
+    <list default="true" id="85040873-ad71-4651-b8cf-9b227c6ad37c" name="Changes" comment="feat: Refatoração de código">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/META-INF/maven/org.example/untitled/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/META-INF/maven/org.example/untitled/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/app/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/PacienteController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Agendamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Atestado.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Declaracao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Enfermeiro.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Especialidade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Exame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/HistoricoAtendimento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/LogUsuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Medicamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Medico.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Paciente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Perfil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Prontuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Receita.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Recepcionista.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Usuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/AgendamentoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/AtestadoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/BaseRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/DeclaracaoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EnfermeiroRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EspecialidadeRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ExameRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/HistoricoAtendimentoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/LogUsuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicamentoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoEspecialidade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/PacienteRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/PerfilRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ProntuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ReceitaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/RecepcionistaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/UsuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/agendamentoservice/AgendamentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/agendamentoservice/IAgendamentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/atestadoservice/AtestadoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/atestadoservice/IAtestadoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/declaracaoservice/DeclaracaoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/declaracaoservice/IDeclaracaoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/enfermeiroservice/EnfermeiroService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/enfermeiroservice/IEnfermeiroService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/especialidadeservice/EspecialidadeService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/especialidadeservice/IEspecialidadeService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/exameservice/ExameService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/exameservice/IExameService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/historicoatendimentoservice/HistoricoAtendimentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/historicoatendimentoservice/IHistoricoAtendimentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/logusuarioservice/ILogUsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/logusuarioservice/LogUsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/medicamentoservice/IMedicamentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/medicamentoservice/MedicamentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/medicoservice/IMedicoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/medicoservice/MedicoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/pacienteservice/IPacienteService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/pacienteservice/PacienteService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/perfilservice/IPerfilService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/perfilservice/PerfilService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/prontuarioservice/IProntuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/prontuarioservice/ProntuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/receitaservice/IReceitaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/receitaservice/ReceitaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/recepcionistaservice/IRecepcionistaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/recepcionistaservice/RecepcionistaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/usuarioservice/IUsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/usuarioservice/UsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/util/DataBaseConnection.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,23 +90,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2wK3WqiJS1ArxUgfQE71hLPdJM9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.run1.executor": "Run",
+    "Application.Main.executor": "Debug",
+    "Application.run1.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/joaom/OneDrive/Documents/Sistema-Backend-Hospitalar"
+    "last_opened_file_path": "C:/Users/joaom/OneDrive/Documents/Sistema-Backend-Hospitalar",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RunAnythingCache">
@@ -44,8 +121,9 @@
   </component>
   <component name="RunManager">
     <configuration name="run1" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="Main.java" />
-      <module name="Sistema-Backend-Hospitalar" />
+      <option name="ALTERNATIVE_JRE_PATH" value="22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.projeto.app.Main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -61,5 +139,9 @@
       <updated>1745776473202</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: Refatoração de código" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Refatoração de código" />
   </component>
 </project>
