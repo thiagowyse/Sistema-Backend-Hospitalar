@@ -1,5 +1,6 @@
 package com.projeto.repository;
 
+import com.projeto.model.Perfil;
 import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
 import java.sql.Connection;
@@ -25,11 +26,13 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
             preparedStatement.setString(4, usuario.getSenha());
 
             preparedStatement.setString(5, usuario.getCpf());
-            if (usuario.getIdPerfil() != null) {
-                preparedStatement.setLong(6, usuario.getIdPerfil());
-            } else {
+
+            if(usuario.getPerfil() != null && usuario.getPerfil().getId() != null){
+                preparedStatement.setLong(6, usuario.getPerfil().getId());
+            }else{
                 preparedStatement.setNull(6, java.sql.Types.BIGINT);
             }
+
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -61,13 +64,17 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                usuario = new Usuario();
                 usuario.setIdUsuario(resultSet.getLong("id"));
                 usuario.setNome(resultSet.getString("nome"));
                 usuario.setLogin(resultSet.getString("username"));
                 usuario.setSenha(resultSet.getString("senha"));
                 usuario.setEmail(resultSet.getString("email"));
                 usuario.setCpf(resultSet.getString("cpf"));
-                usuario.setIdPerfil(resultSet.getLong("perfil_id"));
+
+                Perfil perfil = new Perfil();
+                perfil.setId(resultSet.getLong("perfil_id"));
+                usuario.setPerfil(perfil);
 
             }
 
@@ -94,7 +101,10 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
                 usuario.setSenha(resultSet.getString("senha"));
                 usuario.setEmail(resultSet.getString("email"));
                 usuario.setCpf(resultSet.getString("cpf"));
-                usuario.setIdPerfil(resultSet.getLong("perfil_id"));
+
+                Perfil perfil = new Perfil();
+                perfil.setId(resultSet.getLong("perfil_id"));
+                usuario.setPerfil(perfil);
 
                 listaUsuarios.add(usuario);
             }
@@ -131,11 +141,14 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
             adicionouCampo = true;
         }
 
-        if(usuario.getIdPerfil() != null){
-            if(adicionouCampo)queryBuilder.append(",");
-            queryBuilder.append("perfil_id = ?");
-            adicionouCampo = true;
+        if(usuario.getPerfil() != null){
+            if(usuario.getPerfil().getId() != null){
+                if(adicionouCampo)queryBuilder.append(",");
+                queryBuilder.append("perfil_id = ?");
+                adicionouCampo = true;
+            }
         }
+
 
         queryBuilder.append(" WHERE id = ?");
 
@@ -161,8 +174,11 @@ public class UsuarioRepository implements BaseRepository<Usuario, Long> {
             if (usuario.getCpf() != null) {
                 preparedStatement.setString(index++, usuario.getCpf());
             }
-            if (usuario.getIdPerfil() != null) {
-                preparedStatement.setLong(index++, usuario.getIdPerfil());
+
+            if(usuario.getPerfil() != null){
+                if(usuario.getPerfil().getId() != null){
+                    preparedStatement.setLong(index++, usuario.getPerfil().getId());
+                }
             }
 
             preparedStatement.setLong(index, usuario.getIdUsuario());

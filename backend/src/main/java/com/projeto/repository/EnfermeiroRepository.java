@@ -46,7 +46,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
     @Override
     public Enfermeiro findById(Long id) {
     	String sql = "SELECT * FROM enfermeiro WHERE id = ?";
-        Enfermeiro enfermeiro=new Enfermeiro();
+        Enfermeiro enfermeiro = new Enfermeiro();
 
         try (Connection connection = DataBaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -55,7 +55,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                 enfermeiro.setIdEnfermeiro(rs.getLong("id"));
+				enfermeiro.setIdEnfermeiro(rs.getLong("id"));
                 enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
                 enfermeiro.setCoren(rs.getString("coren"));
                

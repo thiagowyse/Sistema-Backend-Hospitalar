@@ -1,20 +1,16 @@
 package com.projeto.model;
 
 import java.util.List;
- 
 import java.sql.Date;
- 
+
 public class Prontuario {
 
     private Long idProntuario;
-   
-    private Long idPaciente;
     private Paciente paciente;
-    private Long idMedico;
     private Medico medico;
     private String descricao;
     private Date dataCriacao;
-     private List<Receita> receitas;
+    private List<Receita> receitas;
     private List<Exame> exames;
 
     public Prontuario(Long idProntuario, Paciente paciente, Medico medico, String descricao, List<Receita> receitas, List<Exame> exames) {
@@ -25,9 +21,8 @@ public class Prontuario {
         this.receitas = receitas;
         this.exames = exames;
     }
- 
     public Prontuario() {}
- 
+
     public Long getIdProntuario() {
         return idProntuario;
     }
@@ -75,23 +70,7 @@ public class Prontuario {
     public void setExames(List<Exame> exames) {
         this.exames = exames;
     }
- 
 
-	public Long getIdPaciente() {
-		return idPaciente;
-	}
-
-	public void setIdPaciente(Long idPaciente) {
-		this.idPaciente = idPaciente;
-	}
-
-	public Long getIdMedico() {
-		return idMedico;
-	}
-
-	public void setIdMedico(Long idMedico) {
-		this.idMedico = idMedico;
-	}
 
 	public Date getDataCriacao() {
 		return dataCriacao;
@@ -100,5 +79,5 @@ public class Prontuario {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-    
- }
+
+}

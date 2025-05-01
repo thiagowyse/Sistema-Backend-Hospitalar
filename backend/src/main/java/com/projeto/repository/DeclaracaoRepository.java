@@ -1,7 +1,7 @@
 package com.projeto.repository;
 
 import com.projeto.model.Declaracao;
- 
+import com.projeto.model.Medico;
 import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
@@ -11,20 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
- import java.util.List;
+import java.util.List;
 
 public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
     @Override
- 
     public Declaracao insert(Declaracao declaracao) {
-    	
+
     	String sql = "INSERT INTO declaracao (paciente_id,medico_id,data_emissao,tipo_declaracao,descricao,validade) VALUES (?, ?,?,?,?,?)";
 
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, declaracao.getIdPaciente());
-			stmt.setLong(2, declaracao.getIdMedico());
+			stmt.setLong(1, declaracao.getPaciente().getIdPaciente());
+			stmt.setLong(2, declaracao.getMedico().getIdMedico());
 			stmt.setDate(3, declaracao.getDataEmissao());
 			stmt.setString(4, declaracao.getTipoDeclaracao());
 			stmt.setString(5, declaracao.getDescricao());
@@ -32,10 +31,10 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 
 			stmt.executeUpdate();
 			System.out.println("Declaracao inserida com sucesso.");
-			
+
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                declaracao.setIdDeclaracao(generatedKeys.getLong(1));  
+	                declaracao.setIdDeclaracao(generatedKeys.getLong(1));
 	            }
 	        }
 
@@ -48,7 +47,8 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
     @Override
     public Declaracao findById(Long id) {
     	 String sql = "SELECT * FROM declaracao WHERE id = ?";
-	        Declaracao declaracao = new Declaracao();
+
+	        Declaracao declaracao = null;
 
 	        try (Connection connection = DataBaseConnection.getConnection();
 	             PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -57,9 +57,16 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 	            ResultSet rs = stmt.executeQuery();
 
 	            if (rs.next()) {
+                    declaracao = new Declaracao();
 	                declaracao.setIdDeclaracao(rs.getLong("id"));
-	                declaracao.setIdPaciente(rs.getLong("paciente_id"));
-	                declaracao.setIdMedico(rs.getLong("medico_id"));
+
+                    Paciente paciente = new Paciente();
+                    paciente.setIdPaciente(rs.getLong("paciente_id"));
+                    declaracao.setPaciente(paciente);
+
+                    Medico medico = new Medico();
+                    medico.setIdMedico(rs.getLong("medico_id"));
+                    declaracao.setMedico(medico);
 	                declaracao.setDataEmissao(rs.getDate("data_emissao"));
 	                declaracao.setTipoDeclaracao(rs.getString("tipo_declaracao"));
 	                declaracao.setDescricao(rs.getString("descricao"));
@@ -69,14 +76,13 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao buscar declaracao: " + e.getMessage());
-	            
+
 	        }
-	        return null;
-     }
+	        return declaracao;
+    }
 
     @Override
     public List<Declaracao> findAll() {
- 
     	 String sql = "SELECT * FROM declaracao";
 	        Declaracao declaracao;
 	        List<Declaracao> declaracoes = new ArrayList<>();
@@ -88,8 +94,14 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 	            while (rs.next()) {
 	            	declaracao= new Declaracao();
 	            	declaracao.setIdDeclaracao(rs.getLong("id"));
-	                declaracao.setIdPaciente(rs.getLong("paciente_id"));
-	                declaracao.setIdMedico(rs.getLong("medico_id"));
+
+                    Paciente paciente = new Paciente();
+                    paciente.setIdPaciente(rs.getLong("paciente_id"));
+                    declaracao.setPaciente(paciente);
+
+                    Medico medico = new Medico();
+                    medico.setIdMedico(rs.getLong("medico_id"));
+                    declaracao.setMedico(medico);
 	                declaracao.setDataEmissao(rs.getDate("data_emissao"));
 	                declaracao.setTipoDeclaracao(rs.getString("tipo_declaracao"));
 	                declaracao.setDescricao(rs.getString("descricao"));
@@ -108,15 +120,22 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
     	StringBuilder queryBuilder = new StringBuilder("UPDATE declaracao SET ");
         boolean adicionouCampo = false;
 
-        if (declaracao.getIdPaciente() != null) {
-            queryBuilder.append("paciente_id = ?");
-            adicionouCampo = true;
+        if(declaracao.getPaciente() != null){
+            if (declaracao.getPaciente().getIdPaciente() != null) {
+                queryBuilder.append("paciente_id = ?");
+                adicionouCampo = true;
+            }
         }
-        if (declaracao.getIdMedico() != null) {
-            if (adicionouCampo) queryBuilder.append(", ");
-            queryBuilder.append("medico_id = ?");
-            adicionouCampo = true;
+
+        if(declaracao.getMedico() != null){
+            if (declaracao.getMedico().getIdMedico() != null) {
+                if (adicionouCampo) queryBuilder.append(", ");
+                queryBuilder.append("medico_id = ?");
+                adicionouCampo = true;
+            }
         }
+
+
         if (declaracao.getDataEmissao() != null) {
             if (adicionouCampo) queryBuilder.append(", ");
             queryBuilder.append("data_emissao = ?");
@@ -151,12 +170,18 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 
             int index = 1;
 
-            if (declaracao.getIdPaciente() != null) {
-                preparedStatement.setLong(index++, declaracao.getIdPaciente());
+            if(declaracao.getPaciente() != null){
+                if (declaracao.getPaciente().getIdPaciente() != null) {
+                    preparedStatement.setLong(index++, declaracao.getPaciente().getIdPaciente());
+                }
             }
-            if (declaracao.getIdMedico() != null) {
-                preparedStatement.setLong(index++, declaracao.getIdMedico());
+
+            if(declaracao.getMedico() != null){
+                if (declaracao.getMedico().getIdMedico() != null) {
+                    preparedStatement.setLong(index++, declaracao.getMedico().getIdMedico());
+                }
             }
+
             if (declaracao.getDataEmissao() != null) {
                 preparedStatement.setDate(index++, declaracao.getDataEmissao());
             }
@@ -195,5 +220,5 @@ public class DeclaracaoRepository implements BaseRepository<Declaracao, Long> {
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar declaracao: " + e.getMessage());
 	        }
-     }
+    }
 }

@@ -5,9 +5,7 @@ import java.sql.Date;
 public class Agendamento {
 
     private Long idAgendamento;
-    private Long idPaciente;
     private Paciente paciente;
-    private Long idMedico;
     private Medico medico;
     private Date dataConsulta;
     private String Status;
@@ -52,19 +50,4 @@ public class Agendamento {
         Status = status;
     }
 
-    public Long getIdPaciente() {
-        return idPaciente;
-    }
-
-    public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
-    }
-
-    public Long getIdMedico() {
-        return idMedico;
-    }
-
-    public void setIdMedico(Long idMedico) {
-        this.idMedico = idMedico;
-    }
 }
