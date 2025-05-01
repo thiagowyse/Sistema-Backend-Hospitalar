@@ -5,9 +5,7 @@ import java.sql.Date;
 public class Atestado {
 
     private Long idAtestado;
-    private Long idPaciente;
     private Paciente paciente;
-    private Long idMedico;
     private Medico medico;
     private Date dataEmissao;
     private Date dataValidade;
@@ -70,17 +68,5 @@ public class Atestado {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-	public Long getIdPaciente() {
-		return idPaciente;
-	}
-	public void setIdPaciente(Long idPaciente) {
-		this.idPaciente = idPaciente;
-	}
-	public Long getIdMedico() {
-		return idMedico;
-	}
-	public void setIdMedico(Long idMedico) {
-		this.idMedico = idMedico;
-	}
 
 }
