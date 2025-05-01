@@ -55,17 +55,8 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
         Gson gson = new Gson();
 
         List<Agendamento> listAgendamento = agendamentoService.listarTodosAgendamentos();
-        List<Agendamento> resposta = new ArrayList<>();
 
-        for(Agendamento agendamento : listAgendamento){
-            Paciente paciente = pacienteService.buscarPacientePorId(agendamento.getIdPaciente());
-            agendamento.setPaciente(paciente);
-            Medico medico = medicoService.buscarMedicoPorId(agendamento.getIdPaciente());
-            agendamento.setMedico(medico);
-            resposta.add(agendamento);
-        }
-
-        String response = gson.toJson(resposta);
+        String response = gson.toJson(listAgendamento);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 

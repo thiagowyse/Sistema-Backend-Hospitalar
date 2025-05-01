@@ -1,7 +1,6 @@
 package com.projeto.repository;
 
 import com.projeto.model.Enfermeiro;
-import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;

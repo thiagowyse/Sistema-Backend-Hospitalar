@@ -1,8 +1,12 @@
 package com.projeto.service.logusuarioservice;
 
 import com.projeto.model.LogUsuario;
+import com.projeto.model.Usuario;
 import com.projeto.repository.LogUsuarioRepository;
+import com.projeto.repository.UsuarioRepository;
+import com.projeto.service.usuarioservice.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogUsuarioService implements ILogUsuarioService{
@@ -13,6 +17,9 @@ public class LogUsuarioService implements ILogUsuarioService{
         this.logUsuarioRepository = logUsuarioRepository;
     }
 
+    UsuarioRepository usuarioRepository = new UsuarioRepository();
+    UsuarioService usuarioService = new UsuarioService(usuarioRepository);
+
     @Override
     public LogUsuario inserirLogUsuario(LogUsuario logUsuario) {
         return logUsuarioRepository.insert(logUsuario);
@@ -20,12 +27,22 @@ public class LogUsuarioService implements ILogUsuarioService{
 
     @Override
     public LogUsuario buscarLogUsuarioPorId(Long id) {
-        return logUsuarioRepository.findById(id);
+        LogUsuario logUsuario = logUsuarioRepository.findById(id);
+        Usuario usuario = usuarioService.buscarUsuarioPorId(logUsuario.getUsuario().getIdUsuario());
+        logUsuario.setUsuario(usuario);
+        return  logUsuario;
     }
 
     @Override
     public List<LogUsuario> listarTodosLogsUsuarios() {
-        return logUsuarioRepository.findAll();
+        List<LogUsuario> logUsuarios = logUsuarioRepository.findAll();
+        List<LogUsuario> resposta = new ArrayList<>();
+        for(LogUsuario logUsuario : logUsuarios){
+            Usuario usuario = usuarioService.buscarUsuarioPorId(logUsuario.getUsuario().getIdUsuario());
+            logUsuario.setUsuario(usuario);
+            resposta.add(logUsuario);
+        }
+        return resposta;
     }
 
     @Override

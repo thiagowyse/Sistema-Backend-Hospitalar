@@ -1,17 +1,24 @@
 package com.projeto.service.medicoservice;
 
 import com.projeto.model.Medico;
+import com.projeto.model.Usuario;
 import com.projeto.repository.MedicoRepository;
+import com.projeto.repository.UsuarioRepository;
+import com.projeto.service.usuarioservice.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicoService implements IMedicoService{
 
-    private MedicoRepository medicoRepository;
+    private final MedicoRepository medicoRepository;
 
     public MedicoService(MedicoRepository medicoRepository) {
         this.medicoRepository = medicoRepository;
     }
+
+    private final UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final UsuarioService usuarioService = new UsuarioService(usuarioRepository);
 
     @Override
     public Medico inserirMedico(Medico medico) {
@@ -20,12 +27,23 @@ public class MedicoService implements IMedicoService{
 
     @Override
     public Medico buscarMedicoPorId(Long id) {
-        return medicoRepository.findById(id);
+        Medico medico = medicoRepository.findById(id);
+        Usuario usuario = usuarioService.buscarUsuarioPorId(medico.getUsuario().getIdUsuario());
+        medico.setUsuario(usuario);
+        return medico;
     }
 
     @Override
     public List<Medico> listarTodosMedicos() {
-        return medicoRepository.findAll();
+        List<Medico> medicos = medicoRepository.findAll();
+        List<Medico> resposta = new ArrayList<>();
+        for(Medico medico : medicos){
+            Usuario usuario = usuarioService.buscarUsuarioPorId(medico.getIdMedico());
+            medico.setUsuario(usuario);
+            resposta.add(medico);
+        }
+
+        return resposta;
     }
 
     @Override

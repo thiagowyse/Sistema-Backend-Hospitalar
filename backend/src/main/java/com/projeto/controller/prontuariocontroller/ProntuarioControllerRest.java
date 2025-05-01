@@ -79,13 +79,14 @@ public class ProntuarioControllerRest extends RootController implements IProntua
             return;
         }
 
-        Perfil perfil = perfilService.buscarPerfilPorId(id);
-        if (perfil == null) {
-            sendResponse(exchange, "Perfil não encontrado", 404);
+        Prontuario prontuario = prontuarioService.buscarProntuarioPorId(id);
+
+        if (prontuario == null) {
+            sendResponse(exchange, "Prontuario não encontrado", 404);
             return;
         }
 
-        String response = gson.toJson(perfil);
+        String response = gson.toJson(prontuario);
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         sendResponse(exchange, response, 200);
 
@@ -93,16 +94,33 @@ public class ProntuarioControllerRest extends RootController implements IProntua
 
     @Override
     public void update(HttpExchange exchange) throws IOException {
+        Gson gson = new Gson();
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        String body = new String(exchange.getRequestBody().readAllBytes());
 
+        Prontuario prontuario = gson.fromJson(body, Prontuario.class);
+        prontuario.setIdProntuario(id);
+        prontuarioService.atualizarProntuario(prontuario);
+
+        sendResponse(exchange, "Prontuario atualizado com sucesso", 200);
     }
 
     @Override
     public void delete(HttpExchange exchange) throws IOException {
+
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        prontuarioService.removerProntuario(id);
+        sendResponse(exchange, "Prontuario deletado com sucesso", 200);
 
     }
 
     @Override
     public void save(HttpExchange exchange) throws IOException {
 
+    }
+
+    private Long extractIdFromPath(String path) {
+        String[] parts = path.split("/");
+        return Long.parseLong(parts[parts.length - 1]);
     }
 }

@@ -87,7 +87,7 @@ public enum ApiRotas {
 
     //Rotas Medico
     MEDICO("/medico"),
-    MEDICO_CREATE("/medico/create"),
+    MEDICO_SAVE("/medico/save"),
     MEDICO_FIND_BY_ID("/medico/findById"),
     MEDICO_FIND_BY_FILTER("/medico/findByFilter"),
     MEDICO_FIND_ALL("/medico/findAll"),
@@ -126,7 +126,7 @@ public enum ApiRotas {
 
     //Rotas Receita
     RECEITA("/receita"),
-    RECEITA_CREATE("/receita/create"),
+    RECEITA_SAVE("/receita/save"),
     RECEITA_FIND_BY_ID("/receita/findById"),
     RECEITA_FIND_BY_FILTER("/receita/findByFilter"),
     RECEITA_FIND_ALL("/receita/findAll"),
@@ -145,7 +145,7 @@ public enum ApiRotas {
 
     //Rotas Recepcionista
     RECEPCIONISTA("/recepcionista"),
-    RECEPCIONISTA_CREATE("/recepcionista/create"),
+    RECEPCIONISTA_SAVE("/recepcionista/create"),
     RECEPCIONISTA_FIND_ALL("/recepcionista/findAll"),
     RECEPCIONISTA_FIND_BY_ID("/recepcionista/findById"),
     RECEPCIONISTA_FIND_BY_FILTER("/recepcionista/findByFilter"),
@@ -156,7 +156,7 @@ public enum ApiRotas {
     //Rotas Usuario
     USUARIO("/usuario"),
     USUARIO_AUTHENTICATOR("/usuario/authenticator"),
-    USUARIO_CREATE("/usuario/create"),
+    USUARIO_SAVE("/usuario/save"),
     USUARIO_FIND_BY_ID("/usuario/findById"),
     USUARIO_FIND_BY_FILTER("/usuario/findByFilter"),
     USUARIO_FIND_ALL("/usuario/findAll"),

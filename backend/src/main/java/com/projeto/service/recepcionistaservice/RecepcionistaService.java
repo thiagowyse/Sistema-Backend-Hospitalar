@@ -1,13 +1,20 @@
 package com.projeto.service.recepcionistaservice;
 
 import com.projeto.model.Recepcionista;
+import com.projeto.model.Usuario;
 import com.projeto.repository.RecepcionistaRepository;
+import com.projeto.repository.UsuarioRepository;
+import com.projeto.service.usuarioservice.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecepcionistaService implements IRecepcionistaService{
 
     private final RecepcionistaRepository recepcionistaRepository;
+
+    private final UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final UsuarioService usuarioService = new UsuarioService(usuarioRepository);
 
     public RecepcionistaService(RecepcionistaRepository recepcionistaRepository) {
         this.recepcionistaRepository = recepcionistaRepository;
@@ -20,12 +27,23 @@ public class RecepcionistaService implements IRecepcionistaService{
 
     @Override
     public Recepcionista buscarRecepcionistaPorId(Long id) {
-        return recepcionistaRepository.findById(id);
+        Recepcionista recepcionista = recepcionistaRepository.findById(id);
+        Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getUsuario().getIdUsuario());
+        recepcionista.setUsuario(usuario);
+        return recepcionista;
     }
 
     @Override
     public List<Recepcionista> listarTodosRecepcionistas() {
-        return recepcionistaRepository.findAll();
+        List<Recepcionista> recepcionistas = recepcionistaRepository.findAll();
+        List<Recepcionista> resposta = new ArrayList<>();
+
+        for(Recepcionista recepcionista : recepcionistas){
+            Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getUsuario().getIdUsuario());
+            recepcionista.setUsuario(usuario);
+            resposta.add(recepcionista);
+        }
+        return resposta;
     }
 
     @Override
