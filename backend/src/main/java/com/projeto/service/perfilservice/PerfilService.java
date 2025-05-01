@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PerfilService implements IPerfilService {
 
-    private PerfilRepository perfilRepository;
+    private final PerfilRepository perfilRepository;
 
     public PerfilService(PerfilRepository perfilRepository){
         this.perfilRepository = perfilRepository;

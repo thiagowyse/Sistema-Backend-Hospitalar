@@ -97,7 +97,7 @@ public enum ApiRotas {
 
     //Rotas Paciente
     PACIENTE("/paciente"),
-    PACIENTE_CREATE("/paciente/create"),
+    PACIENTE_SAVE("/paciente/save"),
     PACIENTE_FIND_BY_ID("/paciente/findById"),
     PACIENTE_FIND_BY_FILTER("/paciente/findByFilter"),
     PACIENTE_FIND_ALL("/paciente/findAll"),
@@ -106,7 +106,7 @@ public enum ApiRotas {
 
     //Rotas Perfil
     PERFIL("/perfil"),
-    PERFIL_CREATE("/perfil/create"),
+    PERFIL_SAVE("/perfil/save"),
     PERFIL_FIND_BY_ID("/perfil/findById"),
     PERFIL_FIND_BY_FILTER("/perfil/findByFilter"),
     PERFIL_FIND_ALL("/perfil/findAll"),
@@ -116,7 +116,7 @@ public enum ApiRotas {
 
     //Rotas Prontuario
     PRONTUARIO("/prontuario"),
-    PRONTUARIO_CREATE("/prontuario/create"),
+    PRONTUARIO_SAVE("/prontuario/save"),
     PRONTUARIO_FIND_BY_ID("/prontuario/findById"),
     PRONTUARIO_FIND_BY_FILTER("/prontuario/findByFilter"),
     PRONTUARIO_FIND_ALL("/prontuario/findAll"),

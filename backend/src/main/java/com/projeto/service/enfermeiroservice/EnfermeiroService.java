@@ -1,8 +1,12 @@
 package com.projeto.service.enfermeiroservice;
 
 import com.projeto.model.Enfermeiro;
+import com.projeto.model.Usuario;
 import com.projeto.repository.EnfermeiroRepository;
+import com.projeto.repository.UsuarioRepository;
+import com.projeto.service.usuarioservice.UsuarioService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EnfermeiroService implements IEnfermeiroService{
@@ -13,6 +17,9 @@ public class EnfermeiroService implements IEnfermeiroService{
         this.enfermeiroRepository = enfermeiroRepository;
     }
 
+    private final UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final UsuarioService usuarioService = new UsuarioService(usuarioRepository);
+
     @Override
     public Enfermeiro inserirEnfermeiro(Enfermeiro enfermeiro) {
         return enfermeiroRepository.insert(enfermeiro);
@@ -20,12 +27,22 @@ public class EnfermeiroService implements IEnfermeiroService{
 
     @Override
     public Enfermeiro buscarEnfermeiroPorId(Long id) {
-        return enfermeiroRepository.findById(id);
+        Enfermeiro enfermeiro = enfermeiroRepository.findById(id);
+        Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getUsuario().getIdUsuario());
+        enfermeiro.setUsuario(usuario);
+        return enfermeiro;
     }
 
     @Override
     public List<Enfermeiro> listarTodosEnfermeiros() {
-        return enfermeiroRepository.findAll();
+        List<Enfermeiro> enfermeiros = enfermeiroRepository.findAll();
+        List<Enfermeiro> resposta = new ArrayList<>();
+        for(Enfermeiro enfermeiro : enfermeiros){
+            Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getUsuario().getIdUsuario());
+            enfermeiro.setUsuario(usuario);
+            resposta.add(enfermeiro);
+        }
+        return resposta;
     }
 
     @Override

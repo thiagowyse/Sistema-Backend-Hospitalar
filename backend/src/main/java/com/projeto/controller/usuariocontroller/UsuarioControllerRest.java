@@ -37,6 +37,8 @@ public class UsuarioControllerRest extends RootController implements IUsuarioCon
         if (method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.USUARIO_FIND_ALL.getPath())) {
             findAll(exchange);
         }
+
+
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.projeto.controller.prontuariocontroller;
 import com.google.gson.Gson;
 import com.projeto.enums.ApiRotas;
 import com.projeto.enums.HttpMethod;
+import com.projeto.model.Perfil;
 import com.projeto.model.Prontuario;
 import com.projeto.repository.ProntuarioRepository;
 import com.projeto.server.RootController;
@@ -22,13 +23,29 @@ public class ProntuarioControllerRest extends RootController implements IProntua
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
 
+        // Habilitar CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
+
         if(method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.PRONTUARIO_FIND_ALL.getPath())){
             findAll(exchange);
+        } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.PRONTUARIO_FIND_BY_ID.getPath())) {
+            findById(exchange);
+        } else if (method.equals(HttpMethod.POST.getMethod()) && path.equals(ApiRotas.PRONTUARIO_SAVE.getPath())) {
+            save(exchange);
+        } else if (method.equals(HttpMethod.PUT.getMethod()) && path.matches(ApiRotas.PRONTUARIO_UPDATE.getPath())) {
+            update(exchange);
+        } else if (method.equals(HttpMethod.DELETE.getMethod()) && path.matches(ApiRotas.PRONTUARIO_DELETE.getPath())) {
+            delete(exchange);
+        } else {
+            sendResponse(exchange, "Rota não encontrada", 404);
         }
     }
 
     @Override
     public void findAll(HttpExchange exchange) throws IOException {
+
         Gson gson = new Gson();
 
         List<Prontuario> resposta = prontuarioService.listarTodosProntuarios();
@@ -38,5 +55,54 @@ public class ProntuarioControllerRest extends RootController implements IProntua
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 
         sendResponse(exchange,response, 200);
+    }
+
+    @Override
+    public void findById(HttpExchange exchange) throws IOException {
+        Gson gson = new Gson();
+
+        String query = exchange.getRequestURI().getQuery();
+        Long id = null;
+
+        if (query != null && query.contains("id=")) {
+            String[] params = query.split("&");
+            for (String param : params) {
+                if (param.startsWith("id=")) {
+                    id = Long.parseLong(param.split("=")[1]);
+                    break;
+                }
+            }
+        }
+
+        if (id == null) {
+            sendResponse(exchange, "Parâmetro 'id' é obrigatório", 400);
+            return;
+        }
+
+        Perfil perfil = perfilService.buscarPerfilPorId(id);
+        if (perfil == null) {
+            sendResponse(exchange, "Perfil não encontrado", 404);
+            return;
+        }
+
+        String response = gson.toJson(perfil);
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        sendResponse(exchange, response, 200);
+
+    }
+
+    @Override
+    public void update(HttpExchange exchange) throws IOException {
+
+    }
+
+    @Override
+    public void delete(HttpExchange exchange) throws IOException {
+
+    }
+
+    @Override
+    public void save(HttpExchange exchange) throws IOException {
+
     }
 }
