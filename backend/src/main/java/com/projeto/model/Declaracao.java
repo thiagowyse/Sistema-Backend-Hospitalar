@@ -5,8 +5,6 @@ import java.sql.Date;
 public class Declaracao {
 
     private Long idDeclaracao;
-    private Long idPaciente;
-    private Long idMedico;
     private Paciente paciente;
     private String tipoDeclaracao;
     private Medico medico;
@@ -38,21 +36,6 @@ public class Declaracao {
         this.medico = medico;
     }
 
-    public Long getIdPaciente() {
-		return idPaciente;
-	}
-
-	public void setIdPaciente(Long idPaciente) {
-		this.idPaciente = idPaciente;
-	}
-
-	public Long getIdMedico() {
-		return idMedico;
-	}
-
-	public void setIdMedico(Long idMedico) {
-		this.idMedico = idMedico;
-	}
 
 	public String getTipoDeclaracao() {
 		return tipoDeclaracao;

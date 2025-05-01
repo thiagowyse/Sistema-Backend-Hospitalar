@@ -1,5 +1,7 @@
 package com.projeto.repository;
 
+import com.projeto.model.Medico;
+import com.projeto.model.Paciente;
 import com.projeto.model.Prontuario;
 import com.projeto.util.DataBaseConnection;
 
@@ -19,8 +21,8 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, prontuario.getIdPaciente());
-			stmt.setLong(2, prontuario.getIdMedico());
+			stmt.setLong(1, prontuario.getPaciente().getIdPaciente());
+			stmt.setLong(2, prontuario.getMedico().getIdMedico());
 			stmt.setString(3, prontuario.getDescricao());
 			stmt.setDate(4, prontuario.getDataCriacao());
 
@@ -51,9 +53,16 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
+				prontuario = new Prontuario();
 				prontuario.setIdProntuario(rs.getLong("id"));
-				prontuario.setIdPaciente(rs.getLong("paciente_id"));
-				prontuario.setIdMedico(rs.getLong("medico_id"));
+
+				Paciente paciente = new Paciente();
+				paciente.setIdPaciente(rs.getLong("paciente_id"));
+				prontuario.setPaciente(paciente);
+
+				Medico medico = new Medico();
+				medico.setIdMedico(rs.getLong("medico_id"));
+				prontuario.setMedico(medico);
 				prontuario.setDescricao(rs.getString("descricao"));
 				prontuario.setDataCriacao(rs.getDate("data_criacao"));
 
@@ -64,7 +73,7 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 			System.err.println("Erro ao buscar prontuario: " + e.getMessage());
 
 		}
-		return null;
+		return prontuario;
 	}
 
 	@Override
@@ -80,8 +89,15 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 			while (rs.next()) {
 				prontuario = new Prontuario();
 				prontuario.setIdProntuario(rs.getLong("id"));
-				prontuario.setIdPaciente(rs.getLong("paciente_id"));
-				prontuario.setIdMedico(rs.getLong("medico_id"));
+
+				Paciente paciente = new Paciente();
+				paciente.setIdPaciente(rs.getLong("paciente_id"));
+				prontuario.setPaciente(paciente);
+
+				Medico medico = new Medico();
+				medico.setIdMedico(rs.getLong("medico_id"));
+				prontuario.setMedico(medico);
+				
 				prontuario.setDescricao(rs.getString("descricao"));
 				prontuario.setDataCriacao(rs.getDate("data_criacao"));
 				prontuarios.add(prontuario);
@@ -98,16 +114,25 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 		StringBuilder queryBuilder = new StringBuilder("UPDATE prontuario SET ");
 		boolean adicionouCampo = false;
 
-		if (prontuario.getIdPaciente() != null) {
-			queryBuilder.append("paciente_id = ?");
-			adicionouCampo = true;
+
+		if(prontuario.getPaciente() != null){
+			if(prontuario.getPaciente().getIdPaciente() != null){
+				queryBuilder.append("paciente_id = ?");
+				adicionouCampo = true;
+			}
 		}
-		if (prontuario.getIdMedico() != null) {
-			if (adicionouCampo)
-				queryBuilder.append(", ");
-			queryBuilder.append("medico_id = ?");
-			adicionouCampo = true;
+
+
+		if(prontuario.getMedico() != null){
+			if(prontuario.getMedico().getIdMedico() != null){
+				if (adicionouCampo)
+					queryBuilder.append(", ");
+				queryBuilder.append("medico_id = ?");
+				adicionouCampo = true;
+			}
 		}
+
+
 		if (prontuario.getDescricao() != null) {
 			if (adicionouCampo)
 				queryBuilder.append(", ");
@@ -134,12 +159,18 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 
 			int index = 1;
 
-			if (prontuario.getIdPaciente() != null) {
-				preparedStatement.setLong(index++, prontuario.getIdPaciente());
+			if(prontuario.getPaciente() != null){
+				if(prontuario.getPaciente().getIdPaciente() != null){
+					preparedStatement.setLong(index++, prontuario.getPaciente().getIdPaciente());
+				}
 			}
-			if (prontuario.getIdMedico() != null) {
-				preparedStatement.setLong(index++, prontuario.getIdMedico());
+
+			if(prontuario.getMedico() != null){
+				if(prontuario.getMedico().getIdMedico() != null){
+					preparedStatement.setLong(index++, prontuario.getMedico().getIdMedico());
+				}
 			}
+
 			if (prontuario.getDescricao() != null) {
 				preparedStatement.setString(index++, prontuario.getDescricao());
 			}

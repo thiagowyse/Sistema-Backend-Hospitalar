@@ -5,7 +5,6 @@ import java.sql.Date;
 public class LogUsuario {
 
     private Long idLogUsuario;
-    private Long idUsuario;
     private Usuario usuario;
     private String acao;
     private Date dataHora;
@@ -38,12 +37,6 @@ public class LogUsuario {
         return acao;
     }
 
-    public Long getIdUsuario() {
-		return idUsuario;
-	}
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
-	}
 	public void setAcao(String acao) {
         this.acao = acao;
     }

@@ -8,7 +8,6 @@ public class Usuario {
     private String email;
     private String senha;
     private String cpf;
-    private Long idPerfil;
     private Perfil perfil;
 
     public Long getIdUsuario() {
@@ -59,13 +58,6 @@ public class Usuario {
         this.email = email;
     }
 
-    public Long getIdPerfil() {
-        return idPerfil;
-    }
-
-    public void setIdPerfil(Long idPerfil) {
-        this.idPerfil = idPerfil;
-    }
 
     public String getCpf() {
         return cpf;

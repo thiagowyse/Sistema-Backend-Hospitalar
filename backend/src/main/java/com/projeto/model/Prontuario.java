@@ -6,9 +6,7 @@ import java.sql.Date;
 public class Prontuario {
 
     private Long idProntuario;
-    private Long idPaciente;
     private Paciente paciente;
-    private Long idMedico;
     private Medico medico;
     private String descricao;
     private Date dataCriacao;
@@ -73,21 +71,6 @@ public class Prontuario {
         this.exames = exames;
     }
 
-	public Long getIdPaciente() {
-		return idPaciente;
-	}
-
-	public void setIdPaciente(Long idPaciente) {
-		this.idPaciente = idPaciente;
-	}
-
-	public Long getIdMedico() {
-		return idMedico;
-	}
-
-	public void setIdMedico(Long idMedico) {
-		this.idMedico = idMedico;
-	}
 
 	public Date getDataCriacao() {
 		return dataCriacao;

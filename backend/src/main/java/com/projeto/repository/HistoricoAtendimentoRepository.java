@@ -1,6 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.HistoricoAtendimento;
+import com.projeto.model.Medico;
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -20,8 +22,8 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, historicoAtendimento.getIdPaciente());
-			stmt.setLong(2, historicoAtendimento.getIdMedico());
+			stmt.setLong(1, historicoAtendimento.getPaciente().getIdPaciente());
+			stmt.setLong(2, historicoAtendimento.getMedico().getIdMedico());
 			stmt.setString(3, historicoAtendimento.getDescricao());
 			stmt.setDate(4, historicoAtendimento.getDataAtendimento());
 
@@ -43,7 +45,7 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
 	@Override
 	public HistoricoAtendimento findById(Long id) {
 		String sql = "SELECT * FROM historico_atendimento WHERE id = ?";
-		HistoricoAtendimento historicoAtendimento = new HistoricoAtendimento();
+		HistoricoAtendimento historicoAtendimento;
 
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -52,9 +54,16 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
+				historicoAtendimento = new HistoricoAtendimento();
 				historicoAtendimento.setIdHistoricoAtendimento(rs.getLong("id"));
-				historicoAtendimento.setIdPaciente(rs.getLong("paciente_id"));
-				historicoAtendimento.setIdMedico(rs.getLong("medico_id"));
+
+				Paciente paciente = new Paciente();
+				paciente.setIdPaciente(rs.getLong("paciente_id"));
+				historicoAtendimento.setPaciente(paciente);
+
+				Medico medico = new Medico();
+				medico.setIdMedico(rs.getLong("medico_id"));
+				historicoAtendimento.setMedico(medico);
 				historicoAtendimento.setDescricao(rs.getString("descricao"));
 				historicoAtendimento.setDataAtendimento(rs.getDate("data_atendimento"));
 				return historicoAtendimento;
@@ -78,10 +87,16 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-            	historicoAtendimento=new HistoricoAtendimento();
+            	historicoAtendimento = new HistoricoAtendimento();
             	historicoAtendimento.setIdHistoricoAtendimento(rs.getLong("id"));
-				historicoAtendimento.setIdPaciente(rs.getLong("paciente_id"));
-				historicoAtendimento.setIdMedico(rs.getLong("medico_id"));
+
+				Paciente paciente = new Paciente();
+				paciente.setIdPaciente(rs.getLong("paciente_id"));
+				historicoAtendimento.setPaciente(paciente);
+
+				Medico medico = new Medico();
+				medico.setIdMedico(rs.getLong("medico_id"));
+				historicoAtendimento.setMedico(medico);
 				historicoAtendimento.setDescricao(rs.getString("descricao"));
 				historicoAtendimento.setDataAtendimento(rs.getDate("data_atendimento"));
                 historicosAtendimento.add(historicoAtendimento);
@@ -98,15 +113,21 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
 		StringBuilder queryBuilder = new StringBuilder("UPDATE historico_atendimento SET ");
         boolean adicionouCampo = false;
 
-        if (historicoAtendimento.getIdPaciente()!= null) {
-            queryBuilder.append("paciente_id = ?");
-            adicionouCampo = true;
-        }
-        if (historicoAtendimento.getIdMedico() != null) {
-            if (adicionouCampo) queryBuilder.append(", ");
-            queryBuilder.append("medico_id = ?");
-            adicionouCampo = true;
-        }
+		if(historicoAtendimento.getPaciente() != null){
+			if(historicoAtendimento.getPaciente().getIdPaciente() != null){
+				queryBuilder.append("paciente_id = ?");
+				adicionouCampo = true;
+			}
+		}
+
+		if(historicoAtendimento.getMedico() != null){
+			if(historicoAtendimento.getMedico().getIdMedico() != null){
+				if (adicionouCampo) queryBuilder.append(", ");
+				queryBuilder.append("medico_id = ?");
+				adicionouCampo = true;
+			}
+		}
+
         if (historicoAtendimento.getDescricao() != null) {
             if (adicionouCampo) queryBuilder.append(", ");
             queryBuilder.append("descricao = ?");
@@ -131,12 +152,18 @@ public class HistoricoAtendimentoRepository implements BaseRepository<HistoricoA
 
             int index = 1;
 
-            if (historicoAtendimento.getIdPaciente() != null) {
-                preparedStatement.setLong(index++, historicoAtendimento.getIdPaciente());
-            }
-            if (historicoAtendimento.getIdMedico() != null) {
-                preparedStatement.setLong(index++, historicoAtendimento.getIdMedico());
-            }
+			if(historicoAtendimento.getPaciente() != null){
+				if(historicoAtendimento.getPaciente().getIdPaciente() != null){
+					preparedStatement.setLong(index++, historicoAtendimento.getPaciente().getIdPaciente());
+				}
+			}
+
+			if(historicoAtendimento.getMedico() != null){
+				if(historicoAtendimento.getMedico().getIdMedico() != null){
+					preparedStatement.setLong(index++, historicoAtendimento.getMedico().getIdMedico());
+				}
+			}
+
             if (historicoAtendimento.getDescricao() != null) {
                 preparedStatement.setString(index++, historicoAtendimento.getDescricao());
             }

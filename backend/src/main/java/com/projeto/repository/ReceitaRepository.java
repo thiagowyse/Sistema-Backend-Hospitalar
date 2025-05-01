@@ -1,5 +1,6 @@
 package com.projeto.repository;
 
+import com.projeto.model.Prontuario;
 import com.projeto.model.Receita;
 import com.projeto.util.DataBaseConnection;
 
@@ -21,7 +22,7 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, receita.getProntuarioId());
+			stmt.setLong(1, receita.getProntuario().getIdProntuario());
 			stmt.setDate(2, receita.getDataReceita());
 			stmt.setDate(3, receita.getValidade());
 			stmt.setString(4, receita.getDescricao());
@@ -55,8 +56,13 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+				receita = new Receita();
+
                 receita.setIdReceita(rs.getLong("id"));
-                receita.setProntuarioId(rs.getLong("prontuario_id"));
+
+				Prontuario prontuario = new Prontuario();
+				prontuario.setIdProntuario(rs.getLong("prontuario_id"));
+                receita.setProntuario(prontuario);
                 receita.setDataReceita(rs.getDate("data_receita"));
                 receita.setValidade(rs.getDate("validade"));
                 receita.setDescricao(rs.getString("descricao"));
@@ -68,7 +74,7 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
             System.err.println("Erro ao buscar receita: " + e.getMessage());
 
         }
-        return null;
+        return receita;
     }
 
     @Override
@@ -82,9 +88,12 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-            	receita= new Receita();
+            	receita = new Receita();
             	receita.setIdReceita(rs.getLong("id"));
-                receita.setProntuarioId(rs.getLong("prontuario_id"));
+
+				Prontuario prontuario = new Prontuario();
+				prontuario.setIdProntuario(rs.getLong("prontuario_id"));
+				receita.setProntuario(prontuario);
                 receita.setDataReceita(rs.getDate("data_receita"));
                 receita.setValidade(rs.getDate("validade"));
                 receita.setDescricao(rs.getString("descricao"));
@@ -103,10 +112,13 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
     	 StringBuilder queryBuilder = new StringBuilder("UPDATE receita SET ");
 	        boolean adicionouCampo = false;
 
-	        if (receita.getProntuarioId() != null) {
-	            queryBuilder.append("prontuario_id = ?");
-	            adicionouCampo = true;
-	        }
+			if(receita.getProntuario() != null){
+				if(receita.getProntuario().getIdProntuario() != null){
+					queryBuilder.append("prontuario_id = ?");
+					adicionouCampo = true;
+				}
+			}
+
 	        if (receita.getDataReceita() != null) {
 	            if (adicionouCampo) queryBuilder.append(", ");
 	            queryBuilder.append("data_receita = ?");
@@ -141,9 +153,12 @@ public class ReceitaRepository implements BaseRepository<Receita, Long> {
 
 	            int index = 1;
 
-	            if (receita.getProntuarioId() != null) {
-	                preparedStatement.setLong(index++, receita.getProntuarioId());
-	            }
+				if(receita.getProntuario() != null){
+					if(receita.getProntuario().getIdProntuario() != null){
+						preparedStatement.setLong(index++, receita.getProntuario().getIdProntuario());
+					}
+				}
+
 	            if (receita.getDataReceita() != null) {
 	                preparedStatement.setDate(index++, receita.getDataReceita());
 	            }

@@ -5,8 +5,6 @@ import java.sql.Date;
 public class HistoricoAtendimento {
 
     private Long idHistoricoAtendimento;
-    private Long idPaciente;
-    private Long idMedico;
     private Paciente paciente;
     private Medico medico;
     private String descricao;
@@ -44,22 +42,6 @@ public class HistoricoAtendimento {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
-
-    public Long getIdPaciente() {
-		return idPaciente;
-	}
-
-	public void setIdPaciente(Long idPaciente) {
-		this.idPaciente = idPaciente;
-	}
-
-	public Long getIdMedico() {
-		return idMedico;
-	}
-
-	public void setIdMedico(Long idMedico) {
-		this.idMedico = idMedico;
-	}
 
 	public String getDescricao() {
         return descricao;

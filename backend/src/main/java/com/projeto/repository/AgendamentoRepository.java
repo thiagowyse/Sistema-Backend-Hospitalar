@@ -1,6 +1,7 @@
 package com.projeto.repository;
 
 import com.projeto.model.Agendamento;
+import com.projeto.model.Medico;
 import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
@@ -19,21 +20,23 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 
         String query = "INSERT INTO agendamento (paciente_id, medico_id, data_consulta, status) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = DataBaseConnection.getConnection();
-           PreparedStatement preparedStatement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS)) {
-           preparedStatement.setLong(1, agendamento.getIdPaciente());
-           preparedStatement.setLong(2,agendamento.getIdMedico());
-           preparedStatement.setDate(3, agendamento.getDataConsulta());
-           preparedStatement.setString(4, agendamento.getStatus());
-           preparedStatement.executeUpdate();
-           System.out.println("Agendamento inserido com sucesso.");
+        try (Connection connection = DataBaseConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS)) {
+               preparedStatement.setLong(1, agendamento.getPaciente().getIdPaciente());
+               preparedStatement.setLong(2,agendamento.getMedico().getIdMedico());
+               preparedStatement.setDate(3, agendamento.getDataConsulta());
+               preparedStatement.setString(4, agendamento.getStatus());
+               preparedStatement.executeUpdate();
+               System.out.println("Agendamento inserido com sucesso.");
 
-           try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	                agendamento.setIdAgendamento(generatedKeys.getLong(1));
-	            }
-	        }
+               try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        agendamento.setIdAgendamento(generatedKeys.getLong(1));
+                    }
+                }
 
+            }
         } catch (SQLException e) {
             System.err.println("Erro ao inserir Agendamento: " + e.getMessage());
         }
@@ -45,6 +48,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
     @Override
     public Agendamento findById(Long id) {
     	String sql = "SELECT * FROM agendamento WHERE id = ?";
+
         Agendamento agendamento = new Agendamento();
 
         try (Connection connection = DataBaseConnection.getConnection();
@@ -54,9 +58,18 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+				agendamento = new Agendamento();
+
             	agendamento.setIdAgendamento(rs.getLong("id"));
-            	agendamento.setIdMedico(rs.getLong("medico_id"));
-            	agendamento.setIdPaciente(rs.getLong("paciente_id"));
+
+				Medico medico = new Medico();
+				medico.setIdMedico(rs.getLong("medico_id"));
+            	agendamento.setMedico(medico);
+
+				Paciente paciente = new Paciente();
+				paciente.setIdPaciente(rs.getLong("paciente_id"));
+            	agendamento.setPaciente(paciente);
+
             	agendamento.setDataConsulta(rs.getDate("data_consulta"));
             	agendamento.setStatus(rs.getString("status"));
                 return agendamento;
@@ -66,30 +79,41 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
             System.err.println("Erro ao buscar agendamento: " + e.getMessage());
 
         }
-        return null;
+        return agendamento;
     }
 
     @Override
     public List<Agendamento> findAll() {
     	 String sql = "SELECT * FROM agendamento";
-	        Agendamento agendamento = new Agendamento();
+	        Agendamento agendamento;
+
 	        List<Agendamento> agendamentos = new ArrayList<>();
 
-	        try (Connection connection = DataBaseConnection.getConnection();
-	             PreparedStatement stmt = connection.prepareStatement(sql);
-	             ResultSet rs = stmt.executeQuery()) {
+	        try (Connection connection = DataBaseConnection.getConnection()) {
+                assert connection != null;
+                try (PreparedStatement stmt = connection.prepareStatement(sql);
+                     ResultSet rs = stmt.executeQuery()) {
 
-	            while (rs.next()) {
-	            	agendamento=new Agendamento();
-	            	agendamento.setIdAgendamento(rs.getLong("id"));
-	            	agendamento.setIdMedico(rs.getLong("medico_id"));
-	            	agendamento.setIdPaciente(rs.getLong("paciente_id"));
-	            	agendamento.setDataConsulta(rs.getDate("data_consulta"));
-	            	agendamento.setStatus(rs.getString("status"));
-	            	agendamentos.add(agendamento);
-	            }
+                    while (rs.next()) {
+                        agendamento = new Agendamento();
 
-	        } catch (SQLException e) {
+                        agendamento.setIdAgendamento(rs.getLong("id"));
+
+                        Medico medico = new Medico();
+                        medico.setIdMedico(rs.getLong("medico_id"));
+                        agendamento.setMedico(medico);
+
+                        Paciente paciente = new Paciente();
+                        paciente.setIdPaciente(rs.getLong("paciente_id"));
+                        agendamento.setPaciente(paciente);
+
+                        agendamento.setDataConsulta(rs.getDate("data_consulta"));
+                        agendamento.setStatus(rs.getString("status"));
+                        agendamentos.add(agendamento);
+                    }
+
+                }
+            } catch (SQLException e) {
 	            System.err.println("Erro ao listar agendamentos: " + e.getMessage());
 	        }
 	        return agendamentos;
@@ -100,15 +124,22 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
     	 StringBuilder queryBuilder = new StringBuilder("UPDATE agendamento SET ");
 	        boolean adicionouCampo = false;
 
-	        if (agendamento.getIdPaciente() != null) {
-	            queryBuilder.append("paciente_id = ?");
-	            adicionouCampo = true;
-	        }
-	        if (agendamento.getIdMedico() != null) {
-	            if (adicionouCampo) queryBuilder.append(", ");
-	            queryBuilder.append("medico_id = ?");
-	            adicionouCampo = true;
-	        }
+			if(agendamento.getPaciente() != null){
+				if (agendamento.getPaciente().getIdPaciente() != null) {
+					queryBuilder.append("paciente_id = ?");
+					adicionouCampo = true;
+				}
+			}
+
+			if(agendamento.getMedico() != null){
+				if (agendamento.getMedico().getIdMedico() != null) {
+					if (adicionouCampo) queryBuilder.append(", ");
+					queryBuilder.append("medico_id = ?");
+					adicionouCampo = true;
+				}
+			}
+
+
 	        if (agendamento.getDataConsulta() != null) {
 	            if (adicionouCampo) queryBuilder.append(", ");
 	            queryBuilder.append("data_consulta = ?");
@@ -133,12 +164,18 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 
 	            int index = 1;
 
-	            if (agendamento.getIdPaciente() != null) {
-	                preparedStatement.setLong(index++, agendamento.getIdPaciente());
-	            }
-	            if (agendamento.getIdMedico() != null) {
-	                preparedStatement.setLong(index++, agendamento.getIdMedico());
-	            }
+				if(agendamento.getPaciente() != null){
+					if (agendamento.getPaciente().getIdPaciente() != null) {
+						preparedStatement.setLong(index++, agendamento.getPaciente().getIdPaciente());
+					}
+				}
+
+				if(agendamento.getMedico() != null){
+					if (agendamento.getMedico().getIdMedico() != null) {
+						preparedStatement.setLong(index++, agendamento.getMedico().getIdMedico());
+					}
+				}
+
 	            if (agendamento.getDataConsulta() != null) {
 	                preparedStatement.setDate(index++, agendamento.getDataConsulta());
 	            }
@@ -161,15 +198,17 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
     public void delete(Long id) {
     	 String sql = "DELETE FROM agendamento WHERE id = ?";
 
-	        try (Connection connection = DataBaseConnection.getConnection();
-	             PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        try (Connection connection = DataBaseConnection.getConnection()) {
+                assert connection != null;
+                try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-	            stmt.setLong(1, id);
+                    stmt.setLong(1, id);
 
-	            stmt.executeUpdate();
-	            System.out.println("Agendamento deletado com sucesso.");
+                    stmt.executeUpdate();
+                    System.out.println("Agendamento deletado com sucesso.");
 
-	        } catch (SQLException e) {
+                }
+            } catch (SQLException e) {
 	            System.err.println("Erro ao deletar agendamento: " + e.getMessage());
 	        }
 	}
