@@ -25,19 +25,27 @@ public class AtestadoControllerRest extends RootController implements IAtestadoC
     AtestadoRepository atestadoRepository = new AtestadoRepository();
     AtestadoService atestadoService = new AtestadoService(atestadoRepository);
 
-    PacienteRepository pacienteRepository = new PacienteRepository();
-    PacienteService pacienteService = new PacienteService(pacienteRepository);
-
-    MedicoRepository medicoRepository = new MedicoRepository();
-    MedicoService medicoService = new MedicoService(medicoRepository);
-
-    @Override
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
 
+        // Habilitar CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
+
         if(method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.ATESTADO_FIND_ALL.getPath())){
             findAll(exchange);
+        } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.ATESTADO_FIND_BY_ID.getPath())) {
+            findById(exchange);
+        } else if (method.equals(HttpMethod.POST.getMethod()) && path.equals(ApiRotas.ATESTADO_CREATE.getPath())) {
+            save(exchange);
+        } else if (method.equals(HttpMethod.PUT.getMethod()) && path.matches(ApiRotas.ATESTADO_UPDATE.getPath())) {
+            update(exchange);
+        } else if (method.equals(HttpMethod.DELETE.getMethod()) && path.matches(ApiRotas.ATESTADO_DELETE.getPath())) {
+            delete(exchange);
+        } else {
+            sendResponse(exchange, "Rota não encontrada", 404);
         }
     }
 
@@ -45,14 +53,78 @@ public class AtestadoControllerRest extends RootController implements IAtestadoC
     public void findAll(HttpExchange exchange) throws IOException {
         Gson gson = new Gson();
 
-        List<Atestado> listAtestado = atestadoService.listarTodosAtestados();
-        List<Atestado> resposta = new ArrayList<>();
+        List<Atestado> resposta = atestadoService.listarTodosAtestados();
 
         String response = gson.toJson(resposta);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 
         sendResponse(exchange,response, 200);
+    }
 
+    @Override
+    public void findById(HttpExchange exchange) throws IOException {
+
+        Gson gson = new Gson();
+
+        String query = exchange.getRequestURI().getQuery();
+        Long id = null;
+
+        if (query != null && query.contains("id=")) {
+            String[] params = query.split("&");
+            for (String param : params) {
+                if (param.startsWith("id=")) {
+                    id = Long.parseLong(param.split("=")[1]);
+                    break;
+                }
+            }
+        }
+
+        if (id == null) {
+            sendResponse(exchange, "Parâmetro 'id' é obrigatório", 400);
+            return;
+        }
+
+        Atestado atestado = atestadoService.buscarAtestadoPorId(id);
+        if (atestado == null) {
+            sendResponse(exchange, "Atestado não encontrado", 404);
+            return;
+        }
+
+        String response = gson.toJson(atestado);
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        sendResponse(exchange, response, 200);
+    }
+
+    @Override
+    public void update(HttpExchange exchange) throws IOException {
+
+        Gson gson = new Gson();
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        String body = new String(exchange.getRequestBody().readAllBytes());
+
+        Atestado atestado = gson.fromJson(body, Atestado.class);
+        atestado.setIdAtestado(id);
+        atestadoService.atualizarAtestado(atestado);
+
+        sendResponse(exchange, "Atestado atualizado com sucesso", 200);
+    }
+
+    @Override
+    public void delete(HttpExchange exchange) throws IOException {
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        atestadoService.removerAtestado(id);
+        sendResponse(exchange, "Atestado deletado com sucesso", 200);
+
+    }
+
+    @Override
+    public void save(HttpExchange exchange) throws IOException {
+
+    }
+
+    private Long extractIdFromPath(String path) {
+        String[] parts = path.split("/");
+        return Long.parseLong(parts[parts.length - 1]);
     }
 }

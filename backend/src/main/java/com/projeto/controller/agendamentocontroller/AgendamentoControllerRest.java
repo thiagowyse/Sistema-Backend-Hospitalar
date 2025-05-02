@@ -24,16 +24,15 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
     AgendamentoRepository agendamentoRepository = new AgendamentoRepository();
     AgendamentoService agendamentoService = new AgendamentoService(agendamentoRepository);
 
-    PacienteRepository pacienteRepository = new PacienteRepository();
-    PacienteService pacienteService = new PacienteService(pacienteRepository);
-
-    MedicoRepository medicoRepository = new MedicoRepository();
-    MedicoService medicoService = new MedicoService(medicoRepository);
-
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
+
+        // Habilitar CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
 
         if(method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.AGENDAMENTO_FIND_ALL.getPath())){
             findAll(exchange);
@@ -54,9 +53,9 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
     public void findAll(HttpExchange exchange) throws IOException {
         Gson gson = new Gson();
 
-        List<Agendamento> listAgendamento = agendamentoService.listarTodosAgendamentos();
+        List<Agendamento> resposta = agendamentoService.listarTodosAgendamentos();
 
-        String response = gson.toJson(listAgendamento);
+        String response = gson.toJson(resposta);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 
@@ -65,9 +64,9 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
 
     @Override
     public void findById(HttpExchange exchange) throws IOException {
+
         Gson gson = new Gson();
 
-        // Extrai os parâmetros da query (ex: ?id=1)
         String query = exchange.getRequestURI().getQuery();
         Long id = null;
 
@@ -92,41 +91,14 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
             return;
         }
 
-//        Paciente paciente = pacienteService.buscarPacientePorId(agendamento.getIdPaciente());
-//        agendamento.setPaciente(paciente);
-//        Medico medico = medicoService.buscarMedicoPorId(agendamento.getIdMedico());
-//        agendamento.setMedico(medico);
-
         String response = gson.toJson(agendamento);
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         sendResponse(exchange, response, 200);
     }
 
     @Override
-    public void save(HttpExchange exchange) throws IOException {
-        Gson gson = new Gson();
-
-        try {
-            String body = new String(exchange.getRequestBody().readAllBytes());
-            System.out.println("[DEBUG] JSON recebido: " + body);
-
-            Agendamento agendamento = gson.fromJson(body, Agendamento.class);
-
-            agendamentoService.inserirAgendamento(agendamento);
-
-            String response = "Agendamento salvo com sucesso!";
-            exchange.getResponseHeaders().set("Content-Type", "application/json");
-            sendResponse(exchange, response, 201);
-
-        } catch (Exception e) {
-            e.printStackTrace(); // Mostra o erro no console
-            sendResponse(exchange, "Erro ao processar o agendamento: " + e.getMessage(), 400);
-        }
-    }
-
-
-    @Override
     public void update(HttpExchange exchange) throws IOException {
+
         Gson gson = new Gson();
         Long id = extractIdFromPath(exchange.getRequestURI().getPath());
         String body = new String(exchange.getRequestBody().readAllBytes());
@@ -143,6 +115,12 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
         Long id = extractIdFromPath(exchange.getRequestURI().getPath());
         agendamentoService.removerAgendamento(id);
         sendResponse(exchange, "Agendamento deletado com sucesso", 200);
+
+    }
+
+    @Override
+    public void save(HttpExchange exchange) throws IOException {
+
     }
 
     private Long extractIdFromPath(String path) {

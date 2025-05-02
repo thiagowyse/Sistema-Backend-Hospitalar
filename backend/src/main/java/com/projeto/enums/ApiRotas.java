@@ -79,7 +79,7 @@ public enum ApiRotas {
     //Rotas Medicamento
     MEDICAMENTO("/medicamento"),
     MEDICAMENTO_CREATE("/medicamento/create"),
-    MECDICAMENTO_FIND_BY_ID("/medicamento/findById"),
+    MEDICAMENTO_FIND_BY_ID("/medicamento/findById"),
     MEDICAMENTO_FIND_BY_FILTER("/medicamento/findByFilter"),
     MEDICAMENTO_FIND_ALL("/medicamento/findAll"),
     MEDICAMENTO_UPDATE("/medicamento/update"),
