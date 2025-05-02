@@ -2,6 +2,7 @@ package com.projeto.repository;
 
 
 import com.projeto.model.Recepcionista;
+import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, recepcionista.getIdUsuario());
+			stmt.setLong(1, recepcionista.getUsuario().getIdUsuario());
 
 
 			stmt.executeUpdate();
@@ -50,9 +51,11 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                recepcionista = new Recepcionista();
                 recepcionista.setIdRecepcionista(rs.getLong("id"));
-                recepcionista.setIdUsuario(rs.getLong("usuario_id"));
-
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getLong("usuario_id"));
+                recepcionista.setUsuario(usuario);
 
                 return recepcionista;
             }
@@ -61,7 +64,7 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
             System.err.println("Erro ao buscar recepcionista: " + e.getMessage());
 
         }
-        return null;
+        return recepcionista;
     }
 
     @Override
@@ -75,9 +78,12 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-            	recepcionista= new Recepcionista();
+            	recepcionista = new Recepcionista();
             	recepcionista.setIdRecepcionista(rs.getLong("id"));
-                recepcionista.setIdUsuario(rs.getLong("usuario_id"));
+
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getLong("usuario_id"));
+                recepcionista.setUsuario(usuario);
                 recepcionistas.add(recepcionista);
             }
 
@@ -95,7 +101,7 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
          try (Connection connection = DataBaseConnection.getConnection();
               PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-             stmt.setLong(1, recepcionista.getIdUsuario());
+             stmt.setLong(1, recepcionista.getUsuario().getIdUsuario());
              stmt.setLong(2, recepcionista.getIdRecepcionista());
 
              stmt.executeUpdate();

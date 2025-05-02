@@ -2,9 +2,12 @@ package com.projeto.service.usuarioservice;
 
 import com.projeto.model.Perfil;
 import com.projeto.model.Usuario;
+import com.projeto.repository.PerfilRepository;
 import com.projeto.repository.UsuarioRepository;
+import com.projeto.service.perfilservice.PerfilService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioService implements IUsuarioService{
@@ -15,6 +18,9 @@ public class UsuarioService implements IUsuarioService{
         this.usuarioRepository = usuarioRepository;
     }
 
+    private final PerfilRepository perfilRepository = new PerfilRepository();
+    private final PerfilService perfilService = new PerfilService(perfilRepository);
+
     @Override
     public Usuario inserirUsuario(Usuario usuario) {
         return usuarioRepository.insert(usuario);
@@ -22,12 +28,22 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario buscarUsuarioPorId(Long id) {
-        return usuarioRepository.findById(id);
+        Usuario usuario = usuarioRepository.findById(id);
+        Perfil perfil = perfilService.buscarPerfilPorId(usuario.getPerfil().getId());
+        usuario.setPerfil(perfil);
+        return usuario;
     }
 
     @Override
     public List<Usuario> listarTodosUsuarios() {
-        return usuarioRepository.findAll();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<Usuario> resposta = new ArrayList<>();
+        for(Usuario usuario : usuarios){
+            Perfil perfil = perfilService.buscarPerfilPorId(usuario.getPerfil().getId());
+            usuario.setPerfil(perfil);
+            resposta.add(usuario);
+        }
+        return resposta;
     }
 
     @Override

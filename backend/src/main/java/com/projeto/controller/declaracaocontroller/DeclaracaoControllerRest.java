@@ -49,13 +49,6 @@ public class DeclaracaoControllerRest extends RootController implements IDeclara
         List<Declaracao> listDeclaracao = declaracaoService.listarTodosDeclaracoes();
         List<Declaracao> resposta = new ArrayList<>();
 
-        for(Declaracao declaracao : listDeclaracao){
-            Paciente paciente = pacienteService.buscarPacientePorId(declaracao.getIdPaciente());
-            declaracao.setPaciente(paciente);
-            Medico medico = medicoService.buscarMedicoPorId(declaracao.getIdMedico());
-            declaracao.setMedico(medico);
-            resposta.add(declaracao);
-        }
 
         String response = gson.toJson(resposta);
 

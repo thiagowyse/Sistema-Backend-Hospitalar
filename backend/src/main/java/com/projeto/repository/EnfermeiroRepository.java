@@ -1,6 +1,7 @@
 package com.projeto.repository;
 
 import com.projeto.model.Enfermeiro;
+import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, enfermeiro.getIdUsuario());
+			stmt.setLong(1, enfermeiro.getUsuario().getIdUsuario());
 			stmt.setString(2, enfermeiro.getCoren());
 
 
@@ -43,7 +44,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
     @Override
     public Enfermeiro findById(Long id) {
     	String sql = "SELECT * FROM enfermeiro WHERE id = ?";
-        Enfermeiro enfermeiro = new Enfermeiro();
+        Enfermeiro enfermeiro = null;
 
         try (Connection connection = DataBaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -52,8 +53,13 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+				enfermeiro = new Enfermeiro();
 				enfermeiro.setIdEnfermeiro(rs.getLong("id"));
-                enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
+
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(rs.getLong("usuario_id"));
+				enfermeiro.setUsuario(usuario);
+
                 enfermeiro.setCoren(rs.getString("coren"));
 
                 return enfermeiro;
@@ -63,7 +69,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
             System.err.println("Erro ao buscar enfermeiro: " + e.getMessage());
 
         }
-        return null;
+        return enfermeiro;
     }
 
     @Override
@@ -77,9 +83,13 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 	             ResultSet rs = stmt.executeQuery()) {
 
 	            while (rs.next()) {
-	            	enfermeiro= new Enfermeiro();
+	            	enfermeiro = new Enfermeiro();
 	            	enfermeiro.setIdEnfermeiro(rs.getLong("id"));
-	                enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
+
+					Usuario usuario = new Usuario();
+					usuario.setIdUsuario(rs.getLong("usuario_id"));
+					enfermeiro.setUsuario(usuario);
+
 	                enfermeiro.setCoren(rs.getString("coren"));
 	                enfermeiros.add(enfermeiro);
 	            }
@@ -95,10 +105,13 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
     	 StringBuilder queryBuilder = new StringBuilder("UPDATE enfermeiro SET ");
 	        boolean adicionouCampo = false;
 
-	        if (enfermeiro.getIdUsuario() != null) {
-	            queryBuilder.append("usuario_id = ?");
-	            adicionouCampo = true;
-	        }
+			if(enfermeiro.getUsuario() != null){
+				if(enfermeiro.getUsuario().getIdUsuario() != null){
+					queryBuilder.append("usuario_id = ?");
+					adicionouCampo = true;
+				}
+			}
+
 	        if (enfermeiro.getCoren() != null) {
 	            if (adicionouCampo) queryBuilder.append(", ");
 	            queryBuilder.append("coren = ?");
@@ -118,9 +131,12 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 
 	            int index = 1;
 
-	            if (enfermeiro.getIdUsuario() != null) {
-	                preparedStatement.setLong(index++, enfermeiro.getIdUsuario());
-	            }
+				if(enfermeiro.getUsuario() != null){
+					if(enfermeiro.getUsuario().getIdUsuario() != null){
+						preparedStatement.setLong(index++, enfermeiro.getUsuario().getIdUsuario());
+					}
+				}
+
 	            if (enfermeiro.getCoren() != null) {
 	                preparedStatement.setString(index++, enfermeiro.getCoren());
 	            }

@@ -48,14 +48,6 @@ public class AtestadoControllerRest extends RootController implements IAtestadoC
         List<Atestado> listAtestado = atestadoService.listarTodosAtestados();
         List<Atestado> resposta = new ArrayList<>();
 
-        for(Atestado atestado : listAtestado){
-            Paciente paciente = pacienteService.buscarPacientePorId(atestado.getIdPaciente());
-            atestado.setPaciente(paciente);
-            Medico medico = medicoService.buscarMedicoPorId(atestado.getIdMedico());
-            atestado.setMedico(medico);
-            resposta.add(atestado);
-        }
-
         String response = gson.toJson(resposta);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");

@@ -44,6 +44,7 @@ public class PerfilRepository implements BaseRepository<Perfil, Long>{
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                perfil = new Perfil();
                 perfil.setId(rs.getLong("id"));
                 perfil.setNome(rs.getString("nome"));
             }
@@ -57,7 +58,7 @@ public class PerfilRepository implements BaseRepository<Perfil, Long>{
     @Override
     public List<Perfil> findAll() {
         String sql = "SELECT * FROM perfil";
-        Perfil perfil = new Perfil();
+        Perfil perfil;
         List<Perfil> perfis = new ArrayList<>();
 
         try (Connection connection = DataBaseConnection.getConnection();
@@ -65,6 +66,7 @@ public class PerfilRepository implements BaseRepository<Perfil, Long>{
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                perfil = new Perfil();
                 perfil.setId(rs.getLong("id"));
                 perfil.setNome(rs.getString("nome"));
                 perfis.add(perfil);

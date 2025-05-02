@@ -92,10 +92,10 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
             return;
         }
 
-        Paciente paciente = pacienteService.buscarPacientePorId(agendamento.getIdPaciente());
-        agendamento.setPaciente(paciente);
-        Medico medico = medicoService.buscarMedicoPorId(agendamento.getIdMedico());
-        agendamento.setMedico(medico);
+//        Paciente paciente = pacienteService.buscarPacientePorId(agendamento.getIdPaciente());
+//        agendamento.setPaciente(paciente);
+//        Medico medico = medicoService.buscarMedicoPorId(agendamento.getIdMedico());
+//        agendamento.setMedico(medico);
 
         String response = gson.toJson(agendamento);
         exchange.getResponseHeaders().set("Content-Type", "application/json");
