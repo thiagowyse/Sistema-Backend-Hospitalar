@@ -15,6 +15,7 @@ import com.projeto.controller.pacientecontroller.PacienteControllerRest;
 import com.projeto.controller.perfilcontroller.PerfilControllerRest;
 import com.projeto.controller.prontuariocontroller.ProntuarioControllerRest;
 import com.projeto.controller.receitacontroller.ReceitaControllerRest;
+import com.projeto.controller.receitamedicamentocontroller.ReceitaMedicamentoControllerRest;
 import com.projeto.controller.recepcionistacontroller.RecepcionistaControllerRest;
 import com.projeto.controller.usuariocontroller.UsuarioControllerRest;
 import com.projeto.enums.ApiRotas;
@@ -51,6 +52,7 @@ public class Main {
         server.createContext(ApiRotas.RECEITA.getPath(), new ReceitaControllerRest());
         server.createContext(ApiRotas.RECEPCIONISTA.getPath(), new RecepcionistaControllerRest());
         server.createContext(ApiRotas.USUARIO.getPath(), new UsuarioControllerRest());
+        server.createContext(ApiRotas.RECEITA_MEDICAMENTO.getPath(), new ReceitaMedicamentoControllerRest());
 
         server.setExecutor(null);
         server.start();

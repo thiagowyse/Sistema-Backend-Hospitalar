@@ -136,9 +136,9 @@ public enum ApiRotas {
     //Rotas Receita Medicamento
     RECEITA_MEDICAMENTO("/receitaMedicamento"),
     RECEITA_MEDICAMENTO_CREATE("/receitaMedicamento/create"),
-    RECEITA_MEDICAMENTO_FIND_BY_ID("/receitaMedicamento/findById"),
+    RECEITA_MEDICAMENTO_FIND_BY_IDRECEITA_AND_IDMEDICAMENTO("/receitaMedicamento/findByIdReceitaAndIdMedicamento"),
     RECEITA_MEDICAMENTO_FIND_BY_FILTER("/receitaMedicamento/findByFilter"),
-    RECEITA_MEDICAMENTO_FIND_ALL("/receitaMedicamento/findAll"),
+    RECEITA_MEDICAMENTO_FIND_ALL("/receitamedicamento/findAll"),
     RECEITA_MEDICAMENTO_UPDATE("/receitaMedicamento/update"),
     RECEITA_MEDICAMENTO_DELETE("/receitaMedicamento/delete"),
 

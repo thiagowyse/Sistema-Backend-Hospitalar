@@ -11,7 +11,7 @@ public interface BaseRepository <T, Long>{
 
     List<T> findAll();
 
-    void update(T entity);
+    void update(T entity) throws Exception;
 
     void delete(Long id);
 }
