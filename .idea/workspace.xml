@@ -4,46 +4,54 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85040873-ad71-4651-b8cf-9b227c6ad37c" name="Changes" comment="feat: Refatoração do código">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/MedicoEspecialidade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/ProntuarioExame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/ProntuarioMedicamento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/ReceitaMedicamento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ProntuarioExameRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ProntuarioMedicamentoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ReceitaMedicamentoRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/prontuarioexameservice/IProntuarioExameService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/prontuarioexameservice/ProntuarioExameService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/receitamedicamentoservice/IReceitaMedicamentoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/receitamedicamentoservice/ReceitaMedicamentoService.java" afterDir="false" />
+    <list default="true" id="85040873-ad71-4651-b8cf-9b227c6ad37c" name="Changes" comment="feat: Criação de repositories e services">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuarioexamecontroller/IProntuarioExameControllerRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuarioexamecontroller/ProntuarioExameControllerRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuariomedicamentocontroller/IProntuarioMedicamentoControllerRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuariomedicamentocontroller/ProntuarioMedicamentoControllerRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/prontuariomedicamentoservice/IProntuarioMedicamentoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/prontuariomedicamentoservice/ProntuarioMedicamentoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/util/LocalDateAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/medicocontroller/MedicoControllerRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/medicocontroller/MedicoControllerRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/receitamedicamentocontroller/ReceitaMedicamentoControllerRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/receitamedicamentocontroller/ReceitaMedicamentoControllerRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuariocontroller/ProntuarioControllerRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuariocontroller/ProntuarioControllerRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/usuariocontroller/UsuarioControllerRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/usuariocontroller/UsuarioControllerRest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/enums/ApiRotas.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/enums/ApiRotas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/BaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/MedicoEspecialidade.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/MedicoEspecialidadeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Agendamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Agendamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Prontuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Prontuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/AgendamentoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/AgendamentoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ExameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ExameRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/MedicamentoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/MedicamentoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/PacienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/PacienteRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ProntuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ProntuarioRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/app/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/atestadocontroller/AtestadoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/atestadocontroller/AtestadoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/atestadocontroller/IAtestadoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/atestadocontroller/IAtestadoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/declaracaocontroller/DeclaracaoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/declaracaocontroller/DeclaracaoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/declaracaocontroller/IDeclaracaoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/declaracaocontroller/IDeclaracaoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/enfermeirocontroller/EnfermeiroControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/enfermeirocontroller/EnfermeiroControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/enfermeirocontroller/IEnfermeiroControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/enfermeirocontroller/IEnfermeiroControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/especialidadecontroller/EspecialidadeControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/especialidadecontroller/EspecialidadeControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/especialidadecontroller/IEspecialidadeControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/especialidadecontroller/IEspecialidadeControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/examecontroller/ExameControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/examecontroller/ExameControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/examecontroller/IExameControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/examecontroller/IExameControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/historicoatendimentocontroller/HistoricoAtendimentoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/historicoatendimentocontroller/HistoricoAtendimentoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/historicoatendimentocontroller/IHistoricoAtendimentoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/historicoatendimentocontroller/IHistoricoAtendimentoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/logusuariocontroller/ILogUsuarioControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/logusuariocontroller/ILogUsuarioControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/logusuariocontroller/LogUsuarioControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/logusuariocontroller/LogUsuarioControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/medicamentocontroller/IMedicamentoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/medicamentocontroller/IMedicamentoControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/medicamentocontroller/MedicamentoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/medicamentocontroller/MedicamentoControllerRest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/medicocontroller/MedicoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/medicocontroller/MedicoControllerRest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/prontuariocontroller/ProntuarioControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/prontuariocontroller/ProntuarioControllerRest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/receitamedicamentocontroller/ReceitaMedicamentoControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/receitamedicamentocontroller/ReceitaMedicamentoControllerRest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/usuariocontroller/UsuarioControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/usuariocontroller/UsuarioControllerRest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/enums/ApiRotas.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/enums/ApiRotas.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Agendamento.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Agendamento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Prontuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Prontuario.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/AgendamentoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/AgendamentoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/AtestadoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/AtestadoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/BaseRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/BaseRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/DeclaracaoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/DeclaracaoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EnfermeiroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EnfermeiroRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EspecialidadeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EspecialidadeRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ExameRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ExameRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/HistoricoAtendimentoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/HistoricoAtendimentoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/LogUsuarioRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/LogUsuarioRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicamentoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicamentoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoEspecialidade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/PacienteRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/PacienteRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/PerfilRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/PerfilRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ProntuarioRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ProntuarioRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ReceitaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/ReceitaRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/RecepcionistaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/RecepcionistaRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/UsuarioRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/UsuarioRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,22 +78,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Debug",
-    "Application.run1.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "wyseDevelop",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/joaom/Documents/Sistema-Backend-Hospitalar",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.run1.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;wyseDevelop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/joaom/Documents/Sistema-Backend-Hospitalar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="open Sistema-Backend-Hospitalar" />
@@ -134,13 +142,22 @@
       <option name="project" value="LOCAL" />
       <updated>1745982719900</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: Criação de repositories e services">
+      <option name="closed" value="true" />
+      <created>1746242864881</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746242864881</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Refatoração de código" />
     <MESSAGE value="feat: Refatoração do código" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Refatoração do código" />
+    <MESSAGE value="feat: Criação de repositories e services" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Criação de repositories e services" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -149,6 +166,51 @@
           <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/UsuarioRepository.java</url>
           <line>81</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.java</url>
+          <line>105</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/app/Main.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Agendamento.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.java</url>
+          <line>130</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/agendamentocontroller/AgendamentoControllerRest.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/UsuarioRepository.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/repository/ProntuarioRepository.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/prontuarioexamecontroller/ProntuarioExameControllerRest.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

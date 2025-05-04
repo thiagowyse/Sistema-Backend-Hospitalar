@@ -121,7 +121,23 @@ public class AgendamentoControllerRest extends RootController implements IAgenda
     @Override
     public void save(HttpExchange exchange) throws IOException {
 
+        Gson gson = new Gson();
+        String body = new String(exchange.getRequestBody().readAllBytes());
+
+        System.out.println("JSON recebido: " + body);
+
+        try {
+            Agendamento agendamento = gson.fromJson(body, Agendamento.class);
+            System.out.println("Objeto Agendamento: " + agendamento);
+
+            agendamentoService.inserirAgendamento(agendamento);
+            sendResponse(exchange, "Agendamento salvo com sucesso", 201);
+        } catch (Exception e) {
+            e.printStackTrace(); // Mostra o erro completo no console
+            sendResponse(exchange, "Erro ao salvar agendamento: " + e.getMessage(), 500);
+        }
     }
+
 
     private Long extractIdFromPath(String path) {
         String[] parts = path.split("/");

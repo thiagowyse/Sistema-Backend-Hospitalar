@@ -1,16 +1,20 @@
 package com.projeto.controller.prontuariocontroller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.projeto.enums.ApiRotas;
 import com.projeto.enums.HttpMethod;
 import com.projeto.model.Perfil;
 import com.projeto.model.Prontuario;
+import com.projeto.model.Usuario;
 import com.projeto.repository.ProntuarioRepository;
 import com.projeto.server.RootController;
 import com.projeto.service.prontuarioservice.ProntuarioService;
+import com.projeto.util.LocalDateAdapter;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ProntuarioControllerRest extends RootController implements IProntuarioControllerRest {
@@ -23,12 +27,19 @@ public class ProntuarioControllerRest extends RootController implements IProntua
         String method = exchange.getRequestMethod();
         String path = exchange.getRequestURI().getPath();
 
-        // Habilitar CORS
-        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
+        // Configurar CORS
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-        if(method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.PRONTUARIO_FIND_ALL.getPath())){
+        // Responder requisições pré-flight (OPTIONS)
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            exchange.sendResponseHeaders(204, -1); // Sem conteúdo
+            return;
+        }
+
+        // Rotas existentes
+        if (method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.PRONTUARIO_FIND_ALL.getPath())) {
             findAll(exchange);
         } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.PRONTUARIO_FIND_BY_ID.getPath())) {
             findById(exchange);
@@ -43,19 +54,28 @@ public class ProntuarioControllerRest extends RootController implements IProntua
         }
     }
 
+
     @Override
     public void findAll(HttpExchange exchange) throws IOException {
 
-        Gson gson = new Gson();
+        // Usar o GsonBuilder para adicionar o adaptador do LocalDate
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()) // Registra o adaptador
+                .create();
 
+        // Listar todos os prontuários
         List<Prontuario> resposta = prontuarioService.listarTodosProntuarios();
 
+        // Converter a lista de prontuários para JSON
         String response = gson.toJson(resposta);
 
+        // Configurar os cabeçalhos de resposta
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 
-        sendResponse(exchange,response, 200);
+        // Enviar a resposta com código HTTP 200
+        sendResponse(exchange, response, 200);
     }
+
 
     @Override
     public void findById(HttpExchange exchange) throws IOException {
@@ -116,8 +136,35 @@ public class ProntuarioControllerRest extends RootController implements IProntua
 
     @Override
     public void save(HttpExchange exchange) throws IOException {
+        // Cria o Gson com o adaptador customizado para LocalDate
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()) // Registra o adaptador para LocalDate
+                .create();
 
+        String body = new String(exchange.getRequestBody().readAllBytes());
+
+        System.out.println("JSON recebido: " + body);
+
+        try {
+            // Converte o corpo JSON para um objeto Prontuario
+            Prontuario prontuario = gson.fromJson(body, Prontuario.class);
+
+            // Adiciona a data de criação (data atual) ao campo dataCriacao
+            prontuario.setDataCriacao(LocalDate.now()); // Atribuindo a data atual
+
+            System.out.println("Objeto Prontuário: " + prontuario);
+
+            // Chama o método para salvar o prontuário
+            prontuarioService.inserirProntuario(prontuario);
+
+            // Resposta para sucesso
+            sendResponse(exchange, "Prontuário salvo com sucesso", 201);
+        } catch (Exception e) {
+            e.printStackTrace(); // Mostra o erro completo no console
+            sendResponse(exchange, "Erro ao salvar prontuário: " + e.getMessage(), 500);
+        }
     }
+
 
     private Long extractIdFromPath(String path) {
         String[] parts = path.split("/");

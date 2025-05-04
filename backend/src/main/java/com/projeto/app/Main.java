@@ -14,13 +14,13 @@ import com.projeto.controller.medicocontroller.MedicoControllerRest;
 import com.projeto.controller.pacientecontroller.PacienteControllerRest;
 import com.projeto.controller.perfilcontroller.PerfilControllerRest;
 import com.projeto.controller.prontuariocontroller.ProntuarioControllerRest;
+import com.projeto.controller.prontuarioexamecontroller.ProntuarioExameControllerRest;
+import com.projeto.controller.prontuariomedicamentocontroller.ProntuarioMedicamentoControllerRest;
 import com.projeto.controller.receitacontroller.ReceitaControllerRest;
 import com.projeto.controller.receitamedicamentocontroller.ReceitaMedicamentoControllerRest;
 import com.projeto.controller.recepcionistacontroller.RecepcionistaControllerRest;
 import com.projeto.controller.usuariocontroller.UsuarioControllerRest;
 import com.projeto.enums.ApiRotas;
-import com.projeto.model.Medico;
-import com.projeto.model.Paciente;
 import com.projeto.server.RootController;
 import com.sun.net.httpserver.HttpServer;
 
@@ -49,6 +49,8 @@ public class Main {
         server.createContext(ApiRotas.PACIENTE.getPath(), new PacienteControllerRest());
         server.createContext(ApiRotas.PERFIL.getPath(), new PerfilControllerRest());
         server.createContext(ApiRotas.PRONTUARIO.getPath(), new ProntuarioControllerRest());
+        server.createContext(ApiRotas.PRONTUARIO_EXAME.getPath(), new ProntuarioExameControllerRest());
+        server.createContext(ApiRotas.PRONTUARIO_MEDICAMENTO.getPath(), new ProntuarioMedicamentoControllerRest());
         server.createContext(ApiRotas.RECEITA.getPath(), new ReceitaControllerRest());
         server.createContext(ApiRotas.RECEPCIONISTA.getPath(), new RecepcionistaControllerRest());
         server.createContext(ApiRotas.USUARIO.getPath(), new UsuarioControllerRest());

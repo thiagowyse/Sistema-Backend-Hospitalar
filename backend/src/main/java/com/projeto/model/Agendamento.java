@@ -1,13 +1,14 @@
 package com.projeto.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Agendamento {
 
     private Long idAgendamento;
     private Paciente paciente;
     private Medico medico;
-    private Date dataConsulta;
+    private LocalDate dataConsulta;
     private String Status;
 
     public Long getIdAgendamento() {
@@ -34,13 +35,6 @@ public class Agendamento {
         this.medico = medico;
     }
 
-    public Date getDataConsulta() {
-        return dataConsulta;
-    }
-
-    public void setDataConsulta(Date dataConsulta) {
-        this.dataConsulta = dataConsulta;
-    }
 
     public String getStatus() {
         return Status;
@@ -50,4 +44,11 @@ public class Agendamento {
         Status = status;
     }
 
+    public LocalDate getDataConsulta() {
+        return dataConsulta;
+    }
+
+    public void setDataConsulta(LocalDate dataConsulta) {
+        this.dataConsulta = dataConsulta;
+    }
 }

@@ -53,6 +53,7 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 	            ResultSet rs = stmt.executeQuery();
 
 	            if (rs.next()) {
+					medicamento = new Medicamento();
 	                medicamento.setIdMedicamento(rs.getLong("id"));
 	                medicamento.setNome(rs.getString("nome"));
 	                medicamento.setDosagem(rs.getString("dosagem"));
@@ -64,7 +65,7 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
 	            System.err.println("Erro ao buscar medicamento: " + e.getMessage());
 
 	        }
-	        return null;
+	        return medicamento;
     }
 
     @Override
@@ -78,6 +79,7 @@ public class MedicamentoRepository implements BaseRepository<Medicamento, Long> 
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+				medicamento = new Medicamento();
             	medicamento.setIdMedicamento(rs.getLong("id"));
                 medicamento.setNome(rs.getString("nome"));
                 medicamento.setDosagem(rs.getString("dosagem"));

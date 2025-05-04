@@ -5,11 +5,7 @@ import com.projeto.model.Paciente;
 import com.projeto.model.Prontuario;
 import com.projeto.util.DataBaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +20,7 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 			stmt.setLong(1, prontuario.getPaciente().getIdPaciente());
 			stmt.setLong(2, prontuario.getMedico().getIdMedico());
 			stmt.setString(3, prontuario.getDescricao());
-			stmt.setDate(4, prontuario.getDataCriacao());
+			stmt.setDate(4, Date.valueOf(prontuario.getDataCriacao()));
 
 			stmt.executeUpdate();
 			System.out.println("Prontuario inserido com sucesso.");
@@ -64,7 +60,7 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 				medico.setIdMedico(rs.getLong("medico_id"));
 				prontuario.setMedico(medico);
 				prontuario.setDescricao(rs.getString("descricao"));
-				prontuario.setDataCriacao(rs.getDate("data_criacao"));
+				prontuario.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
 
 				return prontuario;
 			}
@@ -99,7 +95,7 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 				prontuario.setMedico(medico);
 				
 				prontuario.setDescricao(rs.getString("descricao"));
-				prontuario.setDataCriacao(rs.getDate("data_criacao"));
+				prontuario.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
 				prontuarios.add(prontuario);
 			}
 
@@ -175,7 +171,7 @@ public class ProntuarioRepository implements BaseRepository<Prontuario, Long> {
 				preparedStatement.setString(index++, prontuario.getDescricao());
 			}
 			if (prontuario.getDataCriacao() != null) {
-				preparedStatement.setDate(index++, prontuario.getDataCriacao());
+				preparedStatement.setDate(index++, Date.valueOf(prontuario.getDataCriacao()));
 			}
 
 			preparedStatement.setLong(index, prontuario.getIdProntuario());

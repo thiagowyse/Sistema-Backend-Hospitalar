@@ -1,5 +1,6 @@
 package com.projeto.model;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.sql.Date;
 
@@ -9,19 +10,10 @@ public class Prontuario {
     private Paciente paciente;
     private Medico medico;
     private String descricao;
-    private Date dataCriacao;
+    private LocalDate dataCriacao;
     private List<Receita> receitas;
     private List<Exame> exames;
 
-    public Prontuario(Long idProntuario, Paciente paciente, Medico medico, String descricao, List<Receita> receitas, List<Exame> exames) {
-        this.idProntuario = idProntuario;
-        this.paciente = paciente;
-        this.medico = medico;
-        this.descricao = descricao;
-        this.receitas = receitas;
-        this.exames = exames;
-    }
-    public Prontuario() {}
 
     public Long getIdProntuario() {
         return idProntuario;
@@ -71,13 +63,11 @@ public class Prontuario {
         this.exames = exames;
     }
 
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
+    }
 
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 }

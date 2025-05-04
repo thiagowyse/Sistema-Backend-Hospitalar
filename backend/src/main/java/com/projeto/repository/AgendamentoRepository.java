@@ -5,11 +5,7 @@ import com.projeto.model.Medico;
 import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +21,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
             try (PreparedStatement preparedStatement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS)) {
                preparedStatement.setLong(1, agendamento.getPaciente().getIdPaciente());
                preparedStatement.setLong(2,agendamento.getMedico().getIdMedico());
-               preparedStatement.setDate(3, agendamento.getDataConsulta());
+               preparedStatement.setDate(3, Date.valueOf(agendamento.getDataConsulta()));
                preparedStatement.setString(4, agendamento.getStatus());
                preparedStatement.executeUpdate();
                System.out.println("Agendamento inserido com sucesso.");
@@ -70,7 +66,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 				paciente.setIdPaciente(rs.getLong("paciente_id"));
             	agendamento.setPaciente(paciente);
 
-            	agendamento.setDataConsulta(rs.getDate("data_consulta"));
+            	agendamento.setDataConsulta(rs.getDate("data_consulta").toLocalDate());
             	agendamento.setStatus(rs.getString("status"));
                 return agendamento;
             }
@@ -107,7 +103,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
                         paciente.setIdPaciente(rs.getLong("paciente_id"));
                         agendamento.setPaciente(paciente);
 
-                        agendamento.setDataConsulta(rs.getDate("data_consulta"));
+                        agendamento.setDataConsulta(rs.getDate("data_consulta").toLocalDate());
                         agendamento.setStatus(rs.getString("status"));
                         agendamentos.add(agendamento);
                     }
@@ -177,7 +173,7 @@ public class AgendamentoRepository implements BaseRepository<Agendamento, Long>{
 				}
 
 	            if (agendamento.getDataConsulta() != null) {
-	                preparedStatement.setDate(index++, agendamento.getDataConsulta());
+	                preparedStatement.setDate(index++, Date.valueOf(agendamento.getDataConsulta()));
 	            }
 	            if (agendamento.getStatus() != null) {
 	                preparedStatement.setString(index++, agendamento.getStatus());

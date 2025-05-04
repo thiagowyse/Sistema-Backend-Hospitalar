@@ -56,6 +56,7 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 	            ResultSet rs = stmt.executeQuery();
 
 	            if (rs.next()) {
+					paciente = new Paciente();
 	                paciente.setIdPaciente(rs.getLong("id"));
 	                paciente.setNome(rs.getString("nome"));
 	                paciente.setEndereco(rs.getString("endereco"));
@@ -68,13 +69,13 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 	            System.err.println("Erro ao buscar paciente: " + e.getMessage());
 
 	        }
-	        return null;
+	        return paciente;
 	}
 
 	@Override
 	public List<Paciente> findAll() {
 		  String sql = "SELECT * FROM paciente";
-	        Paciente paciente = new Paciente();
+	        Paciente paciente = null;
 	        List<Paciente> pacientes = new ArrayList<>();
 
 	        try (Connection connection = DataBaseConnection.getConnection();
@@ -82,6 +83,7 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 	             ResultSet rs = stmt.executeQuery()) {
 
 	            while (rs.next()) {
+					paciente = new Paciente();
 	            	paciente.setIdPaciente(rs.getLong("id"));
 	                paciente.setNome(rs.getString("nome"));
 	                paciente.setEndereco(rs.getString("endereco"));

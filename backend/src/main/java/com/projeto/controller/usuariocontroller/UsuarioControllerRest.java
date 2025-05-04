@@ -3,6 +3,7 @@ package com.projeto.controller.usuariocontroller;
 import com.google.gson.Gson;
 import com.projeto.enums.ApiRotas;
 import com.projeto.enums.HttpMethod;
+import com.projeto.model.Agendamento;
 import com.projeto.model.Perfil;
 import com.projeto.model.Prontuario;
 import com.projeto.model.Usuario;
@@ -124,6 +125,21 @@ public class UsuarioControllerRest extends RootController implements IUsuarioCon
     @Override
     public void save(HttpExchange exchange) throws IOException {
 
+        Gson gson = new Gson();
+        String body = new String(exchange.getRequestBody().readAllBytes());
+
+        System.out.println("JSON recebido: " + body);
+
+        try {
+            Usuario usuario = gson.fromJson(body, Usuario.class);
+            System.out.println("Objeto Agendamento: " + usuario);
+
+            usuarioService.inserirUsuario(usuario);
+            sendResponse(exchange, "Agendamento salvo com sucesso", 201);
+        } catch (Exception e) {
+            e.printStackTrace(); // Mostra o erro completo no console
+            sendResponse(exchange, "Erro ao salvar agendamento: " + e.getMessage(), 500);
+        }
     }
 
     private Long extractIdFromPath(String path) {

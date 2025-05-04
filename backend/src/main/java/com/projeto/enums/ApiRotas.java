@@ -161,7 +161,26 @@ public enum ApiRotas {
     USUARIO_FIND_BY_FILTER("/usuario/findByFilter"),
     USUARIO_FIND_ALL("/usuario/findAll"),
     USUARIO_UPDATE("/usuario/update"),
-    USUARIO_DELETE("usuario/delete");
+    USUARIO_DELETE("usuario/delete"),
+
+
+    //Rotas Prontuario Exame
+    PRONTUARIO_EXAME("/prontuarioExame"),
+    PRONTUARIO_EXAME_SAVE("/prontuarioExame/save"),
+    PRONTUARIO_EXAME_FIND_BY_ID("/prontuarioExame/findById"),
+    PRONTUARIO_EXAME_FIND_BY_FILTER("/prontuarioExame/findByFilter"),
+    PRONTUARIO_EXAME_FIND_ALL("/prontuarioExame/findAll"),
+    PRONTUARIO_EXAME_UPDATE("/prontuarioExame/update"),
+    PRONTUARIO_EXAME_DELETE("/prontuarioExame/delete"),
+
+    //Rotas Prontuario Medicamento
+    PRONTUARIO_MEDICAMENTO("/prontuarioMedicamento"),
+    PRONTUARIO_MEDICAMENTO_SAVE("/prontuarioMedicamento/save"),
+    PRONTUARIO_MEDICAMENTO_FIND_BY_ID("/prontuarioMedicamento/findById"),
+    PRONTUARIO_MEDICAMENTO_FIND_BY_FILTER("/prontuarioMedicamento/findByFilter"),
+    PRONTUARIO_MEDICAMENTO_FIND_ALL("/prontuarioMedicamento/findAll"),
+    PRONTUARIO_MEDICAMENTO_UPDATE("/prontuarioMedicamento/update"),
+    PRONTUARIO_MEDICAMENTO_DELETE("/prontuarioMedicamento/delete");
 
 
     private final String path;

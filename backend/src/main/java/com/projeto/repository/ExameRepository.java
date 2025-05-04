@@ -48,6 +48,7 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 	            ResultSet rs = stmt.executeQuery();
 
 	            if (rs.next()) {
+					exame = new Exame();
 	                exame.setIdExame(rs.getLong("id"));
 	                exame.setNome(rs.getString("nome"));
 	                exame.setDescricao(rs.getString("descricao"));
@@ -60,7 +61,7 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 	            System.err.println("Erro ao buscar exame: " + e.getMessage());
 
 	        }
-	        return null;
+	        return exame;
     }
 
     @Override
@@ -74,6 +75,7 @@ public class ExameRepository implements BaseRepository<Exame,Long>{
 	             ResultSet rs = stmt.executeQuery()) {
 
 	            while (rs.next()) {
+					exame = new Exame();
 	            	exame.setIdExame(rs.getLong("id"));
 	                exame.setNome(rs.getString("nome"));
 	                exame.setDescricao(rs.getString("descricao"));
