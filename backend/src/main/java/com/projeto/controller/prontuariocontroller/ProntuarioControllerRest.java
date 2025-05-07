@@ -32,9 +32,9 @@ public class ProntuarioControllerRest extends RootController implements IProntua
         exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         exchange.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-        // Responder requisições pré-flight (OPTIONS)
+
         if ("OPTIONS".equalsIgnoreCase(method)) {
-            exchange.sendResponseHeaders(204, -1); // Sem conteúdo
+            exchange.sendResponseHeaders(204, -1);
             return;
         }
 
@@ -60,7 +60,7 @@ public class ProntuarioControllerRest extends RootController implements IProntua
 
         // Usar o GsonBuilder para adicionar o adaptador do LocalDate
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()) // Registra o adaptador
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
 
         // Listar todos os prontuários
