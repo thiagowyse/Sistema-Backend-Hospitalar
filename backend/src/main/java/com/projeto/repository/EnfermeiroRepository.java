@@ -1,7 +1,8 @@
 package com.projeto.repository;
 
 import com.projeto.model.Enfermeiro;
-import com.projeto.model.Usuario;
+ 
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
 
 import java.sql.Connection;
@@ -10,11 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+ import java.util.List;
 
 public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 
     @Override
+ 
     public Enfermeiro insert(Enfermeiro enfermeiro) {
 
     	String sql = "INSERT INTO enfermeiro (usuario_id, coren) VALUES (?, ?)";
@@ -22,16 +24,16 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, enfermeiro.getUsuario().getIdUsuario());
+			stmt.setLong(1, enfermeiro.getIdUsuario());
 			stmt.setString(2, enfermeiro.getCoren());
-
+			 
 
 			stmt.executeUpdate();
 			System.out.println("Enfermeiro inserido com sucesso.");
-
+			
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                enfermeiro.setIdEnfermeiro(generatedKeys.getLong(1));
+	                enfermeiro.setIdEnfermeiro(generatedKeys.getLong(1));  
 	            }
 	        }
 
@@ -44,7 +46,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
     @Override
     public Enfermeiro findById(Long id) {
     	String sql = "SELECT * FROM enfermeiro WHERE id = ?";
-        Enfermeiro enfermeiro = null;
+        Enfermeiro enfermeiro = new Enfermeiro();
 
         try (Connection connection = DataBaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -53,27 +55,24 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-				enfermeiro = new Enfermeiro();
 				enfermeiro.setIdEnfermeiro(rs.getLong("id"));
-
-				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getLong("usuario_id"));
-				enfermeiro.setUsuario(usuario);
-
+                enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
                 enfermeiro.setCoren(rs.getString("coren"));
-
+               
                 return enfermeiro;
             }
 
         } catch (SQLException e) {
             System.err.println("Erro ao buscar enfermeiro: " + e.getMessage());
-
+            
         }
-        return enfermeiro;
+ 
+        return null;
     }
 
     @Override
     public List<Enfermeiro> findAll() {
+ 
     	 String sql = "SELECT * FROM enfermeiro";
 	        Enfermeiro enfermeiro;
 	        List<Enfermeiro> enfermeiros = new ArrayList<>();
@@ -83,13 +82,9 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 	             ResultSet rs = stmt.executeQuery()) {
 
 	            while (rs.next()) {
-	            	enfermeiro = new Enfermeiro();
+	            	enfermeiro= new Enfermeiro();
 	            	enfermeiro.setIdEnfermeiro(rs.getLong("id"));
-
-					Usuario usuario = new Usuario();
-					usuario.setIdUsuario(rs.getLong("usuario_id"));
-					enfermeiro.setUsuario(usuario);
-
+	                enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
 	                enfermeiro.setCoren(rs.getString("coren"));
 	                enfermeiros.add(enfermeiro);
 	            }
@@ -105,19 +100,16 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
     	 StringBuilder queryBuilder = new StringBuilder("UPDATE enfermeiro SET ");
 	        boolean adicionouCampo = false;
 
-			if(enfermeiro.getUsuario() != null){
-				if(enfermeiro.getUsuario().getIdUsuario() != null){
-					queryBuilder.append("usuario_id = ?");
-					adicionouCampo = true;
-				}
-			}
-
+	        if (enfermeiro.getIdUsuario() != null) {
+	            queryBuilder.append("usuario_id = ?");
+	            adicionouCampo = true;
+	        }
 	        if (enfermeiro.getCoren() != null) {
 	            if (adicionouCampo) queryBuilder.append(", ");
 	            queryBuilder.append("coren = ?");
 	            adicionouCampo = true;
 	        }
-
+	        
 
 	        queryBuilder.append(" WHERE id = ?");
 
@@ -131,16 +123,13 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 
 	            int index = 1;
 
-				if(enfermeiro.getUsuario() != null){
-					if(enfermeiro.getUsuario().getIdUsuario() != null){
-						preparedStatement.setLong(index++, enfermeiro.getUsuario().getIdUsuario());
-					}
-				}
-
+	            if (enfermeiro.getIdUsuario() != null) {
+	                preparedStatement.setLong(index++, enfermeiro.getIdUsuario());
+	            }
 	            if (enfermeiro.getCoren() != null) {
 	                preparedStatement.setString(index++, enfermeiro.getCoren());
 	            }
-
+	           
 
 	            preparedStatement.setLong(index, enfermeiro.getIdEnfermeiro());
 	            preparedStatement.executeUpdate();
@@ -167,5 +156,5 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
         } catch (SQLException e) {
             System.err.println("Erro ao deletar enfermeiro: " + e.getMessage());
         }
-    }
+     }
 }

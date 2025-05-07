@@ -1,5 +1,6 @@
 package com.projeto.repository;
 
+ 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,10 +32,10 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 
 			stmt.executeUpdate();
 			System.out.println("Paciente inserido com sucesso.");
-
+			
 			try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
 	            if (generatedKeys.next()) {
-	                paciente.setIdPaciente(generatedKeys.getLong(1));
+	                paciente.setIdPaciente(generatedKeys.getLong(1));  
 	            }
 	        }
 
@@ -67,7 +68,7 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao buscar paciente: " + e.getMessage());
-
+	            
 	        }
 	        return paciente;
 	}
@@ -148,7 +149,7 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 	            if (paciente.getDataNascimento() != null) {
 	                preparedStatement.setDate(index++, paciente.getDataNascimento());
 	            }
-
+	           
 
 	            preparedStatement.setLong(index, paciente.getIdPaciente());
 	            preparedStatement.executeUpdate();
@@ -176,4 +177,4 @@ public class PacienteRepository implements BaseRepository<Paciente, Long> {
 	            System.err.println("Erro ao deletar paciente: " + e.getMessage());
 	        }
 	}
-}
+ }

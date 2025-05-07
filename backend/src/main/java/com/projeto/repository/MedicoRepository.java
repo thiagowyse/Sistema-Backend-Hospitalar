@@ -1,8 +1,10 @@
 package com.projeto.repository;
 
 import com.projeto.model.Medico;
-import com.projeto.model.Usuario;
+ 
+import com.projeto.model.Paciente;
 import com.projeto.util.DataBaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +21,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, medico.getUsuario().getIdUsuario());
+			stmt.setLong(1, medico.getIdUsuario());
 			stmt.setString(2, medico.getCrm());
 
 			stmt.executeUpdate();
@@ -40,8 +42,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 	@Override
 	public Medico findById(Long id) {
 		String sql = "SELECT * FROM medico WHERE id = ?";
-
-		Medico medico = null;
+		Medico medico = new Medico();
 
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -50,13 +51,8 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				medico = new Medico();
 				medico.setIdMedico(rs.getLong("id"));
-
-				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getLong("usuario_id"));
-				medico.setUsuario(usuario);
-
+				medico.setIdUsuario(rs.getLong("usuario_id"));
 				medico.setCrm(rs.getString("crm"));
 
 				return medico;
@@ -66,7 +62,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 			System.err.println("Erro ao buscar medico: " + e.getMessage());
 
 		}
-		return medico;
+		return null;
 	}
 
 	@Override
@@ -82,11 +78,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 			while (rs.next()) {
 				medico = new Medico();
 				medico.setIdMedico(rs.getLong("id"));
-
-				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getLong("usuario_id"));
-				medico.setUsuario(usuario);
-
+				medico.setIdUsuario(rs.getLong("usuario_id"));
 				medico.setCrm(rs.getString("crm"));
 				medicos.add(medico);
 			}
@@ -102,20 +94,16 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 		 StringBuilder queryBuilder = new StringBuilder("UPDATE medico SET ");
 	        boolean adicionouCampo = false;
 
-			if(medico.getUsuario() != null){
-				if(medico.getUsuario().getIdUsuario() != null){
-					queryBuilder.append("usuario_id = ?");
-					adicionouCampo = true;
-				}
-			}
-
-
+	        if (medico.getIdUsuario() != null) {
+	            queryBuilder.append("usuario_id = ?");
+	            adicionouCampo = true;
+	        }
 	        if (medico.getCrm() != null) {
 	            if (adicionouCampo) queryBuilder.append(", ");
 	            queryBuilder.append("crm = ?");
 	            adicionouCampo = true;
 	        }
-
+	      
 
 	        queryBuilder.append(" WHERE id = ?");
 
@@ -129,17 +117,14 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 
 	            int index = 1;
 
-				if(medico.getUsuario() != null){
-					if(medico.getUsuario().getIdUsuario() != null){
-						preparedStatement.setLong(index++, medico.getUsuario().getIdUsuario());
-					}
-				}
-
-
+	            if (medico.getIdUsuario() != null) {
+	                preparedStatement.setLong(index++, medico.getIdUsuario());
+	            }
 	            if (medico.getCrm() != null) {
 	                preparedStatement.setString(index++, medico.getCrm());
 	            }
-
+	           
+	           
 
 	            preparedStatement.setLong(index, medico.getIdMedico());
 	            preparedStatement.executeUpdate();
@@ -167,4 +152,4 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
             System.err.println("Erro ao deletar medico: " + e.getMessage());
         }
 	}
-}
+ }

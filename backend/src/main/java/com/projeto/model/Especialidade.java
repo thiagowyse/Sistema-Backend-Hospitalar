@@ -3,6 +3,7 @@ package com.projeto.model;
 
 public class Especialidade {
 
+ 
     private Long idEspecialidade;
     private String nome;
 
@@ -18,7 +19,7 @@ public class Especialidade {
     }
 
     public void setIdEspecialidade(Long idEspecialidade) {
-        this.idEspecialidade = idEspecialidade;
+         this.idEspecialidade = idEspecialidade;
     }
 
     public String getNome() {
