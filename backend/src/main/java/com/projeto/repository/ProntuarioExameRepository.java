@@ -127,4 +127,33 @@ public class ProntuarioExameRepository implements BaseRepository<ProntuarioExame
             System.err.println("Erro ao deletar Prontuário Exame pela chave composta: " + e.getMessage());
         }
     }
+    public List<ProntuarioExame> findAllByProntuarioId(Long prontuarioId) {
+        String query = "SELECT * FROM prontuario_exame WHERE prontuario_id=? ";
+        List<ProntuarioExame> lista = new ArrayList<>();
+
+        try (Connection connection = DataBaseConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setLong(1,prontuarioId);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        ProntuarioExame prontuarioExame = new ProntuarioExame();
+
+                        Prontuario prontuario = new Prontuario();
+                        prontuario.setIdProntuario(resultSet.getLong("prontuario_id"));
+                        prontuarioExame.setProntuario(prontuario);
+
+                        Exame exame = new Exame();
+                        exame.setIdExame(resultSet.getLong("exame_id"));
+                        prontuarioExame.setExeme(exame);
+
+                        lista.add(prontuarioExame);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar Prontuário Exame: " + e.getMessage());
+        }
+        return lista;
+    }
 }

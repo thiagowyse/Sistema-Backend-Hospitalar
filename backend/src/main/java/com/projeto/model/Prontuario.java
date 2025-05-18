@@ -2,7 +2,6 @@ package com.projeto.model;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.sql.Date;
 
 public class Prontuario {
 
@@ -11,7 +10,7 @@ public class Prontuario {
     private Medico medico;
     private String descricao;
     private LocalDate dataCriacao;
-    private List<Receita> receitas;
+    private List<Medicamento> medicamentos;
     private List<Exame> exames;
 
 
@@ -47,12 +46,12 @@ public class Prontuario {
         this.descricao = descricao;
     }
 
-    public List<Receita> getReceitas() {
-        return receitas;
+    public List<Medicamento> getMedicamentos() {
+        return medicamentos;
     }
 
-    public void setReceitas(List<Receita> receitas) {
-        this.receitas = receitas;
+    public void setMedicamentos(List<Medicamento> medicamentos) {
+        this.medicamentos = medicamentos;
     }
 
     public List<Exame> getExames() {

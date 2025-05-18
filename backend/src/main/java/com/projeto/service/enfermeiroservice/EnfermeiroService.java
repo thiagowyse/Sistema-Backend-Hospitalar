@@ -22,14 +22,20 @@ public class EnfermeiroService implements IEnfermeiroService{
 
     @Override
     public Enfermeiro inserirEnfermeiro(Enfermeiro enfermeiro) {
+
         return enfermeiroRepository.insert(enfermeiro);
     }
 
     @Override
     public Enfermeiro buscarEnfermeiroPorId(Long id) {
         Enfermeiro enfermeiro = enfermeiroRepository.findById(id);
-        Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getUsuario().getIdUsuario());
-        enfermeiro.setUsuario(usuario);
+        Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getIdUsuario());
+         enfermeiro.setNome(usuario.getNome());
+        enfermeiro.setLogin(usuario.getLogin());
+        enfermeiro.setSenha(usuario.getSenha());
+        enfermeiro.setPerfil(usuario.getPerfil());
+        enfermeiro.setEmail(usuario.getEmail());
+        enfermeiro.setCpf(usuario.getCpf());
         return enfermeiro;
     }
 
@@ -38,8 +44,13 @@ public class EnfermeiroService implements IEnfermeiroService{
         List<Enfermeiro> enfermeiros = enfermeiroRepository.findAll();
         List<Enfermeiro> resposta = new ArrayList<>();
         for(Enfermeiro enfermeiro : enfermeiros){
-            Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getUsuario().getIdUsuario());
-            enfermeiro.setUsuario(usuario);
+            Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getIdUsuario());
+            enfermeiro.setNome(usuario.getNome());
+            enfermeiro.setLogin(usuario.getLogin());
+            enfermeiro.setSenha(usuario.getSenha());
+            enfermeiro.setPerfil(usuario.getPerfil());
+            enfermeiro.setEmail(usuario.getEmail());
+            enfermeiro.setCpf(usuario.getCpf());
             resposta.add(enfermeiro);
         }
         return resposta;

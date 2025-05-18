@@ -145,4 +145,35 @@ public class ReceitaMedicamentoRepository implements BaseRepository<ReceitaMedic
             System.err.println("Erro ao deletar Receita Medicamento pela chave composta: " + e.getMessage());
         }
     }
+    public List<ReceitaMedicamento> findByReceitaId(Long receitaId){
+        String query = "SELECT * FROM receita_medicamento WHERE receita_id=?";
+        List<ReceitaMedicamento> lista = new ArrayList<>();
+
+        try (Connection connection = DataBaseConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setLong(1,receitaId);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        ReceitaMedicamento receitaMedicamento = new ReceitaMedicamento();
+
+                        Receita receita = new Receita();
+                        receita.setIdReceita(receitaId);
+                        receitaMedicamento.setReceita(receita);
+
+                        Medicamento medicamento = new Medicamento();
+                        medicamento.setIdMedicamento(resultSet.getLong("medicamento_id"));
+                        receitaMedicamento.setMedicamento(medicamento);
+
+                        receitaMedicamento.setQuantidade(resultSet.getLong("quantidade"));
+
+                        lista.add(receitaMedicamento);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar Receita Medicamento: " + e.getMessage());
+        }
+        return lista;
+    }
 }

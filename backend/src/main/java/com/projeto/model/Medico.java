@@ -2,10 +2,10 @@ package com.projeto.model;
 
 import java.util.List;
 
-public class Medico {
+public class Medico extends Usuario {
 
     private Long idMedico;
-    private Usuario usuario;
+    //private Usuario usuario;
     private String crm;
     private List<Especialidade> especialidades;
 
@@ -33,11 +33,11 @@ public class Medico {
         this.especialidades = especialidades;
     }
 
-    public Usuario getUsuario() {
+    /*public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
+    }*/
 }

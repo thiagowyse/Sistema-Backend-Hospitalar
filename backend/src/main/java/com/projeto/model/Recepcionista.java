@@ -1,10 +1,10 @@
 package com.projeto.model;
 
-public class Recepcionista {
+public class Recepcionista extends Usuario{
 
     private Long idRecepcionista;
 
-    private Usuario usuario;
+    //private Usuario usuario;
 
     public Long getIdRecepcionista() {
         return idRecepcionista;
@@ -14,11 +14,11 @@ public class Recepcionista {
         this.idRecepcionista = idRecepcionista;
     }
 
-    public Usuario getUsuario() {
+    /*public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
+    }*/
 }

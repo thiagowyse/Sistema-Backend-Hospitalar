@@ -128,4 +128,33 @@ public class ProntuarioMedicamentoRepository implements BaseRepository<Prontuari
             System.err.println("Erro ao deletar Prontuário Medicamento pela chave composta: " + e.getMessage());
         }
     }
+    public List<ProntuarioMedicamento> findAllByProntuarioId(Long prontuarioId){
+        String query = "SELECT * FROM prontuario_medicamento WHERE prontuario_id=?";
+        List<ProntuarioMedicamento> lista = new ArrayList<>();
+
+        try (Connection connection = DataBaseConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setLong(1,prontuarioId);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        ProntuarioMedicamento prontuarioMedicamento = new ProntuarioMedicamento();
+
+                        Prontuario prontuario = new Prontuario();
+                        prontuario.setIdProntuario(resultSet.getLong("prontuario_id"));
+                        prontuarioMedicamento.setProntuario(prontuario);
+
+                        Medicamento medicamento = new Medicamento();
+                        medicamento.setIdMedicamento(resultSet.getLong("medicamento_id"));
+                        prontuarioMedicamento.setMedicamento(medicamento);
+
+                        lista.add(prontuarioMedicamento);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar Prontuário Medicamento: " + e.getMessage());
+        }
+        return lista;
+     }
 }

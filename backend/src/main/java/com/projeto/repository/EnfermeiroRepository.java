@@ -22,7 +22,7 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, enfermeiro.getUsuario().getIdUsuario());
+			stmt.setLong(1, enfermeiro.getIdUsuario());
 			stmt.setString(2, enfermeiro.getCoren());
 
 
@@ -56,9 +56,9 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 				enfermeiro = new Enfermeiro();
 				enfermeiro.setIdEnfermeiro(rs.getLong("id"));
 
-				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getLong("usuario_id"));
-				enfermeiro.setUsuario(usuario);
+				//Usuario usuario = new Usuario();
+				enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
+				//enfermeiro.setUsuario(usuario);
 
                 enfermeiro.setCoren(rs.getString("coren"));
 
@@ -86,9 +86,9 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 	            	enfermeiro = new Enfermeiro();
 	            	enfermeiro.setIdEnfermeiro(rs.getLong("id"));
 
-					Usuario usuario = new Usuario();
-					usuario.setIdUsuario(rs.getLong("usuario_id"));
-					enfermeiro.setUsuario(usuario);
+					//Usuario usuario = new Usuario();
+					enfermeiro.setIdUsuario(rs.getLong("usuario_id"));
+					//enfermeiro.setUsuario(usuario);
 
 	                enfermeiro.setCoren(rs.getString("coren"));
 	                enfermeiros.add(enfermeiro);
@@ -105,12 +105,12 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
     	 StringBuilder queryBuilder = new StringBuilder("UPDATE enfermeiro SET ");
 	        boolean adicionouCampo = false;
 
-			if(enfermeiro.getUsuario() != null){
-				if(enfermeiro.getUsuario().getIdUsuario() != null){
+			//if(enfermeiro.getUsuario() != null){
+				if(enfermeiro.getIdUsuario()!= null){
 					queryBuilder.append("usuario_id = ?");
 					adicionouCampo = true;
 				}
-			}
+			//}
 
 	        if (enfermeiro.getCoren() != null) {
 	            if (adicionouCampo) queryBuilder.append(", ");
@@ -131,11 +131,11 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
 
 	            int index = 1;
 
-				if(enfermeiro.getUsuario() != null){
-					if(enfermeiro.getUsuario().getIdUsuario() != null){
-						preparedStatement.setLong(index++, enfermeiro.getUsuario().getIdUsuario());
+				//if(enfermeiro.getUsuario() != null){
+					if(enfermeiro.getIdUsuario()!= null){
+						preparedStatement.setLong(index++, enfermeiro.getIdUsuario());
 					}
-				}
+				//}
 
 	            if (enfermeiro.getCoren() != null) {
 	                preparedStatement.setString(index++, enfermeiro.getCoren());

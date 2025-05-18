@@ -21,7 +21,7 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, recepcionista.getUsuario().getIdUsuario());
+			stmt.setLong(1, recepcionista.getIdUsuario());
 
 
 			stmt.executeUpdate();
@@ -53,9 +53,9 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
             if (rs.next()) {
                 recepcionista = new Recepcionista();
                 recepcionista.setIdRecepcionista(rs.getLong("id"));
-                Usuario usuario = new Usuario();
-                usuario.setIdUsuario(rs.getLong("usuario_id"));
-                recepcionista.setUsuario(usuario);
+                //Usuario usuario = new Usuario();
+                recepcionista.setIdUsuario(rs.getLong("usuario_id"));
+                //recepcionista.setUsuario(usuario);
 
                 return recepcionista;
             }
@@ -81,10 +81,10 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
             	recepcionista = new Recepcionista();
             	recepcionista.setIdRecepcionista(rs.getLong("id"));
 
-                Usuario usuario = new Usuario();
-                usuario.setIdUsuario(rs.getLong("usuario_id"));
-                recepcionista.setUsuario(usuario);
-                recepcionistas.add(recepcionista);
+                //Usuario usuario = new Usuario();
+                //usuario.setIdUsuario(rs.getLong("usuario_id"));
+                recepcionista.setIdUsuario(rs.getLong("usuario_id"));
+                //recepcionistas.add(recepcionista);
             }
 
         } catch (SQLException e) {
@@ -101,7 +101,7 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
          try (Connection connection = DataBaseConnection.getConnection();
               PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-             stmt.setLong(1, recepcionista.getUsuario().getIdUsuario());
+             stmt.setLong(1, recepcionista.getIdUsuario());
              stmt.setLong(2, recepcionista.getIdRecepcionista());
 
              stmt.executeUpdate();

@@ -28,8 +28,13 @@ public class RecepcionistaService implements IRecepcionistaService{
     @Override
     public Recepcionista buscarRecepcionistaPorId(Long id) {
         Recepcionista recepcionista = recepcionistaRepository.findById(id);
-        Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getUsuario().getIdUsuario());
-        recepcionista.setUsuario(usuario);
+        Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getIdUsuario());
+        recepcionista.setNome(usuario.getNome());
+        recepcionista.setLogin(usuario.getLogin());
+        recepcionista.setSenha(usuario.getSenha());
+        recepcionista.setPerfil(usuario.getPerfil());
+        recepcionista.setEmail(usuario.getEmail());
+        recepcionista.setCpf(usuario.getCpf());
         return recepcionista;
     }
 
@@ -39,8 +44,13 @@ public class RecepcionistaService implements IRecepcionistaService{
         List<Recepcionista> resposta = new ArrayList<>();
 
         for(Recepcionista recepcionista : recepcionistas){
-            Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getUsuario().getIdUsuario());
-            recepcionista.setUsuario(usuario);
+            Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getIdUsuario());
+            recepcionista.setNome(usuario.getNome());
+            recepcionista.setLogin(usuario.getLogin());
+            recepcionista.setSenha(usuario.getSenha());
+            recepcionista.setPerfil(usuario.getPerfil());
+            recepcionista.setEmail(usuario.getEmail());
+            recepcionista.setCpf(usuario.getCpf());
             resposta.add(recepcionista);
         }
         return resposta;

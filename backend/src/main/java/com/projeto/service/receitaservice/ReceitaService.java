@@ -1,8 +1,9 @@
 package com.projeto.service.receitaservice;
 
-import com.projeto.model.Prontuario;
-import com.projeto.model.Receita;
+import com.projeto.model.*;
+import com.projeto.repository.MedicamentoRepository;
 import com.projeto.repository.ProntuarioRepository;
+import com.projeto.repository.ReceitaMedicamentoRepository;
 import com.projeto.repository.ReceitaRepository;
 import com.projeto.service.prontuarioservice.ProntuarioService;
 
@@ -20,6 +21,9 @@ public class ReceitaService implements IReceitaService{
     private final ProntuarioRepository prontuarioRepository = new ProntuarioRepository();
     private final ProntuarioService prontuarioService = new ProntuarioService(prontuarioRepository);
 
+    private final ReceitaMedicamentoRepository receitaMedicamentoRepository= new ReceitaMedicamentoRepository();
+    private final MedicamentoRepository medicamentoRepository=new MedicamentoRepository();
+
 
     @Override
     public Receita inserirReceita(Receita receita) {
@@ -31,6 +35,7 @@ public class ReceitaService implements IReceitaService{
         Receita receita = receitaRepository.findById(id);
         Prontuario prontuario = prontuarioService.buscarProntuarioPorId(receita.getProntuario().getIdProntuario());
         receita.setProntuario(prontuario);
+        receita.setMedicamentos(getMedicamentos(id));
         return receita;
     }
 
@@ -41,6 +46,7 @@ public class ReceitaService implements IReceitaService{
         for(Receita receita : receitas){
             Prontuario prontuario = prontuarioService.buscarProntuarioPorId(receita.getProntuario().getIdProntuario());
             receita.setProntuario(prontuario);
+            receita.setMedicamentos(getMedicamentos(receita.getIdReceita()));
             resposta.add(receita);
         }
         return resposta;
@@ -54,5 +60,15 @@ public class ReceitaService implements IReceitaService{
     @Override
     public void removerReceita(Long id) {
         receitaRepository.delete(id);
+    }
+
+    private List<Medicamento> getMedicamentos(Long receitaId){
+        List<ReceitaMedicamento> receitaMedicamentos = receitaMedicamentoRepository.findByReceitaId(receitaId);
+        List <Medicamento> medicamentos= new ArrayList<Medicamento>();
+        for(ReceitaMedicamento receitaMedicamento: receitaMedicamentos){
+            Medicamento medicamento= medicamentoRepository.findById(receitaMedicamento.getMedicamento().getIdMedicamento());
+            medicamentos.add(medicamento);
+        }
+        return medicamentos;
     }
 }
