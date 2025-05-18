@@ -127,4 +127,33 @@ public class MedicoEspecialidadeRepository implements BaseRepository<MedicoEspec
             System.err.println("Erro ao deletar Médico Especialidade pela chave composta: " + e.getMessage());
         }
     }
+
+    public List<MedicoEspecialidade> findAllByMedicoId(Long medicoId){
+        String query= "SELECT * from medico_especialidade where medico_id=?";
+        List<MedicoEspecialidade> lista = new ArrayList<>();
+        try (Connection connection = DataBaseConnection.getConnection()) {
+            assert connection != null;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setLong(1, medicoId );
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        MedicoEspecialidade medicoEspecialidade = new MedicoEspecialidade();
+
+                        Medico medico = new Medico();
+                        medico.setIdMedico(medicoId);
+                        medicoEspecialidade.setMedico(medico);
+
+                        Especialidade especialidade = new Especialidade();
+                        especialidade.setIdEspecialidade(resultSet.getLong("especialidade_id"));
+                        medicoEspecialidade.setEspecialidade(especialidade);
+
+                        lista.add(medicoEspecialidade);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar Médico Especialidade: " + e.getMessage());
+        }
+        return lista;
+    }
 }

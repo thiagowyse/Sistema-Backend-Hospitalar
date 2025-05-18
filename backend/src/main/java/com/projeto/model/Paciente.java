@@ -2,7 +2,7 @@ package com.projeto.model;
 
 import java.sql.Date;
 
-public class Paciente {
+public class Paciente  {
 
    private Long idPaciente;
    private String nome;

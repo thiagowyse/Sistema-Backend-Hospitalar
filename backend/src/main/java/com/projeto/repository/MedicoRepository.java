@@ -19,7 +19,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 		try (Connection connection = DataBaseConnection.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-			stmt.setLong(1, medico.getUsuario().getIdUsuario());
+			stmt.setLong(1, medico.getIdUsuario());
 			stmt.setString(2, medico.getCrm());
 
 			stmt.executeUpdate();
@@ -53,9 +53,9 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 				medico = new Medico();
 				medico.setIdMedico(rs.getLong("id"));
 
-				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getLong("usuario_id"));
-				medico.setUsuario(usuario);
+				//Usuario usuario = new Usuario();
+				medico.setIdUsuario(rs.getLong("usuario_id"));
+				//medico.setUsuario(usuario);
 
 				medico.setCrm(rs.getString("crm"));
 
@@ -83,9 +83,9 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 				medico = new Medico();
 				medico.setIdMedico(rs.getLong("id"));
 
-				Usuario usuario = new Usuario();
-				usuario.setIdUsuario(rs.getLong("usuario_id"));
-				medico.setUsuario(usuario);
+				//Usuario usuario = new Usuario();
+				medico.setIdUsuario(rs.getLong("usuario_id"));
+				//medico.setUsuario(usuario);
 
 				medico.setCrm(rs.getString("crm"));
 				medicos.add(medico);
@@ -102,12 +102,11 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 		 StringBuilder queryBuilder = new StringBuilder("UPDATE medico SET ");
 	        boolean adicionouCampo = false;
 
-			if(medico.getUsuario() != null){
-				if(medico.getUsuario().getIdUsuario() != null){
+ 				if(medico.getIdUsuario() != null){
 					queryBuilder.append("usuario_id = ?");
 					adicionouCampo = true;
 				}
-			}
+
 
 
 	        if (medico.getCrm() != null) {
@@ -129,11 +128,10 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 
 	            int index = 1;
 
-				if(medico.getUsuario() != null){
-					if(medico.getUsuario().getIdUsuario() != null){
-						preparedStatement.setLong(index++, medico.getUsuario().getIdUsuario());
+ 					if(medico.getIdUsuario() != null){
+						preparedStatement.setLong(index++, medico.getIdUsuario());
 					}
-				}
+
 
 
 	            if (medico.getCrm() != null) {

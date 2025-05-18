@@ -1,10 +1,10 @@
 package com.projeto.model;
 
-public class Enfermeiro {
+public class Enfermeiro extends Usuario {
 
     private Long idEnfermeiro;
     private String coren;
-    private Usuario usuario;
+    //private Usuario usuario;
 
     public Long getIdEnfermeiro() {
         return idEnfermeiro;
@@ -22,12 +22,12 @@ public class Enfermeiro {
         this.coren = coren;
     }
 
-    public Usuario getUsuario() {
+    /*public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
+    }*/
 }
 
