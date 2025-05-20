@@ -5,7 +5,6 @@ import java.util.List;
 public class Medico extends Usuario {
 
     private Long idMedico;
-    //private Usuario usuario;
     private String crm;
     private List<Especialidade> especialidades;
 

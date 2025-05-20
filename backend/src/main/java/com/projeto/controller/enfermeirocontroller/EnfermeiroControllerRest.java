@@ -6,6 +6,7 @@ import com.projeto.enums.HttpMethod;
 import com.projeto.model.Atestado;
 import com.projeto.model.Enfermeiro;
 import com.projeto.model.Medico;
+import com.projeto.model.Usuario;
 import com.projeto.repository.EnfermeiroRepository;
 import com.projeto.server.RootController;
 import com.projeto.service.enfermeiroservice.EnfermeiroService;
@@ -114,6 +115,21 @@ public class EnfermeiroControllerRest extends RootController implements IEnferme
 
     @Override
     public void save(HttpExchange exchange) throws IOException {
+        Gson gson = new Gson();
+        String body = new String(exchange.getRequestBody().readAllBytes());
+
+        System.out.println("JSON recebido: " + body);
+
+        try {
+            Enfermeiro enfermeiro = gson.fromJson(body, Enfermeiro.class);
+            System.out.println("Objeto enfermeio: " + enfermeiro);
+
+            enfermeiroService.inserirEnfermeiro(enfermeiro);
+            sendResponse(exchange, "Enfermeiro salvo com sucesso", 201);
+        } catch (Exception e) {
+            e.printStackTrace(); // Mostra o erro completo no console
+            sendResponse(exchange, "Erro ao salvar enfermeiro: " + e.getMessage(), 500);
+        }
 
     }
 
