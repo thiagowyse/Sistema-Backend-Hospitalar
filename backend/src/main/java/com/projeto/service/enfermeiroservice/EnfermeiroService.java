@@ -5,7 +5,7 @@ import com.projeto.model.Usuario;
 import com.projeto.repository.EnfermeiroRepository;
 import com.projeto.repository.UsuarioRepository;
 import com.projeto.service.usuarioservice.UsuarioService;
-import com.projeto.util.CPFValidator;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +32,6 @@ public class EnfermeiroService implements IEnfermeiroService{
         Enfermeiro enfermeiro = enfermeiroRepository.findById(id);
         Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getIdUsuario());
 
-        if (!CPFValidator.validarCPF(usuario.getCpf())) {
-            throw new IllegalArgumentException("CPF inválido para o usuário com ID: " + usuario.getIdUsuario());
-        }
-
         enfermeiro.setNome(usuario.getNome());
         enfermeiro.setLogin(usuario.getLogin());
         enfermeiro.setSenha(usuario.getSenha());
@@ -52,11 +48,6 @@ public class EnfermeiroService implements IEnfermeiroService{
 
         for (Enfermeiro enfermeiro : enfermeiros) {
             Usuario usuario = usuarioService.buscarUsuarioPorId(enfermeiro.getIdUsuario());
-
-            if (!CPFValidator.validarCPF(usuario.getCpf())) {
-                System.err.println("CPF inválido - Usuário ID: " + usuario.getIdUsuario());
-                continue;
-            }
 
             enfermeiro.setNome(usuario.getNome());
             enfermeiro.setLogin(usuario.getLogin());

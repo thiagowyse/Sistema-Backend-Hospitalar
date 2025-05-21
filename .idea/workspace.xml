@@ -4,24 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85040873-ad71-4651-b8cf-9b227c6ad37c" name="Changes" comment="feat: Criação de repositories e services">
+    <list default="true" id="85040873-ad71-4651-b8cf-9b227c6ad37c" name="Changes" comment="feat: Ajustes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/enfermeirocontroller/EnfermeiroControllerRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/controller/enfermeirocontroller/EnfermeiroControllerRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/enums/ApiRotas.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/enums/ApiRotas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Medico.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/model/Medico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/enfermeirocontroller/EnfermeiroControllerRest.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/controller/enfermeirocontroller/EnfermeiroControllerRest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Enfermeiro.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Enfermeiro.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Medico.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Medico.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Prontuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Prontuario.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Recepcionista.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/model/Recepcionista.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EnfermeiroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/EnfermeiroRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/MedicoRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/RecepcionistaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/repository/RecepcionistaRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/enfermeiroservice/EnfermeiroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/enfermeiroservice/EnfermeiroService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/medicoservice/MedicoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/medicoservice/MedicoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/prontuarioservice/ProntuarioService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/prontuarioservice/ProntuarioService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/receitaservice/ReceitaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/receitaservice/ReceitaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/recepcionistaservice/RecepcionistaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/service/recepcionistaservice/RecepcionistaService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/enfermeiroservice/EnfermeiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/enfermeiroservice/EnfermeiroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/medicoservice/MedicoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/medicoservice/MedicoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/recepcionistaservice/RecepcionistaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/projeto/service/recepcionistaservice/RecepcionistaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/projeto/enums/ApiRotas.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/projeto/enums/ApiRotas.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,14 +124,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746242864881</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: Ajustes">
+      <option name="closed" value="true" />
+      <created>1747706797786</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747706797786</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Refatoração de código" />
     <MESSAGE value="feat: Refatoração do código" />
     <MESSAGE value="feat: Criação de repositories e services" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Criação de repositories e services" />
+    <MESSAGE value="feat: Ajustes" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Ajustes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
