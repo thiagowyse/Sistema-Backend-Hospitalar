@@ -14,6 +14,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class EnfermeiroControllerRest extends RootController implements IEnfermeiroControllerRest {
 
@@ -33,12 +34,15 @@ public class EnfermeiroControllerRest extends RootController implements IEnferme
             findAll(exchange);
         } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.ENFERMEIRO_FIND_BY_ID.getPath())) {
             findById(exchange);
+        } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.ENFERMEIRO_FIND_ASSINATURA_BY_ID.getPath())) {
+            findAssinaturaById(exchange);
         } else if (method.equals(HttpMethod.POST.getMethod()) && path.equals(ApiRotas.ENFERMEIRO_CREATE.getPath())) {
             save(exchange);
         } else if (method.equals(HttpMethod.PUT.getMethod()) && path.matches(ApiRotas.ENFERMEIRO_UPDATE.getPath())) {
             update(exchange);
         } else if (method.equals(HttpMethod.DELETE.getMethod()) && path.matches(ApiRotas.ENFERMEIRO_DELETE.getPath())) {
             delete(exchange);
+
         } else {
             sendResponse(exchange, "Rota não encontrada", 404);
         }
@@ -80,15 +84,16 @@ public class EnfermeiroControllerRest extends RootController implements IEnferme
             return;
         }
 
-        Enfermeiro enfermeiro = enfermeiroService.buscarEnfermeiroPorId(id);
-        if (enfermeiro == null) {
-            sendResponse(exchange, "Enfermeiro não encontrado", 404);
-            return;
+        try {
+            Enfermeiro enfermeiro = enfermeiroService.buscarEnfermeiroPorId(id);
+            String response = gson.toJson(enfermeiro);
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            sendResponse(exchange, response, 200);
+        } catch (IllegalArgumentException e) {
+            sendResponse(exchange, e.getMessage(), 400);
+        } catch (NoSuchElementException e) {
+            sendResponse(exchange, e.getMessage(), 404);
         }
-
-        String response = gson.toJson(enfermeiro);
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
-        sendResponse(exchange, response, 200);
     }
 
     @Override
@@ -131,6 +136,13 @@ public class EnfermeiroControllerRest extends RootController implements IEnferme
             sendResponse(exchange, "Erro ao salvar enfermeiro: " + e.getMessage(), 500);
         }
 
+    }
+
+    @Override
+    public void findAssinaturaById(HttpExchange exchange) throws IOException {
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        String response=enfermeiroService.encontrarAssinaturaPorId(id);
+        sendResponse(exchange, response, 200);
     }
 
     private Long extractIdFromPath(String path) {

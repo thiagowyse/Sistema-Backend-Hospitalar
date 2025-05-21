@@ -38,6 +38,8 @@ public enum ApiRotas {
     ENFERMEIRO_FIND_ALL("/enfermeiro/findAll"),
     ENFERMEIRO_UPDATE("/enfermeiro/update"),
     ENFERMEIRO_DELETE("/enfermeiro/delete"),
+    ENFERMEIRO_FIND_ASSINATURA_BY_ID("/enfermeiro/findAssinaturaById"),
+
 
     //Rotas Especialidade
     ESPECIALIDADE("/especialidade"),
@@ -93,6 +95,8 @@ public enum ApiRotas {
     MEDICO_FIND_ALL("/medico/findAll"),
     MEDICO_UPDATE("/medico/update"),
     MEDICO_DELETE("/medico/delete"),
+    MEDICO_FIND_ASSINATURA_BY_ID("/medico/findAssinaturaById"),
+
 
 
     //Rotas Paciente
@@ -151,6 +155,8 @@ public enum ApiRotas {
     RECEPCIONISTA_FIND_BY_FILTER("/recepcionista/findByFilter"),
     RECEPCIONISTA_UPDATE("/recepcionista/update"),
     RECEPCIONISTA_DELETE("/recepcionista/delete"),
+    RECEPCIONISTA_FIND_ASSINATURA_BY_ID("/recepcionista/findAssinaturaById"),
+
 
 
     //Rotas Usuario

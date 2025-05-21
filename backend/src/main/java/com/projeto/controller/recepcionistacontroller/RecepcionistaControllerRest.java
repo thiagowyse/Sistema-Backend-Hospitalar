@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class RecepcionistaControllerRest extends RootController implements IRecepcionistaControllerRest {
 
@@ -27,6 +28,9 @@ public class RecepcionistaControllerRest extends RootController implements IRece
         if(method.equals(HttpMethod.GET.getMethod()) && path.equals(ApiRotas.RECEPCIONISTA_FIND_ALL.getPath())){
             findAll(exchange);
         } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.RECEPCIONISTA_FIND_BY_ID.getPath())) {
+            findById(exchange);
+        }
+        else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.RECEPCIONISTA_FIND_ASSINATURA_BY_ID.getPath())) {
             findById(exchange);
         } else if (method.equals(HttpMethod.POST.getMethod()) && path.equals(ApiRotas.RECEPCIONISTA_SAVE.getPath())) {
             save(exchange);
@@ -74,15 +78,19 @@ public class RecepcionistaControllerRest extends RootController implements IRece
             return;
         }
 
-        Recepcionista recepcionista = recepcionistaService.buscarRecepcionistaPorId(id);
-        if (recepcionista == null) {
-            sendResponse(exchange, "Perfil não encontrado", 404);
-            return;
-        }
 
-        String response = gson.toJson(recepcionista);
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
-        sendResponse(exchange, response, 200);
+        try {
+            Recepcionista recepcionista = recepcionistaService.buscarRecepcionistaPorId(id);
+            String response = gson.toJson(recepcionista);
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            sendResponse(exchange, response, 200);
+
+        } catch (IllegalArgumentException e) {
+            sendResponse(exchange, e.getMessage(), 400);
+        } catch (
+        NoSuchElementException e) {
+        sendResponse(exchange, e.getMessage(), 404);
+        }
     }
 
     @Override
@@ -108,6 +116,14 @@ public class RecepcionistaControllerRest extends RootController implements IRece
 
     @Override
     public void save(HttpExchange exchange) throws IOException {
+
+    }
+
+    @Override
+    public void findAssinaturaById(HttpExchange exchange) throws IOException {
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        String response=recepcionistaService.encontrarAssinaturaPorId(id);
+        sendResponse(exchange, response, 200);
 
     }
 

@@ -21,4 +21,8 @@ public class Recepcionista extends Usuario{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }*/
+    @Override
+    public String gerarAssinatura(){
+        return getNome() + " - Recepcionista (Matrícula: " + idRecepcionista + ")";
+    }
 }

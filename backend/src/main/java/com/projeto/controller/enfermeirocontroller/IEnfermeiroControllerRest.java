@@ -16,4 +16,6 @@ public interface IEnfermeiroControllerRest {
 
     void save(HttpExchange exchange) throws IOException;
 
+    void findAssinaturaById(HttpExchange exchange)  throws IOException;
+
 }

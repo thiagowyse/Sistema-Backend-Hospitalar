@@ -32,11 +32,8 @@ public class Medico extends Usuario {
         this.especialidades = especialidades;
     }
 
-    /*public Usuario getUsuario() {
-        return usuario;
+    @Override
+    public String gerarAssinatura(){
+        return "Dr. "+getNome() + " - Médico (CRM: " + crm + ")";
     }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }*/
 }

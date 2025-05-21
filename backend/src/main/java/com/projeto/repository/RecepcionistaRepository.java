@@ -1,6 +1,7 @@
 package com.projeto.repository;
 
 
+import com.projeto.model.Medico;
 import com.projeto.model.Recepcionista;
 import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
@@ -127,5 +128,12 @@ public class RecepcionistaRepository implements BaseRepository<Recepcionista, Lo
 	        } catch (SQLException e) {
 	            System.err.println("Erro ao deletar Recepcionista: " + e.getMessage());
 	        }
+    }
+    public String findAssinaturaById(Long id) {
+        Recepcionista recepcionista = findById(id);
+        if (recepcionista == null) {
+            throw new IllegalArgumentException("Recepcionista com ID " + id + " não encontrado.");
+        }
+        return recepcionista.gerarAssinatura();
     }
 }
