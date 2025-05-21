@@ -59,7 +59,7 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
 				//medico.setUsuario(usuario);
 
 				medico.setCrm(rs.getString("crm"));
-
+				medico.setAssinatura(medico.gerarAssinatura());
 				return medico;
 			}
 

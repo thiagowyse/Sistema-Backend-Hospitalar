@@ -34,6 +34,7 @@ public class Medico extends Usuario {
 
     @Override
     public String gerarAssinatura(){
-        return "Dr. "+getNome() + " - Médico (CRM: " + crm + ")";
+        return "Dr. "+ getNome() + " - Médico (CRM: " + crm + ")";
     }
+
 }

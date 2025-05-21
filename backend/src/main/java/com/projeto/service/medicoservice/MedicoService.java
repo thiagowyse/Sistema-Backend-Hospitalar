@@ -43,6 +43,7 @@ public class MedicoService implements IMedicoService{
         medico.setEmail(usuario.getEmail());
         medico.setCpf(usuario.getCpf());
         medico.setEspecialidades(getEspecialidades(id));
+        medico.setAssinatura(medico.gerarAssinatura());
         return medico;
     }
 

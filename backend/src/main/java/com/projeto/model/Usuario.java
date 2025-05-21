@@ -9,6 +9,7 @@ public class Usuario {
     private String senha;
     private String cpf;
     private Perfil perfil;
+    private String assinatura;
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -69,5 +70,13 @@ public class Usuario {
 
     public String gerarAssinatura(){
         return nome + " (Usuário comum)";
+    }
+
+    public String getAssinatura() {
+        return assinatura;
+    }
+
+    public void setAssinatura(String assinatura) {
+        this.assinatura = assinatura;
     }
 }
