@@ -168,4 +168,12 @@ public class EnfermeiroRepository implements BaseRepository<Enfermeiro, Long>{
             System.err.println("Erro ao deletar enfermeiro: " + e.getMessage());
         }
     }
+
+	public String findAssinaturaById(Long id) {
+		Enfermeiro enfermeiro = findById(id);
+		if (enfermeiro == null) {
+			throw new IllegalArgumentException("Enfermeiro com ID " + id + " não encontrado.");
+		}
+		return enfermeiro.gerarAssinatura();
+	}
 }

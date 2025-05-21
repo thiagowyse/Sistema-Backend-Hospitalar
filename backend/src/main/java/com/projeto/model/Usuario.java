@@ -66,4 +66,8 @@ public class Usuario {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public String gerarAssinatura(){
+        return nome + " (Usuário comum)";
+    }
 }

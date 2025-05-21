@@ -11,6 +11,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MedicoControllerRest extends RootController implements IMedicoControllerRest {
 
@@ -31,6 +32,8 @@ public class MedicoControllerRest extends RootController implements IMedicoContr
             findAll(exchange);
         } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.MEDICO_FIND_BY_ID.getPath())) {
             findById(exchange);
+        } else if (method.equals(HttpMethod.GET.getMethod()) && path.matches(ApiRotas.MEDICO_FIND_ASSINATURA_BY_ID.getPath())) {
+            findAssinaturaById(exchange);
         } else if (method.equals(HttpMethod.POST.getMethod()) && path.equals(ApiRotas.MEDICO_SAVE.getPath())) {
             save(exchange);
         } else if (method.equals(HttpMethod.PUT.getMethod()) && path.matches(ApiRotas.MEDICO_UPDATE.getPath())) {
@@ -78,15 +81,17 @@ public class MedicoControllerRest extends RootController implements IMedicoContr
             return;
         }
 
-        Medico medico = medicoService.buscarMedicoPorId(id);
-        if (medico == null) {
-            sendResponse(exchange, "Médico não encontrado", 404);
-            return;
-        }
 
-        String response = gson.toJson(medico);
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
-        sendResponse(exchange, response, 200);
+        try {
+            Medico medico = medicoService.buscarMedicoPorId(id);
+            String response = gson.toJson(medico);
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            sendResponse(exchange, response, 200);
+        } catch (IllegalArgumentException e) {
+            sendResponse(exchange, e.getMessage(), 400);
+        } catch (NoSuchElementException e) {
+            sendResponse(exchange, e.getMessage(), 404);
+        }
     }
 
     @Override
@@ -113,6 +118,14 @@ public class MedicoControllerRest extends RootController implements IMedicoContr
 
     @Override
     public void save(HttpExchange exchange) throws IOException {
+
+    }
+
+    @Override
+    public void findAssinaturaById(HttpExchange exchange) throws IOException {
+        Long id = extractIdFromPath(exchange.getRequestURI().getPath());
+        String response=medicoService.encontrarAssinaturaPorId(id);
+        sendResponse(exchange, response, 200);
 
     }
 

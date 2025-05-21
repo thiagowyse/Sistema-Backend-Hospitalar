@@ -15,4 +15,7 @@ public interface IRecepcionistaControllerRest {
     void delete(HttpExchange exchange) throws IOException;
 
     void save(HttpExchange exchange) throws IOException;
+
+    void findAssinaturaById(HttpExchange exchange)  throws IOException;
+
 }
