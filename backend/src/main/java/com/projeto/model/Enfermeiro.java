@@ -22,12 +22,9 @@ public class Enfermeiro extends Usuario {
         this.coren = coren;
     }
 
-    /*public Usuario getUsuario() {
-        return usuario;
+    @Override
+    public String gerarAssinatura(){
+        return "Enf. "+getNome() + " - Enfermeiro (COREN: " + coren + ")";
     }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }*/
 }
 

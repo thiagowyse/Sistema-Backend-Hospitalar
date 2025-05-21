@@ -1,5 +1,6 @@
 package com.projeto.repository;
 
+import com.projeto.model.Enfermeiro;
 import com.projeto.model.Medico;
 import com.projeto.model.Usuario;
 import com.projeto.util.DataBaseConnection;
@@ -164,5 +165,12 @@ public class MedicoRepository implements BaseRepository<Medico, Long> {
         } catch (SQLException e) {
             System.err.println("Erro ao deletar medico: " + e.getMessage());
         }
+	}
+	public String findAssinaturaById(Long id) {
+		Medico medico = findById(id);
+		if (medico == null) {
+			throw new IllegalArgumentException("Medico com ID " + id + " não encontrado.");
+		}
+		return medico.gerarAssinatura();
 	}
 }
