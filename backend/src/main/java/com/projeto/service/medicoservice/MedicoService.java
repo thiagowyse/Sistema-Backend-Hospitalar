@@ -9,7 +9,6 @@ import com.projeto.repository.MedicoEspecialidadeRepository;
 import com.projeto.repository.MedicoRepository;
 import com.projeto.repository.UsuarioRepository;
 import com.projeto.service.usuarioservice.UsuarioService;
-import com.projeto.util.CPFValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +36,6 @@ public class MedicoService implements IMedicoService{
     public Medico buscarMedicoPorId(Long id) {
         Medico medico = medicoRepository.findById(id);
         Usuario usuario = usuarioService.buscarUsuarioPorId(medico.getIdUsuario());
-        if (!CPFValidator.validarCPF(usuario.getCpf())) {
-            throw new IllegalArgumentException("CPF inválido para o usuário com ID: " + usuario.getIdUsuario());
-        }
         medico.setNome(usuario.getNome());
         medico.setLogin(usuario.getLogin());
         medico.setSenha(usuario.getSenha());
@@ -56,10 +52,6 @@ public class MedicoService implements IMedicoService{
         List<Medico> resposta = new ArrayList<>();
         for(Medico medico : medicos){
             Usuario usuario = usuarioService.buscarUsuarioPorId(medico.getIdUsuario());
-            if (!CPFValidator.validarCPF(usuario.getCpf())) {
-                System.err.println("CPF inválido - Usuário ID: " + usuario.getIdUsuario());
-                continue;
-            }
 
             medico.setNome(usuario.getNome());
             medico.setLogin(usuario.getLogin());

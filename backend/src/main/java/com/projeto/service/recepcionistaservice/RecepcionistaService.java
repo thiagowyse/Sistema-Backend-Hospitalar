@@ -5,7 +5,6 @@ import com.projeto.model.Usuario;
 import com.projeto.repository.RecepcionistaRepository;
 import com.projeto.repository.UsuarioRepository;
 import com.projeto.service.usuarioservice.UsuarioService;
-import com.projeto.util.CPFValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +29,6 @@ public class RecepcionistaService implements IRecepcionistaService{
     public Recepcionista buscarRecepcionistaPorId(Long id) {
         Recepcionista recepcionista = recepcionistaRepository.findById(id);
         Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getIdUsuario());
-        if (!CPFValidator.validarCPF(usuario.getCpf())) {
-            throw new IllegalArgumentException("CPF inválido para o usuário com ID: " + usuario.getIdUsuario());
-        }
         recepcionista.setNome(usuario.getNome());
         recepcionista.setLogin(usuario.getLogin());
         recepcionista.setSenha(usuario.getSenha());
@@ -49,10 +45,6 @@ public class RecepcionistaService implements IRecepcionistaService{
 
         for(Recepcionista recepcionista : recepcionistas){
             Usuario usuario = usuarioService.buscarUsuarioPorId(recepcionista.getIdUsuario());
-            if (!CPFValidator.validarCPF(usuario.getCpf())) {
-                System.err.println("CPF inválido - Usuário ID: " + usuario.getIdUsuario());
-                continue;
-            }
             recepcionista.setNome(usuario.getNome());
             recepcionista.setLogin(usuario.getLogin());
             recepcionista.setSenha(usuario.getSenha());
